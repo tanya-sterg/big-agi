@@ -24,7 +24,7 @@ export default async function handler(req: NextRequest) {
         const client = new PineconeClient();
         await client.init({
             apiKey: dbHost,
-            environment: 'northamerica-northeast1-gcp',
+            environment: 'us-west4-gcp',
         });
 
         const embeddings = new OpenAIEmbeddings({
