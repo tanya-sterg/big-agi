@@ -19,7 +19,7 @@ export default async function handler(req: NextRequest) {
         const {to, question, dbHost, indexdb, docsCount, openaiKey, origin} = await req.json();
         if (req.method !== 'POST' || to !== 'pinecone.com' || !question)
             throw new Error('Invalid options');
-        const index = !indexdb ? "index" : indexdb
+        const index = !indexdb ? "tt-kb" : indexdb
         let defaultPrompt: string = "Use the following pieces of context to answer the users question. \\nIf you don't know the answer, just say that you don't know, don't try to make up an answer.\\n----------------\\n";
         const client = new PineconeClient();
         await client.init({
