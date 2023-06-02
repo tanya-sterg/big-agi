@@ -13,7 +13,7 @@ export const CmdRunEmbeddings: string[] = ['/embed', '/emb'];
 export const embeddingsDefaultDocCount: string = '1';
 
 export async function callPublish(question: string): Promise<string | null> {
-    const {embeddingsApiKey:dbHost, embeddingsIndex:index, embeddingsDocs:docsCount} = useSettingsStore.getState();
+    const {embeddingsApiKey:dbHost, embeddingsIndex:''tt-kb', embeddingsDocs:docsCount} = useSettingsStore.getState();
     try {
         const body = {
             to: "pinecone.com",
