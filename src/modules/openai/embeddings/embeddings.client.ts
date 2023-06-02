@@ -9,17 +9,17 @@ export const isValidDatabaseUrl = (apiKey?: string) => !!apiKey /*&& apiKey.star
 
 export const embeddingsDefaultIndex: string = 'index';
 export const CmdRunEmbeddings: string[] = ['/embed', '/emb'];
-
+const embeddingsIndex = 'tt-kb';
 export const embeddingsDefaultDocCount: string = '1';
 
 export async function callPublish(question: string): Promise<string | null> {
-    const {embeddingsApiKey:dbHost, embeddingsIndex:''tt-kb', embeddingsDocs:docsCount} = useSettingsStore.getState();
+    const {embeddingsApiKey:dbHost, embeddingsIndex:index, embeddingsDocs:docsCount} = useSettingsStore.getState();
     try {
         const body = {
             to: "pinecone.com",
             question: question,
             dbHost: dbHost,
-            indexdb: 'tt-kb',
+            indexdb: index,
             docsCount:docsCount,
             openaiKey: getOpenAISettings().apiKey,
             origin: getOrigin(),
