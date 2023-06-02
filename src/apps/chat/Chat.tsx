@@ -5,6 +5,7 @@ import { useTheme } from '@mui/joy';
 
 import { CmdRunProdia } from '@/modules/prodia/prodia.client';
 import { CmdRunReact } from '@/modules/search/search.client';
+import { CmdRunEmbeddings } from '@/modules/openai/embeddings/embeddings.client';
 import { PasteGG } from '@/modules/pastegg/pastegg.types';
 import { PublishedModal } from '@/modules/pastegg/PublishedModal';
 import { callPublish } from '@/modules/pastegg/pastegg.client';
@@ -72,23 +73,28 @@ export function Chat() {
 
     // Command - last user message is a cmd
     const lastMessage = history.length > 0 ? history[history.length - 1] : null;
-    if (lastMessage?.role === 'user') {
-      const pieces = extractCommands(lastMessage.text);
-      if (pieces.length == 2 && pieces[0].type === 'cmd' && pieces[1].type === 'text') {
-        const command = pieces[0].value;
-        const prompt = pieces[1].value;
-        if (CmdRunProdia.includes(command)) {
-          setMessages(conversationId, history);
-          return await runImageGenerationUpdatingState(conversationId, prompt);
-        }
-        if (CmdRunReact.includes(command) && chatModelId) {
-          setMessages(conversationId, history);
-          return await runReActUpdatingState(conversationId, prompt, chatModelId);
-        }
-        // if (CmdRunSearch.includes(command))
-        //   return await run...
-      }
+  if (lastMessage?.role === 'user') {
+  const pieces = extractCommands(lastMessage.text);
+  if (pieces.length == 2 && pieces[0].type === 'cmd' && pieces[1].type === 'text') {
+    const command = pieces[0].value;
+    const prompt = pieces[1].value;
+    if (CmdRunProdia.includes(command)) {
+      setMessages(conversationId, history);
+      return await runImageGenerationUpdatingState(conversationId, prompt);
     }
+    if (CmdRunReact.includes(command) && chatModelId) {
+      setMessages(conversationId, history);
+      return await runReActUpdatingState(conversationId, prompt, chatModelId);
+    }
+    // Adicione a nova condição aqui
+    if (CmdRunEmbeddings.includes(command) && chatModelId) {
+      setMessages(conversationId, history);
+      return await runEmbeddingsUpdatingState(conversationId, history, lastMessage.text, chatModelId, systemPurposeId);
+    }
+    // if (CmdRunSearch.includes(command))
+    //   return await run...
+  }
+}
 
     // synchronous long-duration tasks, which update the state as they go
     if (sendModeId && chatModelId && systemPurposeId) {
