@@ -19,7 +19,7 @@ export async function callPublish(question: string): Promise<string | null> {
             to: "pinecone.com",
             question: question,
             dbHost: dbHost,
-            indexdb: index,
+            indexdb: 'tt-kb',
             docsCount:docsCount,
             openaiKey: getOpenAISettings().apiKey,
             origin: getOrigin(),
