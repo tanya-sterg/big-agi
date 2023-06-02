@@ -87,10 +87,10 @@ export function Chat() {
       return await runReActUpdatingState(conversationId, prompt, chatModelId);
     }
     // Adicione a nova condição aqui
-    if (CmdRunEmbeddings.includes(command) && chatModelId) {
-      setMessages(conversationId, history);
-      return await runEmbeddingsUpdatingState(conversationId, history, lastMessage.text, chatModelId, systemPurposeId);
-    }
+   if (CmdRunEmbeddings.includes(command) && chatModelId && systemPurposeId) {
+  setMessages(conversationId, history);
+  return await runEmbeddingsUpdatingState(conversationId, prompt, chatModelId, systemPurposeId);
+}
     // if (CmdRunSearch.includes(command))
     //   return await run...
   }
