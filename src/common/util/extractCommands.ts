@@ -1,7 +1,8 @@
 import { CmdRunProdia } from '@/modules/prodia/prodia.client';
 import { CmdRunReact, CmdRunSearch } from '@/modules/search/search.client';
+import { CmdRunEmbeddings } from '@/modules/openai/embeddings/embeddings.client';
 
-export const commands = [...CmdRunProdia, ...CmdRunSearch, ...CmdRunReact];
+export const commands = [...CmdRunProdia, ...CmdRunSearch, ...CmdRunReact, ...CmdRunEmbeddings];
 
 export interface SentencePiece {
   type: 'text' | 'cmd';
