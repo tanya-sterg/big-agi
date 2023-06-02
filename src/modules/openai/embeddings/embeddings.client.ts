@@ -8,6 +8,7 @@ export const requireUserKeyEmbeddings = !process.env.HAS_SERVER_KEY_OPENAI_EMBED
 export const isValidDatabaseUrl = (apiKey?: string) => !!apiKey /*&& apiKey.startsWith("redis")*/;
 
 export const embeddingsDefaultIndex: string = 'index';
+export const CmdRunEmbeddings: string[] = ['/embed', '/emb'];
 
 export const embeddingsDefaultDocCount: string = '1';
 
