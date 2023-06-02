@@ -9,10 +9,7 @@ import {getOpenAISettings} from "@/modules/openai/openai.client";
 import {PineconeStore} from "langchain/vectorstores/pinecone";
 
 
-/**
- * 'Proxy' that uploads a file to paste.gg.
- * Called by the UI to avoid CORS issues, as the browser cannot post directly to paste.gg.
- */
+
 export default async function handler(req: NextRequest) {
 
     try {
@@ -20,7 +17,7 @@ export default async function handler(req: NextRequest) {
         if (req.method !== 'POST' || to !== 'pinecone.com' || !question)
             throw new Error('Invalid options');
         const index = !indexdb ? "tt-kb" : indexdb
-        let defaultPrompt: string = "Use the following pieces of context to answer the users question. \\nIf you don't know the answer, just say that you don't know, don't try to make up an answer.\\n----------------\\n";
+        let defaultPrompt: string = "Use esse conteúdo extraído da base de dados da Target Teal para responder o usuário. \\n Se você não souber a resposta, diga que não sabe.\\n----------------\\n";
         const client = new PineconeClient();
         await client.init({
             apiKey: dbHost,
