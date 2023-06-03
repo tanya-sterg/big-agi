@@ -21,8 +21,8 @@ import {PasteGG} from "@/modules/pastegg/pastegg.types";
 export const runEmbeddingsUpdatingState = async (conversationId: string, history: DMessage[], question: string, assistantModel: ChatModelId, systemPurpose: SystemPurposeId) => {
     // update the system message from the active Purpose, if not manually edited
     console.log(history)
-    const systemMessage = await getSystemMessageWithEmbeddings(question)
-    history = updatePurposeInHistory(conversationId, history, systemMessage.text, systemPurpose);
+    const systemMessage = await getSystemMessageWithEmbeddings(question);
+    history = appendSystemMessageToHistory(conversationId, history, systemMessage);
 
     // create a blank and 'typing' message for the assistant
     const assistantMessageId = createAssistantTypingMessage(conversationId, assistantModel, history[0].purposeId, '...');
@@ -41,7 +41,11 @@ export const runEmbeddingsUpdatingState = async (conversationId: string, history
     await updateAutoConversationTitle(conversationId);
 };
 
-
+export function appendSystemMessageToHistory(conversationId: string, history: DMessage[], systemMessage: DMessage): DMessage[] {
+    history.push(systemMessage);
+    useChatStore.getState().setMessages(conversationId, history);
+    return history;
+}
 async function getSystemMessageWithEmbeddings(question: string): Promise<DMessage> {
     let docsString = await callPublish(question);
     docsString = docsString || '';
