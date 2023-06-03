@@ -43,8 +43,9 @@ export const runEmbeddingsUpdatingState = async (conversationId: string, history
 
 
 async function getSystemMessageWithEmbeddings(question: string): Promise<DMessage> {
-    const docsString = await callPublish(question)
-    console.log(docsString)
+    let docsString = await callPublish(question);
+    docsString = docsString || '';
+    console.log(docsString);
     const systemMessage: DMessage = createDMessage('system', docsString);
     return systemMessage;
 }
