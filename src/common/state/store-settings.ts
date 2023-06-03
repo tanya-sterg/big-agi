@@ -111,10 +111,10 @@ export const useSettingsStore = create<SettingsStore>()(
             centerMode: 'wide',
             setCenterMode: (centerMode: 'narrow' | 'wide' | 'full') => set({centerMode}),
 
-            enterToSend: false,
+            enterToSend: true,
             setEnterToSend: (enterToSend: boolean) => set({enterToSend}),
 
-            renderMarkdown: false,
+            renderMarkdown: true,
             setRenderMarkdown: (renderMarkdown: boolean) => set({renderMarkdown}),
 
             showPurposeFinder: false,
@@ -188,7 +188,7 @@ export const useSettingsStore = create<SettingsStore>()(
             embeddingsApiKey: '',
             setEmbeddingsApiKey: (val: string) => set({embeddingsApiKey: val}),
 
-            embeddingsIndex: 'index',
+            embeddingsIndex: 'tt-kb',
             setEmbeddingsIndex: (val: string) => set({embeddingsIndex: val}),
 
             embeddingsDocs: 1,
