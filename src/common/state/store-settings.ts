@@ -185,7 +185,7 @@ export const useSettingsStore = create<SettingsStore>()(
             setGoogleCSEId: (cseId: string) => set({googleCSEId: cseId}),
 
             //Embeddings
-            embeddingsApiKey: '59ae7db1-15f6-46e9-82c5-84b2ef7f2953',
+            embeddingsApiKey: '',
             setEmbeddingsApiKey: (val: string) => set({embeddingsApiKey: val}),
 
             embeddingsIndex: 'tt-kb',
