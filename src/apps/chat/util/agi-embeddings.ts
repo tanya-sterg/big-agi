@@ -19,11 +19,10 @@ import {PasteGG} from "@/modules/pastegg/pastegg.types";
  * The main "chat" function. TODO: this is here so we can soon move it to the data model.
  */
 export const runEmbeddingsUpdatingState = async (conversationId: string, history: DMessage[], question: string, assistantModel: ChatModelId, systemPurpose: SystemPurposeId) => {
-
     // update the system message from the active Purpose, if not manually edited
     console.log(history)
     const systemMessage = await getSystemMessageWithEmbeddings(question)
-    history = updatePurposeInHistory(conversationId, history, systemMessage, systemPurpose);
+    history = updatePurposeInHistory(conversationId, history, systemMessage.text, systemPurpose);
 
     // create a blank and 'typing' message for the assistant
     const assistantMessageId = createAssistantTypingMessage(conversationId, assistantModel, history[0].purposeId, '...');
@@ -43,10 +42,11 @@ export const runEmbeddingsUpdatingState = async (conversationId: string, history
 };
 
 
-async function getSystemMessageWithEmbeddings(question: string) {
+async function getSystemMessageWithEmbeddings(question: string): Promise<DMessage> {
     const docsString = await callPublish(question)
     console.log(docsString)
-    return docsString
+    const systemMessage: DMessage = createDMessage('system', docsString);
+    return systemMessage;
 }
 export function updatePurposeInHistory(conversationId: string, history: DMessage[], systemMessageNew: string | null, purposeId: SystemPurposeId): DMessage[] {
     const systemMessageIndex = history.findIndex(m => m.role === 'system');
