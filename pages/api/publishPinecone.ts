@@ -28,22 +28,34 @@ Se o conteúdo não tiver relação, diga que sua pesquisa não encontrou inform
             environment: 'us-west4-gcp',
         });
 
-        const embeddings = new OpenAIEmbeddings({
-            openAIApiKey: openaiKey
-        });
-        const pineconeIndex = client.Index(index);
-        const docsearch = await PineconeStore.fromExistingIndex(embeddings, {pineconeIndex});
-        const docs = await docsearch.similaritySearch(question, docsCount);
-        let docsString: string = docs.map(doc => doc.pageContent).join("\\n\\n");
-        docsString = defaultPrompt + docsString;
+   const embeddings = new OpenAIEmbeddings({
+    openAIApiKey: openaiKey
+});
+const pineconeIndex = client.Index(index);
+const docsearch = await PineconeStore.fromExistingIndex(embeddings, {pineconeIndex});
+const docs = await docsearch.similaritySearchWithScore(question, docsCount);
 
-        return new NextResponse(JSON.stringify({
-            type: 'success',
-            //url: `https://paste.gg/${paste.result.id}`,
-            //expires: paste.result.expires || 'never',
-            //deletionKey: paste.result.deletion_key || 'none',
-            prompt: docsString,
-        }));
+let docsString = defaultPrompt;
+let foundRelevantContent = false;
+
+docs.forEach((docScorePair) => {
+    let doc = docScorePair[0];
+    let score = docScorePair[1];
+    if(score >= 0.80) {
+        foundRelevantContent = true;
+        docsString += doc.pageContent + "\\n\\n";
+    }
+})
+
+if (!foundRelevantContent) {
+    docsString += "Não foi encontrado conteúdo relevante.";
+}
+
+return new NextResponse(JSON.stringify({
+    type: 'success',
+    prompt: docsString,
+}));
+
 
     } catch (error) {
 
