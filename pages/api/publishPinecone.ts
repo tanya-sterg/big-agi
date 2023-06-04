@@ -17,11 +17,11 @@ export default async function handler(req: NextRequest) {
         if (req.method !== 'POST' || to !== 'pinecone.com' || !question)
             throw new Error('Invalid options');
         const index = !indexdb ? "tt-kb" : indexdb
-        let defaultPrompt: string = `Use esse conteúdo extraído da base de dados da Target Teal para ajudar o usuário.
-        O conteúdo dessa mensagem não está visível ao usuário.
-        Se o conteúdo não tiver relação, diga que sua pesquisa não encontrou informações relacionadas na base. 
-        ----------------
-        `;
+        let defaultPrompt: string = `Use esse conteúdo extraído da base de dados da Target Teal para ajudar o usuário. 
+O conteúdo dessa mensagem não está visível ao usuário.
+Se o conteúdo não tiver relação, diga que sua pesquisa não encontrou informações relacionadas na base. 
+----------------
+  `;
         const client = new PineconeClient();
         await client.init({
             apiKey: dbHost,
