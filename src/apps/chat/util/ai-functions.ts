@@ -25,12 +25,12 @@ export async function updateAutoConversationTitle(conversationId: string) {
 
   // LLM
   callChat(fastChatModelId, [
-    { role: 'system', content: `You are an AI conversation titles assistant who specializes in creating expressive yet few-words chat titles.` },
+    { role: 'system', content: `Você é um Assistente de Títulos de Conversa em IA Especializado em Criar Títulos Expressivos com Poucas Palavras` },
     {
       role: 'user', content:
-        'Analyze the given short conversation (every line is truncated) and extract a concise chat title that ' +
-        'summarizes the conversation in as little as a couple of words.\n' +
-        'Only respond with the lowercase short title and nothing else.\n' +
+      'Analise a breve conversa fornecida (cada linha está truncada) e extraia um título de conversa conciso que ' +
+      'resume a conversa em apenas algumas palavras.\n' +
+      'Responda apenas com o título curto em minúsculas e mais nada.\n' +
         '\n' +
         '```\n' +
         historyLines.join('\n') +
