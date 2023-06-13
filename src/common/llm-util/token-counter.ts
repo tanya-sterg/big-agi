@@ -19,23 +19,32 @@ export const countModelTokens: (text: string, chatModelId: ChatModelId, debugFro
   const tokenEncoders: { [modelId: string]: Tiktoken } = {};
 
   function tokenCount(text: string, chatModelId: ChatModelId, debugFrom: string): number {
-    if (!(chatModelId in tokenEncoders)) {
-      try {
-        tokenEncoders[chatModelId] = encoding_for_model(chatModelId);
-      } catch (e) {
-        tokenEncoders[chatModelId] = get_encoding('cl100k_base');
-      }
-    }
-    const count = tokenEncoders[chatModelId]?.encode(text)?.length || 0;
-    if (DEBUG_TOKEN_COUNT)
-      console.log(`countModelTokens: ${debugFrom}, ${chatModelId}, "${text.slice(0, 10)}": ${count}`);
-    return count;
+  // Se o chatModelId começar com 'gpt-4', defina-o como 'gpt-4'
+  if(chatModelId.startsWith('gpt-4')) {
+    chatModelId = 'gpt-4';
   }
 
-  // preload the tokenizer for the default model
-  tokenCount('', defaultChatModelId, 'warmup');
+  if (!(chatModelId in tokenEncoders)) {
+    try {
+      tokenEncoders[chatModelId] = encoding_for_model(chatModelId);
+    } catch (e) {
+      tokenEncoders[chatModelId] = get_encoding('cl100k_base');
+    }
+  }
 
-  return tokenCount;
+  const count = tokenEncoders[chatModelId]?.encode(text)?.length || 0;
+  
+  if (DEBUG_TOKEN_COUNT)
+    console.log(`countModelTokens: ${debugFrom}, ${chatModelId}, "${text.slice(0, 10)}": ${count}`);
+
+  return count;
+}
+
+// preload the tokenizer for the default model
+tokenCount('', defaultChatModelId, 'warmup');
+
+return tokenCount;
+
 })();
 
 /**
