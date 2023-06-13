@@ -65,9 +65,9 @@ export const SystemPurposes: { [key in SystemPurposeId]: SystemPurposeData } = {
 };
 
 
-export type ChatModelId = 'gpt-4' | 'gpt-4-0613' | 'gpt-3.5-turbo';
+export type ChatModelId = 'gpt-4' | 'gpt-3.5-turbo';
 
-export const defaultChatModelId: ChatModelId = 'gpt-4-0613';
+export const defaultChatModelId: ChatModelId = 'gpt-4';
 export const fastChatModelId: ChatModelId = 'gpt-3.5-turbo';
 
 type ChatModelData = {
@@ -91,13 +91,6 @@ export const ChatModels: { [key in ChatModelId]: ChatModelData } = {
     title: '3.5-Turbo',
     fullName: 'GPT-3.5 Turbo',
     contextWindowSize: 4097,
-    tradeoff: 'Faster and cheaper',
-  },
-   'gpt-4-0613': {
-    description: 'A good balance between speed and insight',
-    title: 'GPT4-0613',
-    fullName: 'GPT4-0613',
-    contextWindowSize: 8192,
     tradeoff: 'Faster and cheaper',
   },
 };
