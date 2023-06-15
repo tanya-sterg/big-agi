@@ -264,6 +264,7 @@ export function Chat() {
 
     <Composer
       conversationId={activeConversationId} messageId={null}
+      isDeveloperMode={systemPurposeId === 'Developer'}
       onSendMessage={handleSendUserMessage}
       sx={{
         zIndex: 21, // position: 'sticky', bottom: 0,

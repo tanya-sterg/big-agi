@@ -160,7 +160,7 @@ const SentMessagesMenu = (props: {
  */
 export function Composer(props: {
   conversationId: string | null; messageId: string | null;
- // isDeveloperMode: boolean;
+  isDeveloperMode: boolean;
   onSendMessage: (conversationId: string, text: string) => void;
   sx?: SxProps;
 }) {
@@ -397,9 +397,9 @@ export function Composer(props: {
 
   // const prodiaApiKey = isValidProdiaApiKey(useSettingsStore(state => state.prodiaApiKey));
   // const isProdiaConfigured = !requireUserKeyProdia || prodiaApiKey;
-//  const textPlaceholder: string = props.isDeveloperMode
-   // ? 'Tell me what you need, and drop source files...'
-//    : /*isProdiaConfigured ?*/ 'Digite sua tensão ou use /embed para o Assistente acessar a base da Target Teal' /*: 'Chat · /react · drop text files...'*/;
+  const textPlaceholder: string = props.isDeveloperMode
+    ? 'Tell me what you need, and drop source files...'
+    : /*isProdiaConfigured ?*/ 'Digite sua tensão ou use /embed para o Assistente acessar a base da Target Teal' /*: 'Chat · /react · drop text files...'*/;
 
   const isReAct = sendModeId === 'react';
 
@@ -440,7 +440,8 @@ export function Composer(props: {
               variant='solid' placement='top-start'
               title={pasteClipboardLegend}>
               <Button fullWidth variant='plain' color='neutral' startDecorator={<ContentPasteGoIcon />} onClick={handlePasteFromClipboard}
-                      sx={{ ...hideOnMobile, justifyContent: 'flex-start' }}> 
+                      sx={{ ...hideOnMobile, justifyContent: 'flex-start' }}>
+                {props.isDeveloperMode ? 'Paste code' : 'Paste'}
               </Button>
             </Tooltip>
 
