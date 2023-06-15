@@ -88,7 +88,7 @@ export function UISettings() {
 
         <FormControl orientation='horizontal' sx={{ ...hideOnMobile, alignItems: 'center', justifyContent: 'space-between' }}>
           <Box>
-            <FormLabel>Centering</FormLabel>
+            <FormLabel>Centralização</FormLabel>
             <FormHelperText>{centerMode === 'full' ? 'Full screen' : centerMode === 'narrow' ? 'Narrow' : 'Wide'} chat</FormHelperText>
           </Box>
           <RadioGroup orientation='horizontal' value={centerMode} onChange={handleCenterModeChange}>
@@ -100,7 +100,7 @@ export function UISettings() {
 
         <FormControl orientation='horizontal' sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
           <Box>
-            <FormLabel>Appearance</FormLabel>
+            <FormLabel>Aparência</FormLabel>
             <FormHelperText>{zenMode === 'clean' ? 'Show senders' : 'Hide senders and menus'}</FormHelperText>
           </Box>
           <RadioGroup orientation='horizontal' value={zenMode} onChange={handleZenModeChange}>
@@ -112,7 +112,7 @@ export function UISettings() {
 
         <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
           <Box>
-            <FormLabel>Enter to send</FormLabel>
+            <FormLabel>Enter para enviar</FormLabel>
             <FormHelperText>{enterToSend ? <>Sends message<TelegramIcon /></> : 'New line'}</FormHelperText>
           </Box>
           <Switch checked={enterToSend} onChange={handleEnterToSendChange}
@@ -132,8 +132,8 @@ export function UISettings() {
 
         <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
           <Box>
-            <FormLabel>Purpose finder</FormLabel>
-            <FormHelperText>{showPurposeFinder ? 'Show search bar' : 'Hide search bar'}</FormHelperText>
+            <FormLabel>Buscar assistente</FormLabel>
+            <FormHelperText>{showPurposeFinder ? 'Mostrar barra de busca' : 'Esconder busca'}</FormHelperText>
           </Box>
           <Switch checked={showPurposeFinder} onChange={handleShowSearchBarChange}
                   endDecorator={showPurposeFinder ? 'On' : 'Off'}
@@ -144,11 +144,11 @@ export function UISettings() {
           <Box>
             <Tooltip title='Currently for Microphone input and Voice output. Microphone support varies by browser (iPhone/Safari lacks speech input). We will use the ElevenLabs MultiLanguage model if a language other than English is selected.'>
               <FormLabel>
-                Language <InfoOutlinedIcon sx={{ mx: 0.5 }} />
+                Língua <InfoOutlinedIcon sx={{ mx: 0.5 }} />
               </FormLabel>
             </Tooltip>
             <FormHelperText>
-              Speech input
+              Língua de Entrada
             </FormHelperText>
           </Box>
           <LanguageSelect />
