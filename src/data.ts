@@ -338,9 +338,9 @@ Comece se apresentando para o usuário com entusiasmo e explique que você ainda
 };
 
 
-export type ChatModelId = 'gpt-4' | 'gpt-4-32k' | 'gpt-3.5-turbo';
+export type ChatModelId = 'gpt-4' | 'gpt-3.5-turbo';
 
-export const defaultChatModelId: ChatModelId = 'gpt-4-32k';
+export const defaultChatModelId: ChatModelId = 'gpt-4';
 export const fastChatModelId: ChatModelId = 'gpt-3.5-turbo';
 
 type ChatModelData = {
@@ -366,17 +366,10 @@ export const ChatModels: { [key in ChatModelId]: ChatModelData } = {
     contextWindowSize: 4097,
     tradeoff: 'Rápido e Barato',
   },
-  'gpt-4-32k': {
-    description: 'Memória de contexto mais longa',
-    title: 'GPT-4-32k',
-    fullName: 'GPT-4-32k',
-    contextWindowSize: 32000,
-    tradeoff: 'Preciso, mais memória, lento e caro',
-  },
 };
 
 
-export type SendModeId = 'immediate' | 'react';
+export type SendModeId = 'immediate' | 'react' | 'embeddings';
 export const defaultSendModeId: SendModeId = 'immediate';
 
 type SendModeData = {
@@ -393,4 +386,8 @@ export const SendModes: { [key in SendModeId]: SendModeData } = {
     label: 'Reason+Act',
     description: 'Answer your questions with ReAct and search',
   },
+  'embeddings': {
+    label: 'Embeddings',
+    description: 'Answer your questions with custom knowledge base',
+  }
 };
