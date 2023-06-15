@@ -399,7 +399,7 @@ export function Composer(props: {
   // const isProdiaConfigured = !requireUserKeyProdia || prodiaApiKey;
 //  const textPlaceholder: string = props.isDeveloperMode
    // ? 'Tell me what you need, and drop source files...'
-    : /*isProdiaConfigured ?*/ 'Digite sua tensão ou use /embed para o Assistente acessar a base da Target Teal' /*: 'Chat · /react · drop text files...'*/;
+//    : /*isProdiaConfigured ?*/ 'Digite sua tensão ou use /embed para o Assistente acessar a base da Target Teal' /*: 'Chat · /react · drop text files...'*/;
 
   const isReAct = sendModeId === 'react';
 
