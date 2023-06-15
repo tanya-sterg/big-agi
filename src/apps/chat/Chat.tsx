@@ -262,16 +262,7 @@ export function Chat() {
         minHeight: 64,
       }} />
 
-    <Composer
-      conversationId={activeConversationId} messageId={null}
-      isDeveloperMode={systemPurposeId === 'Developer'}
-      onSendMessage={handleSendUserMessage}
-      sx={{
-        zIndex: 21, // position: 'sticky', bottom: 0,
-        background: theme.vars.palette.background.surface,
-        borderTop: `1px solid ${theme.vars.palette.divider}`,
-        p: { xs: 1, md: 2 },
-      }} />
+
 
 
     {/* Import Chat */}
