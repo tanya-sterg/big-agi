@@ -8,7 +8,7 @@ export const requireUserKeyEmbeddings = !process.env.HAS_SERVER_KEY_OPENAI_EMBED
 export const isValidDatabaseUrl = (apiKey?: string) => !!apiKey /*&& apiKey.startsWith("redis")*/;
 
 export const embeddingsDefaultIndex: string = 'tt-kb';
-export const CmdRunEmbeddings: string[] = ['/embed', '/emb'];
+export const CmdRunEmbeddings: string[] = ['/embed', '/'];
 export const embeddingsDefaultDocCount: string = '1';
 
 export async function callPublish(question: string): Promise<string | null> {
