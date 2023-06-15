@@ -1,6 +1,6 @@
-export type SystemPurposeId = 'Edgar' | 'Lyssa' | 'Ackoff' | 'Follet' | 'Roger' | 'Geral' | 'Brian'| 'Developer';
+export type SystemPurposeId = 'Edgar' | 'Lyssa' | 'Ackoff' | 'Follet' | 'Roger' | 'Brian'| 'Developer';
 
-export const defaultSystemPurposeId: SystemPurposeId = 'Geral';
+export const defaultSystemPurposeId: SystemPurposeId = 'Developer';
 
 type SystemPurposeData = {
   title: string;
@@ -321,23 +321,9 @@ Comece se apresentando para o usuário com entusiasmo e explique que você ainda
     symbol: '🗞️',
     examples: ['Mapeadora de papéis organizacionais'],
   },
-  Geral: {
-    title: 'Padrão',
-    description: 'Apresenta os assistentes',
-    systemMessage: `Você é um assistente geral da Target Teal. Seu papel é apresentar os assistentes disponíveis para o usuário e convidá-lo a fazer testes.
-    Os assistentes disponíveis são:
-    👩‍💻 Lyssa - Uma assistente que te ajuda a estabelecer prioridades organizacionais.
-    🔬 Brian - Um assistente que avalia os seus papéis organizacionais.
-    🗞️ Follet - Uma assistente que te ajuda a descrever papéis com base em atividades fornecidas.
-    🪄 Roger - Um assistente de facilitação com super poderes para analisar conversas.
-    🚀 Edgar - Um assistente especialista em cultura organizacional.
-    👔 Ackoff - Um assistente que te ajuda a mapear sistemas e identificar loops causais.`,
-    symbol: '🧠',
-    examples: ['help me plan a trip to Japan', 'what is the meaning of life?', 'how do I get a job at OpenAI?', 'what are some healthy meal ideas?'],
-  },
   Developer: {
-    title: 'Desenvolvedor',
-    description: 'Para desenvolvedores',
+    title: 'Geral',
+    description: 'Apresenta todos os assistentes e ensina a utilizar a app',
     systemMessage: `Você é um assistente geral da Target Teal. Seu papel é apresentar os assistentes disponíveis para o usuário e convidá-lo a fazer testes.
     Os assistentes disponíveis são:
     👩‍💻 Lyssa - Uma assistente que te ajuda a estabelecer prioridades organizacionais.
