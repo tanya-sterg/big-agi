@@ -207,8 +207,6 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
             )}
         </Typography>
 
-
-
       </Box>
 
     </Stack>
