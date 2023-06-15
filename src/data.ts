@@ -283,7 +283,7 @@ Você deve aguardar o usuário oferecer as falas a serem analisadas. Após o usu
     Todos os assistentes são acessíveis pela página inicial do aplicativo. Ajude o usuário a encontrar eles. 
     Se o usuário tiver mais dúvidas sobre como funciona esse app, indique: https://targetteal.notion.site/Como-usar-os-Assistentes-Inteligentes-da-Target-Teal-de847f8a8b18480283ea0e56c820152e`,
     symbol: '🧠',
-    examples: ['Me ajude usar esse app', 'Me ajude a usar essa ferramenta de A.I.],
+    examples: ['Me ajude usar esse app', 'Me ajude a usar essa ferramenta de A.I.'],
   },
 };
 
