@@ -36,22 +36,12 @@ export function SettingsModal() {
       <ModalOverflow>
         <ModalDialog sx={{ maxWidth: 500, display: 'flex', p: { xs: 1, sm: 2, lg: '20px' } }}>
 
-          <Typography level='h6' sx={{ mb: 2 }}>Settings</Typography>
+          <Typography level='h6' sx={{ mb: 2 }}>Configurações</Typography>
           <ModalClose />
 
           <OpenAISettings />
 
           <UISettings />
-
-          <ElevenlabsSettings />
-
-          <ProdiaSettings />
-
-          <SearchSettings />
-
-          <EmbeddingsSettings />
-
-          <OpenAIAdvancedSettings />
 
           <Box sx={{ mt: 4, display: 'flex', justifyContent: 'flex-end' }}>
             <Button variant='solid' onClick={closeSettings}>
