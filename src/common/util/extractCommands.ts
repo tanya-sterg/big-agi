@@ -14,7 +14,7 @@ export interface SentencePiece {
  * Used by rendering functions, as well as input processing functions.
  */
 export function extractCommands(input: string): SentencePiece[] {
-  const regexFromTags = commands.map(tag => `^\\${tag} `).join('\\b|') + '\\b';
+  const regexFromTags = commands.map(tag => `^\\${tag}`).join('\\b|') + '\\b';
   const pattern = new RegExp(regexFromTags, 'g');
   const result: SentencePiece[] = [];
   let lastIndex = 0;
