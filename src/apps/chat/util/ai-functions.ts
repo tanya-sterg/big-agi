@@ -15,6 +15,9 @@ export async function updateAutoConversationTitle(conversationId: string) {
   const conversation = conversations.find(c => c.id === conversationId) ?? null;
   if (!conversation || conversation.autoTitle || conversation.userTitle) return;
 
+  // Check if there are at least 6 messages in the conversation (3 exchanges)
+  if (conversation.messages.length < 6) return;
+
   // first line of the last 5 messages
   const historyLines: string[] = conversation.messages.filter(m => m.role !== 'system').slice(-5).map(m => {
     let text = m.text.split('\n')[0];
@@ -50,7 +53,6 @@ export async function updateAutoConversationTitle(conversationId: string) {
   });
 
 }
-
 // https://www.youtube.com/watch?v=XLG-qtZwxIw
 /*const promptNew =
   'I want you to act as a prompt engineer. You will help me write prompts for an ai art generator.\n' +
