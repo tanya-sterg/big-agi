@@ -54,15 +54,6 @@ export function ActionItems(props: {
 
   return <>
 
-    <ListDivider />
-
-    <MenuItem onClick={handleSystemMessagesToggle}>
-      <ListItemDecorator><SettingsSuggestIcon /></ListItemDecorator>
-      System message
-      <Switch checked={showSystemMessages} onChange={handleSystemMessagesToggle} sx={{ ml: 'auto' }} />
-    </MenuItem>
-
-    <ListDivider />
 
     <MenuItem disabled={disabled} onClick={handleConversationPublish}>
       <ListItemDecorator>
@@ -70,14 +61,14 @@ export function ActionItems(props: {
         <ExitToAppIcon />
         {/*</Badge>*/}
       </ListItemDecorator>
-      Share via paste.gg
+      Partilhar via paste.gg
     </MenuItem>
 
     <MenuItem disabled={disabled} onClick={handleConversationDownload}>
       <ListItemDecorator>
         <FileDownloadIcon />
       </ListItemDecorator>
-      Export conversation
+      Exportar conversa
     </MenuItem>
 
     <ListDivider />
@@ -85,13 +76,13 @@ export function ActionItems(props: {
     <MenuItem disabled={disabled} onClick={handleToggleMessageSelectionMode}>
       <ListItemDecorator>{props.isMessageSelectionMode ? <CheckBoxOutlinedIcon /> : <CheckBoxOutlineBlankOutlinedIcon />}</ListItemDecorator>
       <span style={props.isMessageSelectionMode ? { fontWeight: 800 } : {}}>
-        Cleanup ...
+        Limpar ...
       </span>
     </MenuItem>
 
     <MenuItem disabled={disabled} onClick={handleConversationClear}>
       <ListItemDecorator><ClearIcon /></ListItemDecorator>
-      Clear conversation
+      Limpar conversa
     </MenuItem>
 
   </>;

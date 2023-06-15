@@ -30,13 +30,13 @@ function CommonContextItems(props: { onClose: () => void }) {
 
     <MenuItem onClick={handleToggleDarkMode}>
       <ListItemDecorator><DarkModeIcon /></ListItemDecorator>
-      Dark
+      Modo Escuro
       <Switch checked={colorMode === 'dark'} onChange={handleToggleDarkMode} sx={{ ml: 'auto' }} />
     </MenuItem>
 
     <MenuItem onClick={handleShowSettings}>
       <ListItemDecorator><SettingsOutlinedIcon /></ListItemDecorator>
-      Settings
+      Configurações
     </MenuItem>
 
   </>;
