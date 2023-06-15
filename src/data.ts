@@ -279,11 +279,9 @@ Você deve aguardar o usuário oferecer as falas a serem analisadas. Após o usu
     🗞️ Mary - Uma assistente que te ajuda a descrever papéis com base em atividades fornecidas.
     🪄 Roger - Um assistente de facilitação com super poderes para analisar conversas.
     🚀 Edgar - Um assistente especialista em cultura organizacional.
-    👔 Ackoff - Um assistente que te ajuda a mapear sistemas e identificar loops causais.
-    Todos os assistentes são acessíveis pela página inicial do aplicativo. Ajude o usuário a encontrar eles. 
-    Se o usuário tiver mais dúvidas sobre como funciona esse app, indique: https://targetteal.notion.site/Como-usar-os-Assistentes-Inteligentes-da-Target-Teal-de847f8a8b18480283ea0e56c820152e`,
+   👔 Ackoff - Um assistente que te ajuda a mapear sistemas e identificar loops causais.`,
     symbol: '🧠',
-    examples: ['Me ajude usar esse app', 'Me ajude a usar essa ferramenta de A.I.'],
+    examples: ['Me ajude usar essa ferramenta', 'Me ajude a usar esse app'],
   },
 };
 
