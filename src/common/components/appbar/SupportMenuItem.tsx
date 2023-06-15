@@ -4,7 +4,7 @@ import { Box, Button, ListItem, SvgIcon, useTheme } from '@mui/joy';
 import { SxProps } from '@mui/joy/styles/types';
 import { Brand } from '@/common/brand';
 import { Link } from '@/common/components/Link';
-import WebsiteIcon from '@mui/icons-material/Website';
+import PublicIcon from '@mui/icons-material/Public';
 import { cssRainbowColorKeyframes } from '@/common/theme';
 
 
@@ -57,7 +57,8 @@ export function SupportMenuItem() {
         {Brand.Meta.SiteName}
       </Box>
       <BringTheLove text='Discord' icon={<DiscordIcon sx={{ color: iconColor }} />} link={Brand.URIs.SupportInvite} />
-      <BringTheLove text='Website' icon={<WebsiteIcon sx={{ color: iconColor }} />} link={Brand.URIs.OpenRepo} />
+   <BringTheLove text='Website' icon={<PublicIcon sx={{ color: iconColor }} />} link={Brand.URIs.OpenRepo} />
+
 
     </ListItem>
   );
