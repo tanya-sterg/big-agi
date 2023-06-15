@@ -33,7 +33,7 @@ export async function updateAutoConversationTitle(conversationId: string) {
       role: 'user', content:
       'Analise a breve conversa fornecida (cada linha está truncada) e extraia um título de conversa conciso que ' +
       'resume a conversa em apenas algumas palavras.\n' +
-      'Responda apenas com o título curto em minúsculas e mais nada.\n' +
+      'Responda apenas com o título curto e mais nada.\n' +
         '\n' +
         '```\n' +
         historyLines.join('\n') +
