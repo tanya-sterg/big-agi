@@ -72,9 +72,9 @@ export const theme = extendTheme({
     dark: {
       palette: {
         background: {
-          surface: 'var(--joy-palette-neutral-900, #131318)',
-          level1: 'var(--joy-palette-common-black, #09090D)',
-          level2: 'var(--joy-palette-neutral-800, #25252D)',
+          surface: '#131318',
+          level1: '#09090D',
+          level2: '#25252D',
           // popup: 'var(--joy-palette-common-black, #09090D)',
         },
       },
