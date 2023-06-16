@@ -207,11 +207,11 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
                 : selectedPurpose.description
             )}
         </Typography>
-
-      </Box>
-      <Typography level='body2' color='neutral'>
-  Não compartilhe informações confidenciais com nossos assistentes. Os dados da conversa estão sendo utilizados para melhorar a ferramenta. Ao utilizar a ferramenta, você consente em oferecer essas informações de forma anônima.
+        <Typography level='body2' color='neutral'>
+ Os dados da conversa estão sendo partilhados de forma anônima para melhorar a ferramenta. 
 </Typography>
+      </Box>
+
     </Stack>
 
   </>;
