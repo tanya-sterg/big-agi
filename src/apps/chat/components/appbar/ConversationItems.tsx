@@ -67,7 +67,7 @@ export function ConversationItems(props: {
 
     <MenuItem disabled={!!topNewConversationId && topNewConversationId === props.conversationId} onClick={handleNew}>
       <ListItemDecorator><AddIcon /></ListItemDecorator>
-      {NewPrefix}New
+      {NewPrefix}Nova conversa
     </MenuItem>
 
     <ListDivider />
@@ -89,13 +89,13 @@ export function ConversationItems(props: {
       <ListItemDecorator>
         <FileUploadIcon />
       </ListItemDecorator>
-      Import conversation
+      Importar conversa
     </MenuItem>
 
     <MenuItem disabled={!hasChats} onClick={props.onDeleteAllConversations}>
       <ListItemDecorator><DeleteOutlineIcon /></ListItemDecorator>
       <Typography>
-        Delete all
+        Deletar tudo
       </Typography>
     </MenuItem>
 

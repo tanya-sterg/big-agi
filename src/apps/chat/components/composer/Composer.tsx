@@ -427,7 +427,7 @@ export function Composer(props: {
               title={attachFileLegend}>
               <Button fullWidth variant='plain' color='neutral' onClick={handleShowFilePicker} startDecorator={<UploadFileIcon />}
                       sx={{ ...hideOnMobile, justifyContent: 'flex-start' }}>
-                Attach
+                Anexar
               </Button>
             </Tooltip>
 
@@ -441,7 +441,7 @@ export function Composer(props: {
               title={pasteClipboardLegend}>
               <Button fullWidth variant='plain' color='neutral' startDecorator={<ContentPasteGoIcon />} onClick={handlePasteFromClipboard}
                       sx={{ ...hideOnMobile, justifyContent: 'flex-start' }}>
-                {props.isDeveloperMode ? 'Paste code' : 'Paste'}
+                {props.isDeveloperMode ? 'Colar' : 'Colar'}
               </Button>
             </Tooltip>
 
@@ -526,7 +526,7 @@ export function Composer(props: {
                   Stop
                 </Button>
                 : <Button fullWidth variant='solid' color={isReAct ? 'info' : 'primary'} disabled={!props.conversationId} onClick={handleSendClicked} onDoubleClick={handleShowSendMode} endDecorator={isReAct ? <PsychologyIcon /> : <TelegramIcon />}>
-                  {isReAct ? 'ReAct' : 'Chat'}
+                  {isReAct ? 'ReAct' : 'Enviar'}
                 </Button>}
             </Box>
 
