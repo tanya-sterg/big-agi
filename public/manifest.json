@@ -1,9 +1,9 @@
 {
-  "name": "big-AGI",
-  "short_name": "AGI",
+  "name": "AI by Target Teal",
+  "short_name": "AI-TT",
   "theme_color": "#434356",
   "background_color": "#B9B9C6",
-  "description": "Personal AGI App",
+  "description": "Org Design App",
   "display": "standalone",
   "start_url": "/",
   "icons": [
