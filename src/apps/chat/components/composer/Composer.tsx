@@ -52,7 +52,7 @@ const expandPromptTemplate = (template: string, dict: object) => (inputValue: st
 const attachFileLegend =
   <Stack sx={{ p: 1, gap: 1, fontSize: '16px', fontWeight: 400 }}>
     <Box sx={{ mb: 1, textAlign: 'center' }}>
-      Attach a file to the message
+      Anexe um arquivo à mensagem
     </Box>
     <table>
       <tbody>
@@ -60,30 +60,30 @@ const attachFileLegend =
         <td width={36}><PictureAsPdfIcon sx={{ width: 24, height: 24 }} /></td>
         <td><b>PDF</b></td>
         <td width={36} align='center' style={{ opacity: 0.5 }}>→</td>
-        <td>📝 Text (split manually)</td>
+        <td>📝 Texto (dividir manualmente)</td>
       </tr>
       <tr>
         <td><DataArrayIcon sx={{ width: 24, height: 24 }} /></td>
-        <td><b>Code</b></td>
+        <td><b>Código</b></td>
         <td align='center' style={{ opacity: 0.5 }}>→</td>
         <td>📚 Markdown</td>
       </tr>
       <tr>
         <td><FormatAlignCenterIcon sx={{ width: 24, height: 24 }} /></td>
-        <td><b>Text</b></td>
+        <td><b>Texto</b></td>
         <td align='center' style={{ opacity: 0.5 }}>→</td>
-        <td>📝 As-is</td>
+        <td>📝 Puro</td>
       </tr>
       </tbody>
     </table>
     <Box sx={{ mt: 1, fontSize: '14px' }}>
-      Drag & drop in chat for faster loads ⚡
+      Arraste e solte no chat para carregar mais rápido ⚡
     </Box>
   </Stack>;
 
 const pasteClipboardLegend =
   <Box sx={{ p: 1, fontSize: '14px', fontWeight: 400 }}>
-    Converts Code and Tables to 📚 Markdown
+    Converte Código e Tabelas para 📚 Markdown
   </Box>;
 
 
@@ -100,7 +100,7 @@ const SendModeMenu = (props: { anchorEl: HTMLAnchorElement, sendMode: SendModeId
     variant='plain' color='neutral' size='md' placement='top-end' sx={{ minWidth: 320, overflow: 'auto' }}
     open anchorEl={props.anchorEl} onClose={props.onClose}>
 
-    <MenuItem color='neutral' selected>Conversation Mode</MenuItem>
+    <MenuItem color='neutral' selected>Modo de Conversação</MenuItem>
 
     <ListDivider />
 
@@ -128,7 +128,7 @@ const SentMessagesMenu = (props: {
     variant='plain' color='neutral' size='md' placement='top-end' sx={{ minWidth: 320, maxWidth: '100dvw', overflow: 'hidden' }}
     open={!!props.anchorEl} anchorEl={props.anchorEl} onClose={props.onClose}>
 
-    <MenuItem color='neutral' selected>Reuse messages 💬</MenuItem>
+    <MenuItem color='neutral' selected>Reutilizar mensagens  💬</MenuItem>
 
     <ListDivider />
 
