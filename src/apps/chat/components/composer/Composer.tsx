@@ -398,8 +398,8 @@ export function Composer(props: {
   // const prodiaApiKey = isValidProdiaApiKey(useSettingsStore(state => state.prodiaApiKey));
   // const isProdiaConfigured = !requireUserKeyProdia || prodiaApiKey;
   const textPlaceholder: string = props.isDeveloperMode
-    ? 'Tell me what you need, and drop source files...'
-    : /*isProdiaConfigured ?*/ 'Digite sua tensão ou use /embed para o Assistente acessar a base da Target Teal' /*: 'Chat · /react · drop text files...'*/;
+    ? 'Se você estiver perdido, escreva olá e dê enter'
+    : /*isProdiaConfigured ?*/ 'Escreva ou use o microfone para falar com nossos assistentes' /*: 'Chat · /react · drop text files...'*/;
 
   const isReAct = sendModeId === 'react';
 
