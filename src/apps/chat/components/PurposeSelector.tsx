@@ -138,8 +138,11 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
 
         <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between', gap: 2, mb: 1 }}>
           <Typography level='body2' color='neutral'>
-            Select an AI purpose
+            Selecione um Assistente
           </Typography>
+          <Typography level='body2' color='neutral'>
+  Não compartilhe informações confidenciais com nossos assistentes. Os dados da conversa estão sendo utilizados para melhorar a ferramenta. Ao utilizar a ferramenta, você consente em oferecer essas informações de forma anônima.
+</Typography>
           <Button variant='plain' color='neutral' size='sm' onClick={toggleEditMode}>
             {editMode ? 'Done' : 'Edit'}
           </Button>
