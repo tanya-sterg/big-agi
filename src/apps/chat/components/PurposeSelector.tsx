@@ -140,13 +140,11 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
           <Typography level='body2' color='neutral'>
             Selecione um Assistente
           </Typography>
-          <Typography level='body2' color='neutral'>
-  Não compartilhe informações confidenciais com nossos assistentes. Os dados da conversa estão sendo utilizados para melhorar a ferramenta. Ao utilizar a ferramenta, você consente em oferecer essas informações de forma anônima.
-</Typography>
           <Button variant='plain' color='neutral' size='sm' onClick={toggleEditMode}>
             {editMode ? 'Done' : 'Edit'}
           </Button>
         </Box>
+
 
         <Grid container spacing={tileSpacing} sx={{ justifyContent: 'flex-start' }}>
           {purposeIDs.map((spId) => (
@@ -211,7 +209,9 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
         </Typography>
 
       </Box>
-
+      <Typography level='body2' color='neutral'>
+  Não compartilhe informações confidenciais com nossos assistentes. Os dados da conversa estão sendo utilizados para melhorar a ferramenta. Ao utilizar a ferramenta, você consente em oferecer essas informações de forma anônima.
+</Typography>
     </Stack>
 
   </>;
