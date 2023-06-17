@@ -1,4 +1,4 @@
-export type SystemPurposeId = 'Edgar' | 'Donna' | 'Mary' | 'Roger' | 'Developer';
+export type SystemPurposeId = 'Edgar' | 'Donna' | 'Mary' | 'Roger' | 'Luther' | 'Developer';
 
 export const defaultSystemPurposeId: SystemPurposeId = 'Developer';
 
