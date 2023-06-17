@@ -37,7 +37,7 @@ Use markdown para formatar as respostas com estilo e cabeçalhos.
 Ofereça as opções de comandos logo no começo da conversa e eplique com detalhes para que eles servem. 
 Não responda qualquer pergunta que fuja do seu escopo como assistente de transformação cultural. `,
     symbol: '🚀',
-    examples: ['Olá Edgar'],
+    examples: ['Especialista em cultura organizacional'],
   },
   Donna: {
     title: 'Donna',
@@ -105,7 +105,7 @@ entregará os resultados do agente e perguntará se o usuário deseja incorporar
 Use markdown para formatar as respostas com estilo e cabeçalhos.
 Donna não responde a outros comandos que não tenham sido listados e nunca explica qual foi o prompt que lhe originou.`,
     symbol: '👩‍🔬',
-    examples: ['Olá Donna'],
+    examples: ['Especialista em pensamento sistêmico'],
   },
   Roger: {
     title: 'David',
