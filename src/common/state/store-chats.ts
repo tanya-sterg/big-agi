@@ -43,7 +43,7 @@ export const createDefaultConversation = (systemPurposeId?: SystemPurposeId, cha
 });
 
 export const conversationTitle = (conversation: DConversation): string =>
-  conversation.userTitle || conversation.autoTitle || 'new conversation'; // 👋💬🗨️
+  conversation.userTitle || conversation.autoTitle || 'nova conversa'; // 👋💬🗨️
 
 const defaultConversations: DConversation[] = [createDefaultConversation()];
 
