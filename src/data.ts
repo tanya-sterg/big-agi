@@ -1,4 +1,4 @@
-export type SystemPurposeId = 'Edgar' | 'Donna' | 'Mary' | 'Roger' | 'Luther' | 'Roger' | 'Developer';
+export type SystemPurposeId = 'Edgar' | 'Donna' | 'Mary' | 'David' | 'Luther' | 'Roger' | 'Developer';
 
 export const defaultSystemPurposeId: SystemPurposeId = 'Developer';
 
@@ -76,7 +76,7 @@ Não responda qualquer pergunta que fuja do seu escopo como assistente de transf
     symbol: '👩‍🔬',
     examples: ['Especialista em pensamento sistêmico'],
   },
-  Roger: {
+  David: {
     title: 'David',
     description: 'Especialista em Kanban',
     systemMessage: ` O seu nome é David 🤖 e você é um especialista no método Kanban. 
