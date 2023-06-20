@@ -100,8 +100,8 @@ export function UISettings() {
 
         <FormControl orientation='horizontal' sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
           <Box>
-            <FormLabel>Aparência</FormLabel>
-            <FormHelperText>{zenMode === 'clean' ? 'Show senders' : 'Hide senders and menus'}</FormHelperText>
+            <FormLabel>Autor</FormLabel>
+            <FormHelperText>{zenMode === 'clean' ? 'Mostrar autor msg' : 'Ocultar autor'}</FormHelperText>
           </Box>
           <RadioGroup orientation='horizontal' value={zenMode} onChange={handleZenModeChange}>
             {/*<Radio value='clean' label={<Face6Icon sx={{ width: 24, height: 24, mt: -0.25 }} />} />*/}
@@ -113,7 +113,7 @@ export function UISettings() {
         <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
           <Box>
             <FormLabel>Enter para enviar</FormLabel>
-            <FormHelperText>{enterToSend ? <>Sends message<TelegramIcon /></> : 'New line'}</FormHelperText>
+            <FormHelperText>{enterToSend ? <>Envia msg<TelegramIcon /></> : 'New line'}</FormHelperText>
           </Box>
           <Switch checked={enterToSend} onChange={handleEnterToSendChange}
                   endDecorator={enterToSend ? 'On' : 'Off'}
@@ -123,20 +123,10 @@ export function UISettings() {
         <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
           <Box>
             <FormLabel>Markdown</FormLabel>
-            <FormHelperText>{renderMarkdown ? 'Render markdown' : 'Text only'}</FormHelperText>
+            <FormHelperText>{renderMarkdown ? 'Processa MD' : 'Apenas Texto'}</FormHelperText>
           </Box>
           <Switch checked={renderMarkdown} onChange={handleRenderMarkdownChange}
                   endDecorator={renderMarkdown ? 'On' : 'Off'}
-                  slotProps={{ endDecorator: { sx: { minWidth: 26 } } }} />
-        </FormControl>
-
-        <FormControl orientation='horizontal' sx={{ justifyContent: 'space-between' }}>
-          <Box>
-            <FormLabel>Buscar assistente</FormLabel>
-            <FormHelperText>{showPurposeFinder ? 'Mostrar barra de busca' : 'Esconder busca'}</FormHelperText>
-          </Box>
-          <Switch checked={showPurposeFinder} onChange={handleShowSearchBarChange}
-                  endDecorator={showPurposeFinder ? 'On' : 'Off'}
                   slotProps={{ endDecorator: { sx: { minWidth: 26 } } }} />
         </FormControl>
 
