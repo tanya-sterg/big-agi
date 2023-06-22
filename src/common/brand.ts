@@ -14,8 +14,8 @@ export const Brand = {
   },
   Meta: {
     SiteName: 'Target Teal',
-    Title: 'Assistentes de Ia para Org Design',
-    Description: 'Assistentes de IA para apoiar o seu trabalho com Org Design',
+    Title: 'Assistentes Inteligentes para Org Design',
+    Description: 'Assistentes de IA para apoiar o seu trabalho com Design Organizacional. Desenvolvido pela Target Teal',
     Keywords: 'artificial general intelligence, org design, agi, openai, gpt-4, ai personas, code execution, pdf import, voice i/o, ai chat, artificial intelligence',
     ThemeColor: '#434356',
     TwitterSite: '@targetteal',
@@ -23,7 +23,7 @@ export const Brand = {
   URIs: {
     // Slug: 'big-agi',
     Home: 'https://targetteal.com',
-    CardImage: 'https://targetteal.com/wp-content/uploads/./logo-novo-quadrado.png',
+    CardImage: 'https://targetteal.com/wp-content/uploads/card-dark-1200.png',
     OpenRepo: 'https://targetteal.com',
     SupportInvite: 'https://discord.gg/sbKUY9Wv4C',
   },
