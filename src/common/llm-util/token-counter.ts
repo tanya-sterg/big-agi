@@ -3,18 +3,10 @@ import { encoding_for_model, get_encoding, Tiktoken } from '@dqbd/tiktoken';
 import { ChatModelId, defaultChatModelId } from '../../data';
 import { DMessage } from '../state/store-chats';
 
+
 // Do not set this to true in production, it's very verbose
 const DEBUG_TOKEN_COUNT = false;
 
-type TiktokenModel = 'gpt-4' | 'gpt-3.5-turbo' | 'gpt-4-0314' | 'gpt-4-0613'; // Adicione ou ajuste os valores conforme necessário
-
-// Adicione o mapeamento entre ChatModelId e TiktokenModel aqui
-const chatModelIdToTiktokenModel: { [key in ChatModelId]: TiktokenModel } = {
-  'gpt-4': 'gpt-4', // Substitua 'gpt-4' pelo valor correto de TiktokenModel correspondente a 'gpt-4'
-  'gpt-3.5-turbo': 'gpt-3.5-turbo', // Substitua 'gpt-3.5-turbo' pelo valor correto de TiktokenModel correspondente a 'gpt-3.5-turbo'
-  'gpt-4-0613': 'gpt-4-0613', // Substitua 'gpt-4-0314' pelo valor correto de TiktokenModel correspondente a 'gpt-4-0613'
-  // Adicione outros mapeamentos conforme necessário
-};
 
 /**
  * Wrapper around the Tiktoken library, to keep tokenizers for all models in a cache
@@ -29,8 +21,7 @@ export const countModelTokens: (text: string, chatModelId: ChatModelId, debugFro
   function tokenCount(text: string, chatModelId: ChatModelId, debugFrom: string): number {
     if (!(chatModelId in tokenEncoders)) {
       try {
-        const tiktokenModel = chatModelIdToTiktokenModel[chatModelId];
-        tokenEncoders[chatModelId] = encoding_for_model(tiktokenModel);
+        tokenEncoders[chatModelId] = encoding_for_model(chatModelId);
       } catch (e) {
         tokenEncoders[chatModelId] = get_encoding('cl100k_base');
       }

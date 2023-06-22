@@ -213,11 +213,10 @@ Use markdown para formatar as respostas com estilo e cabeçalhos. `,
 };
 
 
-export type ChatModelId = 'gpt-4' | 'gpt-3.5-turbo' | 'gpt-4-0613';
+export type ChatModelId = 'gpt-4' | 'gpt-3.5-turbo';
 
 export const defaultChatModelId: ChatModelId = 'gpt-4';
 export const fastChatModelId: ChatModelId = 'gpt-3.5-turbo';
-export const newChatModelId: ChatModelId = 'gpt-4-0613';
 
 
 type ChatModelData = {
@@ -233,13 +232,6 @@ export const ChatModels: { [key in ChatModelId]: ChatModelData } = {
     description: 'Mais poderoso, porém mais caro',
     title: 'gpt-4',
     fullName: 'gpt-4',
-    contextWindowSize: 8192,
-    tradeoff: 'Preciso, lento e caro',
-  },
-  'gpt-4-0613': {
-    description: 'Mais poderoso, porém mais caro',
-    title: 'gpt-4-0613',
-    fullName: 'gpt-4-0613',
     contextWindowSize: 8192,
     tradeoff: 'Preciso, lento e caro',
   },
