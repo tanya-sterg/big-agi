@@ -50,7 +50,7 @@ export function OpenAISettings() {
         <FormHelperText sx={{ display: 'block', lineHeight: 1.75 }}>
           {needsKey
             ? <><Link level='body2' href='https://platform.openai.com/account/api-keys' target='_blank'>Create Key</Link>, then apply to
-              the <Link level='body2' href='https://openai.com/waitlist/gpt-4-0613-api' target='_blank'>gpt-4-0613 waitlist</Link></>
+              the <Link level='body2' href='https://openai.com/waitlist/gpt-4-api' target='_blank'>gpt-4 waitlist</Link></>
             : `This key will take precedence over the server's.`} <Link level='body2' href='https://platform.openai.com/account/usage' target='_blank'>Check usage here</Link>.
         </FormHelperText>
 

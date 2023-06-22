@@ -68,7 +68,7 @@ export namespace OpenAI {
         id: string;
         object: 'chat.completion';
         created: number; // unix timestamp in seconds
-        model: string; // can differ from the ask, e.g. 'gpt-4-0613-0314'
+        model: string; // can differ from the ask, e.g. 'gpt-4-0314'
         choices: {
           index: number;
           message: Message;
