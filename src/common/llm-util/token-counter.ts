@@ -8,7 +8,9 @@ const DEBUG_TOKEN_COUNT = false;
 
 // Adicione o mapeamento entre ChatModelId e TiktokenModel aqui
 const chatModelIdToTiktokenModel: { [key in ChatModelId]: TiktokenModel } = {
-  'gpt-4-0613': 'gpt-4-0314', // Substitua 'gpt-4-0314' pelo valor correto de TiktokenModel correspondente a 'gpt-4-0613'
+  'gpt-4': 'gpt-4', // Substitua 'gpt-4' pelo valor correto de TiktokenModel correspondente a 'gpt-4'
+  'gpt-3.5-turbo': 'gpt-3.5-turbo', // Substitua 'gpt-3.5-turbo' pelo valor correto de TiktokenModel correspondente a 'gpt-3.5-turbo'
+  'gpt-4-0613': 'gpt-4-0613', // Substitua 'gpt-4-0314' pelo valor correto de TiktokenModel correspondente a 'gpt-4-0613'
   // Adicione outros mapeamentos conforme necessário
 };
 
