@@ -6,6 +6,8 @@ import { DMessage } from '../state/store-chats';
 // Do not set this to true in production, it's very verbose
 const DEBUG_TOKEN_COUNT = false;
 
+type TiktokenModel = 'gpt-4' | 'gpt-3.5-turbo' | 'gpt-4-0314' | 'gpt-4-0613'; // Adicione ou ajuste os valores conforme necessário
+
 // Adicione o mapeamento entre ChatModelId e TiktokenModel aqui
 const chatModelIdToTiktokenModel: { [key in ChatModelId]: TiktokenModel } = {
   'gpt-4': 'gpt-4', // Substitua 'gpt-4' pelo valor correto de TiktokenModel correspondente a 'gpt-4'
