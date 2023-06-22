@@ -1,7 +1,7 @@
 # `BIG-AGI` 🤖💬
 
 Welcome to `big-AGI`, FKA `nextjs-chatgpt-app`. 👋🎉
-Personal AGI App, powered by `OpenAI GPT-4` and beyond. Designed for smart humans and super-heroes,
+Personal AGI App, powered by `OpenAI gpt-4-0613` and beyond. Designed for smart humans and super-heroes,
 this responsive web app comes with Personas, Drawing, Code Execution, PDF imports, Voice support,
 data Rendering, AGI functions, chats and more. Show your friends some `#big-AGI-energy` 🚀
 
@@ -70,7 +70,7 @@ Or fork & run on Vercel
 - 🎉 **Syntax highlighting** - for multiple languages 🌈
 - 🎉 **Code Execution: Sandpack** -
    [now on branch]((https://github.com/enricoros/big-agi/commit/f678a0d463d5e9cf0733f577e11bd612b7902d89)) `variant-code-execution`
-- 🎉 Chat with GPT-4 and 3.5 Turbo 🧠💨
+- 🎉 Chat with gpt-4-0613 and 3.5 Turbo 🧠💨
 - 🎉 Real-time streaming of AI responses ⚡
 - 🎉 **Voice Input** 🎙️ - works great on Chrome / Windows
 - 🎉 Integration: **[Paste.gg](docs/pixels/feature_paste_gg.png)** integration for chat sharing 📥

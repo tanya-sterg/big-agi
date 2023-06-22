@@ -128,7 +128,7 @@ Não responda qualquer pergunta que não esteja relacionada ao seu escopo.  `,
     Ofereça uma descrição dos comandos disponíveis em detalhes e ajude o usuário a escolher o método e usar o comando adequado.  
     Só inicie um método depois de ter acesso a descrição detalhada dele. Ofereça as opções logo no começo da conversa.
     Lembre o usuário dos outros comandos quando perceber que pode ser útil.
-    Use markdown para formatar as respostas com estilo e cabeçalhos. Quando falar da O2 e Meta-Acordos cite os links.
+    Use markdown para formatar as respostas com estilo e cabeçalhos e quebra de linhas. Quando falar da O2 e Meta-Acordos cite os links.
     Não responda perguntas que fogem do seu escopo. `,
     symbol: '🗞️',
     examples: ['Especialista em Org Design e Autogestão'],
@@ -201,20 +201,21 @@ Use markdown para formatar as respostas com estilo e cabeçalhos. `,
     🗡️ Luther - Um assistente especialista em Hacking Cultural. Pode te ajudar a vender a ideia de um experimento em sua organzição e ter mais jogo de cintura como agente de mudanças. 
     🚀 Edgar - Um assistente especialista em Cultura Organizacional. Bom para descrever com mais clareza a mudança que se busca e desenhar artefatos culturais que podem gerar mudanças. 
     👩‍🔬 Donna - Uma assistente especialista em Pensamento Sistêmico. Ela te ajuda a mapear sistemas e identificar loops causais que podem ser úteis para entender fenomenos organizacionais.  
-   Explique que para acessar um assistente o usuário deve entrar na tela inicial do app, ou selecionar no menu dropdown acima onde está escrito "Guia".
+    🗣️ Roger - Um assistente especialista em facilitação com super poderes para analisar conversas. 
+    Explique que para acessar um assistente o usuário deve entrar na tela inicial do app acessando o botão no canto superior esquerda e iniciando uma nova conversa, ou selecionar no menu dropdown acima onde está escrito "Guia".
    Se ele tiver dúvidas recomende o acesso a esse site: [Tutorial dos assistentes de Org Design com IA](https://targetteal.notion.site/Assistentes-da-Target-Teal-de847f8a8b18480283ea0e56c820152e?pvs=4)
    Não responda qualquer tipo de pergunta que não esteja relacionada a esses agentes.
    Use markdown para formatar e estilizar as suas respostas.
    Use quebra de linhas para deixar o texto mais legível. `,
     symbol: '🗺️',
-    examples: ['Me ajude usar essa ferramenta', 'Me ajude a usar esse app', 'Tutorial guiado do uso das ferramentas'],
+    examples: ['Tutorial guiado do uso das ferramentas'],
   },
 };
 
 
-export type ChatModelId = 'gpt-4' | 'gpt-3.5-turbo';
+export type ChatModelId = 'gpt-4-0613' | 'gpt-3.5-turbo';
 
-export const defaultChatModelId: ChatModelId = 'gpt-4';
+export const defaultChatModelId: ChatModelId = 'gpt-4-0613';
 export const fastChatModelId: ChatModelId = 'gpt-3.5-turbo';
 
 type ChatModelData = {
@@ -226,10 +227,10 @@ type ChatModelData = {
 }
 
 export const ChatModels: { [key in ChatModelId]: ChatModelData } = {
-  'gpt-4': {
+  'gpt-4-0613': {
     description: 'Mais poderoso, porém mais caro',
-    title: 'GPT-4',
-    fullName: 'GPT-4',
+    title: 'gpt-4-0613',
+    fullName: 'gpt-4-0613',
     contextWindowSize: 8192,
     tradeoff: 'Preciso, lento e caro',
   },

@@ -107,7 +107,7 @@ function explainErrorInMessage(text: string, isAssistant: boolean, modelId?: str
       // note that "model_not_found" is different than "The model `gpt-xyz` does not exist" message
       errorMessage = <>
         The API key appears to be unauthorized for {modelId || 'this model'}. You can change to <b>GPT-3.5
-        Turbo</b> and simultaneously <Link noLinkStyle href='https://openai.com/waitlist/gpt-4-api' target='_blank'>request
+        Turbo</b> and simultaneously <Link noLinkStyle href='https://openai.com/waitlist/gpt-4-0613-api' target='_blank'>request
         access</Link> to the desired model.
       </>;
     } else if (text.includes('"context_length_exceeded"')) {

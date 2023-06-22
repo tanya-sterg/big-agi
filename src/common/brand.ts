@@ -16,7 +16,7 @@ export const Brand = {
     SiteName: 'Target Teal',
     Title: 'Assistentes de Ia para Org Design',
     Description: 'Assistentes de IA para apoiar o seu trabalho com Org Design',
-    Keywords: 'artificial general intelligence, org design, agi, openai, gpt-4, ai personas, code execution, pdf import, voice i/o, ai chat, artificial intelligence',
+    Keywords: 'artificial general intelligence, org design, agi, openai, gpt-4-0613, ai personas, code execution, pdf import, voice i/o, ai chat, artificial intelligence',
     ThemeColor: '#434356',
     TwitterSite: '@targetteal',
   },

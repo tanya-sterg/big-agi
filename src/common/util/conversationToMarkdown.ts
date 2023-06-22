@@ -4,7 +4,7 @@ import { SystemPurposes } from '../../data';
 
 export function prettyBaseModel(model: string | undefined): string {
   if (!model) return '';
-  if (model.startsWith('gpt-4')) return 'gpt-4';
+  if (model.startsWith('gpt-4-0613')) return 'gpt-4-0613';
   if (model.startsWith('gpt-3.5-turbo')) return '3.5 Turbo';
   return model;
 }
