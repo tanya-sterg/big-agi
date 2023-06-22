@@ -217,6 +217,8 @@ export type ChatModelId = 'gpt-4' | 'gpt-3.5-turbo' | 'gpt-4-0613';
 
 export const defaultChatModelId: ChatModelId = 'gpt-4';
 export const fastChatModelId: ChatModelId = 'gpt-3.5-turbo';
+export const newChatModelId: ChatModelId = 'gpt-4-0613';
+
 
 type ChatModelData = {
   description: string | JSX.Element;
