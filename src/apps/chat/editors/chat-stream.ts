@@ -8,6 +8,7 @@ import { autoTitle } from '~/modules/aifn/autotitle/autoTitle';
 import { findLLMOrThrow } from '~/modules/llms/store-llms';
 import { speakText } from '~/modules/elevenlabs/elevenlabs.client';
 import { useElevenlabsStore } from '~/modules/elevenlabs/store-elevenlabs';
+import { autoSuggestions } from '~/modules/aifn/autosuggestions/autoSuggestions.ts';
 
 import { DMessage, useChatStore } from '~/common/state/store-chats';
 
