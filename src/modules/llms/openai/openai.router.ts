@@ -81,9 +81,9 @@ export const openAIRouter = createTRPCRouter({
       const { access, model, history, functions } = input;
       const isFunctionsCall = !!functions && functions.length > 0;
 
-     const wireCompletions = await openaiPOST<OpenAI.Wire.ChatCompletion.Request, OpenAI.Wire.ChatCompletion.Response>(
+const wireCompletions = await openaiPOST<OpenAI.Wire.ChatCompletion.Request, OpenAI.Wire.ChatCompletion.Response>(
     access,
-    openAIChatCompletionPayload(model, history, functions, 1, false),
+    openAIChatCompletionPayload(model, history, functions ? functions : null, 1, false),
     '/v1/chat/completions',
 );
 
