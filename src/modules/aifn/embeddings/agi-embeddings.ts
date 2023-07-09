@@ -39,7 +39,7 @@ export const runEmbeddingsUpdatingState = async (conversationId: string, history
     startTyping(conversationId, null);
 
     // update text, if needed
-    await updateAutoConversationTitle(conversationId);
+    await autoTitle(conversationId);
 };
 
 export function appendSystemMessageToHistory(conversationId: string, history: DMessage[], systemMessage: DMessage): DMessage[] {
