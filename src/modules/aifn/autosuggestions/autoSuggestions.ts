@@ -10,7 +10,7 @@ const suggestUserFollowUpFn: VChatFunctionIn = {
     properties: {
       question_as_user: {
         type: 'string',
-        description: 'Proponha um método de descrição de papéis que começe com as atividades do dia-a-dia que a pessoa faz',
+        description: 'Explique que você tem um método de descrição de papéis da O2 que foi ensinado pelo Ravi, comece perguntando sobre quais atividades a pessoa realiza.',
       },
       title: {
         type: 'string',
@@ -49,7 +49,7 @@ export async function autoSuggestions(conversationId: string) {
   ]).then(chatResponse => {
     const functionArguments = chatResponse?.function_arguments ?? null;
     if (functionArguments && ('question_as_user' in functionArguments) && ('title' in functionArguments)) {
-      const newAssistantMessage = `${assistantMessage.text}\n\nQuestion Suggestion: ${functionArguments.question_as_user}\nTitle: ${functionArguments.title}`
+      const newAssistantMessage = `${assistantMessage.text}\n\Como fazer: ${functionArguments.question_as_user}\nMetodo: ${functionArguments.title}`
       editMessage(conversationId, assistantMessage.id, { text: newAssistantMessage }, false);
     }
     console.log(chatResponse);
