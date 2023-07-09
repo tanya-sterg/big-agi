@@ -145,17 +145,27 @@ const defaultFastSuffixPreference = ['gpt-3.5-turbo-0613', 'gpt-3.5-turbo-16k-06
 const defaultFuncSuffixPreference = ['gpt-3.5-turbo-0613', 'gpt-4-0613'];
 
 function findLlmIdBySuffix(llms: DLLM[], suffixes: string[], fallbackToFirst: boolean): DLLMId | null {
-  return 'gpt-4';
+  if (!llms?.length) return null;
+  for (const suffix of suffixes)
+    for (const llm of llms)
+      if (llm.id.endsWith(suffix))
+        return llm.id;
+  // otherwise return first id
+  return fallbackToFirst ? llms[0].id : null;
 }
 
 function updateSelectedIds(allLlms: DLLM[], chatLlmId: DLLMId | null, fastLlmId: DLLMId | null, funcLlmId: DLLMId | null): Partial<ModelsStore> {
-  chatLlmId = 'gpt-4';
-  fastLlmId = 'gpt-4';
-  funcLlmId = 'gpt-4';
+  if (chatLlmId && !allLlms.find(llm => llm.id === chatLlmId)) chatLlmId = null;
+  if (!chatLlmId) chatLlmId = findLlmIdBySuffix(allLlms, defaultChatSuffixPreference, true);
+
+  if (fastLlmId && !allLlms.find(llm => llm.id === fastLlmId)) fastLlmId = null;
+  if (!fastLlmId) fastLlmId = findLlmIdBySuffix(allLlms, defaultFastSuffixPreference, true);
+
+  if (funcLlmId && !allLlms.find(llm => llm.id === funcLlmId)) funcLlmId = null;
+  if (!funcLlmId) funcLlmId = findLlmIdBySuffix(allLlms, defaultFuncSuffixPreference, false);
 
   return { chatLLMId: chatLlmId, fastLLMId: fastLlmId, funcLLMId: funcLlmId };
 }
-
 
 export function findLLMOrThrow(llmId: DLLMId): DLLM {
   const llm = useModelsStore.getState().llms.find(llm => llm.id === llmId);
