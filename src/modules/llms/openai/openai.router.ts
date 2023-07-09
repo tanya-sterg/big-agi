@@ -234,7 +234,7 @@ export function openAIChatCompletionPayload(model: ModelSchema, history: History
   return {
     model: model.id,
     messages: history,
-    ...(functions && { functions: functions, function_call: 'auto' }),
+    ...(functions && { functions: functions, function_call: 'suggest_user_prompt' }),
     ...(model.temperature && { temperature: model.temperature }),
     ...(model.maxTokens && { max_tokens: model.maxTokens }),
     n,
