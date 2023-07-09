@@ -73,7 +73,7 @@ function linkToOrigin() {
 export function AppChat() {
 
   // state
-  const [chatModeId, setChatModeId] = React.useState<ChatModeId>('immediate');
+  const [chatModeId, setChatModeId] = React.useState<ChatModeId>('immediate-follow-up');
   const [isMessageSelectionMode, setIsMessageSelectionMode] = React.useState(false);
   const [clearConfirmationId, setClearConfirmationId] = React.useState<string | null>(null);
   const [deleteConfirmationId, setDeleteConfirmationId] = React.useState<string | null>(null);
