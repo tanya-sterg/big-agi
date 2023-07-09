@@ -1,4 +1,4 @@
-import {ChatModelId, SystemPurposeId, SystemPurposes} from '../../../data';
+import {ChatModelId, SystemPurposeId, SystemPurposes} from 'src/apps/chat/AppChat';
 import {createDMessage, DMessage, useChatStore} from '@/common/state/store-chats';
 
 import {OpenAI} from '@/modules/openai/openai.types';
