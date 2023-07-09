@@ -3,18 +3,28 @@ import { shallow } from 'zustand/shallow';
 
 import { Box, Container, useTheme } from '@mui/joy';
 
-import { useSettingsStore } from '@/common/state/store-settings';
-
+import { Configurator } from '~/modules/llms/configurator/Configurator';
 import { SettingsModal } from '../../apps/settings/SettingsModal';
 
-import { ApplicationBar } from '../components/appbar/ApplicationBar';
+import { isPwa } from '~/common/util/pwaUtils';
+import { useAppStateStore } from '~/common/state/store-appstate';
+import { useUIPreferencesStore } from '~/common/state/store-ui';
+
+import { ApplicationBar } from './appbar/ApplicationBar';
 import { NoSSR } from '../components/NoSSR';
 
 
-export function AppLayout(props: { children: React.ReactNode, noAppBar?: boolean, noSettings?: boolean }) {
+export function AppLayout(props: {
+  noAppBar?: boolean, suspendAutoModelsSetup?: boolean,
+  children: React.ReactNode,
+}) {
   // external state
   const theme = useTheme();
-  const { centerMode } = useSettingsStore(state => ({ centerMode: state.centerMode }), shallow);
+  const { centerMode } = useUIPreferencesStore(state => ({ centerMode: isPwa() ? 'full' : state.centerMode }), shallow);
+
+  // usage counter, for progressive disclosure of features
+  // noinspection JSUnusedLocalSymbols
+  const usageCount = useAppStateStore(state => state.usageCount);
 
   return (
     // Global NoSSR wrapper: the overall Container could have hydration issues when using localStorage and non-default maxWidth
@@ -26,12 +36,15 @@ export function AppLayout(props: { children: React.ReactNode, noAppBar?: boolean
         sx={{
           boxShadow: {
             xs: 'none',
-            md: centerMode === 'narrow' ? theme.vars.shadow.md : 'none',
-            xl: centerMode !== 'full' ? theme.vars.shadow.lg : 'none',
+            md: centerMode === 'narrow' ? theme.shadow.md : 'none',
+            xl: centerMode !== 'full' ? theme.shadow.lg : 'none',
           },
         }}>
 
-        <Box sx={{ display: 'flex', flexDirection: 'column', height: '100dvh' }}>
+        <Box sx={{
+          display: 'flex', flexDirection: 'column',
+          height: '100dvh',
+        }}>
 
           {!props.noAppBar && <ApplicationBar sx={{
             zIndex: 20, // position: 'sticky', top: 0,
@@ -44,7 +57,9 @@ export function AppLayout(props: { children: React.ReactNode, noAppBar?: boolean
 
       </Container>
 
-      {!props.noSettings && <SettingsModal />}
+      <SettingsModal />
+
+      <Configurator suspendAutoModelsSetup={props.suspendAutoModelsSetup} />
 
     </NoSSR>
   );

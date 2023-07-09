@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { shallow } from 'zustand/shallow';
 
 import { Alert, Avatar, Box, Button, CircularProgress, IconButton, ListDivider, ListItem, ListItemDecorator, Menu, MenuItem, Stack, Theme, Tooltip, Typography, useTheme } from '@mui/joy';
 import { SxProps } from '@mui/joy/styles/types';
@@ -15,17 +16,17 @@ import ReplayIcon from '@mui/icons-material/Replay';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined';
 
-import { requireUserKeyElevenLabs, speakText } from '@/modules/elevenlabs/elevenlabs.client';
-import { requireUserKeyProdia } from '@/modules/prodia/prodia.client';
+import { canUseElevenLabs, speakText } from '~/modules/elevenlabs/elevenlabs.client';
+import { canUseProdia } from '~/modules/prodia/prodia.client';
 
-import { DMessage } from '@/common/state/store-chats';
-import { InlineTextarea } from '@/common/components/InlineTextarea';
-import { Link } from '@/common/components/Link';
+import { DMessage } from '~/common/state/store-chats';
+import { InlineTextarea } from '~/common/components/InlineTextarea';
+import { Link } from '~/common/components/Link';
 import { SystemPurposeId, SystemPurposes } from '../../../../data';
-import { copyToClipboard } from '@/common/util/copyToClipboard';
-import { cssRainbowColorKeyframes } from '@/common/theme';
-import { prettyBaseModel } from '@/common/util/conversationToMarkdown';
-import { useSettingsStore } from '@/common/state/store-settings';
+import { copyToClipboard } from '~/common/util/copyToClipboard';
+import { cssRainbowColorKeyframes } from '~/common/theme';
+import { prettyBaseModel } from '~/common/util/conversationToMarkdown';
+import { useUIPreferencesStore } from '~/common/state/store-ui';
 
 import { RenderCode } from './RenderCode';
 import { RenderHtml } from './RenderHtml';
@@ -112,7 +113,7 @@ function explainErrorInMessage(text: string, isAssistant: boolean, modelId?: str
       </>;
     } else if (text.includes('"context_length_exceeded"')) {
       // TODO: propose to summarize or split the input?
-      const pattern: RegExp = /maximum context length is (\d+) tokens.+you requested (\d+) tokens/;
+      const pattern = /maximum context length is (\d+) tokens.+you requested (\d+) tokens/;
       const match = pattern.exec(text);
       const usedText = match ? <b>{parseInt(match[2] || '0').toLocaleString()} tokens &gt; {parseInt(match[1] || '0').toLocaleString()}</b> : '';
       errorMessage = <>
@@ -171,11 +172,15 @@ export function ChatMessage(props: { message: DMessage, isBottom: boolean, onMes
 
   // external state
   const theme = useTheme();
-  const showAvatars = useSettingsStore(state => state.zenMode) !== 'cleaner';
-  const renderMarkdown = useSettingsStore(state => state.renderMarkdown) && !fromSystem;
-  const isImaginable = !!useSettingsStore(state => state.prodiaModelId) || !requireUserKeyProdia;
+  const { showAvatars, renderMarkdown: _renderMarkdown, doubleClickToEdit } = useUIPreferencesStore(state => ({
+    showAvatars: state.zenMode !== 'cleaner',
+    renderMarkdown: state.renderMarkdown,
+    doubleClickToEdit: state.doubleClickToEdit,
+  }), shallow);
+  const renderMarkdown = _renderMarkdown && !fromSystem;
+  const isImaginable = canUseProdia();
   const isImaginableEnabled = messageText?.length > 5 && !messageText.startsWith('https://images.prodia.xyz/') && !(messageText.startsWith('/imagine') || messageText.startsWith('/img'));
-  const isSpeakable = !!useSettingsStore(state => state.elevenLabsVoiceId) || !requireUserKeyElevenLabs;
+  const isSpeakable = canUseElevenLabs();
 
   const closeOperationsMenu = () => setMenuAnchor(null);
 
@@ -186,6 +191,7 @@ export function ChatMessage(props: { message: DMessage, isBottom: boolean, onMes
   };
 
   const handleMenuEdit = (e: React.MouseEvent) => {
+    if (messageTyping && !isEditing) return; // don't allow editing while typing
     setIsEditing(!isEditing);
     e.preventDefault();
     closeOperationsMenu();
@@ -227,7 +233,7 @@ export function ChatMessage(props: { message: DMessage, isBottom: boolean, onMes
   const { isAssistantError, errorMessage } = explainErrorInMessage(messageText, fromAssistant, messageOriginLLM);
 
   // style
-  let background = messageBackground(theme, messageRole, wasEdited, isAssistantError && !errorMessage);
+  const background = messageBackground(theme, messageRole, wasEdited, isAssistantError && !errorMessage);
 
   // avatar
   const avatarEl: React.JSX.Element | null = React.useMemo(
@@ -263,7 +269,7 @@ export function ChatMessage(props: { message: DMessage, isBottom: boolean, onMes
   return (
     <ListItem sx={{
       display: 'flex', flexDirection: !fromAssistant ? 'row-reverse' : 'row', alignItems: 'flex-start',
-      gap: 1, px: { xs: 1, md: 2 }, py: 2,
+      gap: { xs: 0, md: 1}, px: { xs: 1, md: 2 }, py: 2,
       background,
       borderBottom: `1px solid ${theme.vars.palette.divider}`,
       // borderBottomColor: `rgba(${theme.vars.palette.neutral.mainChannel} / 0.2)`,
@@ -274,7 +280,7 @@ export function ChatMessage(props: { message: DMessage, isBottom: boolean, onMes
 
       {/* Avatar */}
       {showAvatars && <Stack
-        sx={{ alignItems: 'center', minWidth: { xs: 50, md: 64 }, textAlign: 'center' }}
+        sx={{ alignItems: 'center', minWidth: { xs: 50, md: 64 }, maxWidth: 80, textAlign: 'center' }}
         onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}
         onClick={event => setMenuAnchor(event.currentTarget)}>
 
@@ -288,10 +294,11 @@ export function ChatMessage(props: { message: DMessage, isBottom: boolean, onMes
 
         {fromAssistant && (
           <Tooltip title={messageOriginLLM || 'unk-model'} variant='solid'>
-            <Typography level='body2' sx={messageTyping
-              ? { animation: `${cssRainbowColorKeyframes} 5s linear infinite`, fontWeight: 500 }
-              : { fontWeight: 500 }
-            }>
+            <Typography level='body2' sx={{
+              fontSize: { xs: 'xs', sm: 'sm' }, fontWeight: 500,
+              overflowWrap: 'anywhere',
+              ...(messageTyping ? { animation: `${cssRainbowColorKeyframes} 5s linear infinite` } : {}),
+            }}>
               {prettyBaseModel(messageOriginLLM)}
             </Typography>
           </Tooltip>
@@ -303,7 +310,7 @@ export function ChatMessage(props: { message: DMessage, isBottom: boolean, onMes
       {/* Edit / Blocks */}
       {!isEditing ? (
 
-        <Box sx={{ ...cssBlock, flexGrow: 0 }} onDoubleClick={handleMenuEdit}>
+        <Box sx={{ ...cssBlock, flexGrow: 0 }} onDoubleClick={(e) => doubleClickToEdit ? handleMenuEdit(e) : null }>
 
           {fromSystem && wasEdited && (
             <Typography level='body2' color='warning' sx={{ mt: 1, mx: 1.5 }}>modified by user - auto-update disabled</Typography>
@@ -327,7 +334,9 @@ export function ChatMessage(props: { message: DMessage, isBottom: boolean, onMes
             </Tooltip>
           )}
 
-          {isCollapsed && <Button variant='plain' onClick={handleExpand}>... expand ...</Button>}
+          {isCollapsed && (
+            <Button variant='plain' onClick={handleExpand}>... expand ...</Button>
+          )}
 
           {/* import VisibilityIcon from '@mui/icons-material/Visibility'; */}
           {/*<br />*/}
@@ -371,7 +380,7 @@ export function ChatMessage(props: { message: DMessage, isBottom: boolean, onMes
           <MenuItem onClick={handleMenuEdit}>
             <ListItemDecorator><EditIcon /></ListItemDecorator>
             {isEditing ? 'Discard' : 'Edit'}
-            {!isEditing && <span style={{ opacity: 0.5, marginLeft: '8px' }}> (double-click)</span>}
+            {!isEditing && <span style={{ opacity: 0.5, marginLeft: '8px' }}>{doubleClickToEdit ? '(double-click)' : ''}</span>}
           </MenuItem>
           {isImaginable && isImaginableEnabled && (
             <MenuItem onClick={handleMenuImagine} disabled={!isImaginableEnabled || isImagining}>
