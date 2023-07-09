@@ -38,8 +38,11 @@ export async function runAssistantUpdatingState(conversationId: string, history:
   // update text, if needed
   if (_autoTitle)
     await autoTitle(conversationId);
-}
 
+  // Auto Suggestions
+  if (_autoSuggestions)
+    await autoSuggestions(conversationId);
+}
 
 async function streamAssistantMessage(
   conversationId: string, assistantMessageId: string,
