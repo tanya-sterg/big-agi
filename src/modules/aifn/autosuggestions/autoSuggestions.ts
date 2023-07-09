@@ -4,13 +4,13 @@ import { useChatStore } from '~/common/state/store-chats';
 
 const suggestUserFollowUpFn: VChatFunctionIn = {
   name: 'suggest_user_prompt',
-  description: 'Para sugerir um jeito de descrever papéis',
+  description: 'Para sugerir métodos úteis no design organizacional, como descrever papéis e mapear círculos.',
   parameters: {
     type: 'object',
     properties: {
       question_as_user: {
         type: 'string',
-        description: 'Explique que você tem um método de descrição de papéis da O2 que foi ensinado pelo Ravi, comece perguntando sobre quais atividades a pessoa realiza.',
+        description: 'Pergunte como se o usuário quisesse um método da tecnologia social O2',
       },
       title: {
         type: 'string',
@@ -30,7 +30,7 @@ export async function autoSuggestions(conversationId: string) {
   const { funcLLMId } = useModelsStore.getState();
   if (!funcLLMId) return;
 
-  // only operate on valid conversations, without any title
+  // only operate on valid conversations
   const { conversations, editMessage } = useChatStore.getState();
   const conversation = conversations.find(c => c.id === conversationId) ?? null;
   if (!conversation) return;
@@ -49,7 +49,7 @@ export async function autoSuggestions(conversationId: string) {
   ]).then(chatResponse => {
     const functionArguments = chatResponse?.function_arguments ?? null;
     if (functionArguments && ('question_as_user' in functionArguments) && ('title' in functionArguments)) {
-      const newAssistantMessage = `${assistantMessage.text}\n\Como fazer: ${functionArguments.question_as_user}\nMetodo: ${functionArguments.title}`
+      const newAssistantMessage = `${assistantMessage.text}\n\Pergunta segundo a O2: ${functionArguments.question_as_user}\nMetodo: ${functionArguments.title}`
       editMessage(conversationId, assistantMessage.id, { text: newAssistantMessage }, false);
     }
     console.log(chatResponse);
