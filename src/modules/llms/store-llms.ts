@@ -140,30 +140,18 @@ export const useModelsStore = create<ModelsStore>()(
     }),
 );
 
-
 const defaultChatSuffixPreference = ['gpt-4-0613', 'gpt-4', 'gpt-4-32k', 'gpt-3.5-turbo'];
 const defaultFastSuffixPreference = ['gpt-3.5-turbo-0613', 'gpt-3.5-turbo-16k-0613', 'gpt-3.5-turbo-16k', 'gpt-3.5-turbo'];
 const defaultFuncSuffixPreference = ['gpt-3.5-turbo-0613', 'gpt-4-0613'];
 
 function findLlmIdBySuffix(llms: DLLM[], suffixes: string[], fallbackToFirst: boolean): DLLMId | null {
-  if (!llms?.length) return null;
-  for (const suffix of suffixes)
-    for (const llm of llms)
-      if (llm.id.endsWith(suffix))
-        return llm.id;
-  // otherwise return first id
-  return fallbackToFirst ? llms[0].id : null;
+  return 'gpt-4';
 }
 
 function updateSelectedIds(allLlms: DLLM[], chatLlmId: DLLMId | null, fastLlmId: DLLMId | null, funcLlmId: DLLMId | null): Partial<ModelsStore> {
-  if (chatLlmId && !allLlms.find(llm => llm.id === chatLlmId)) chatLlmId = null;
-  if (!chatLlmId) chatLlmId = findLlmIdBySuffix(allLlms, defaultChatSuffixPreference, true);
-
-  if (fastLlmId && !allLlms.find(llm => llm.id === fastLlmId)) fastLlmId = null;
-  if (!fastLlmId) fastLlmId = findLlmIdBySuffix(allLlms, defaultFastSuffixPreference, true);
-
-  if (funcLlmId && !allLlms.find(llm => llm.id === funcLlmId)) funcLlmId = null;
-  if (!funcLlmId) funcLlmId = findLlmIdBySuffix(allLlms, defaultFuncSuffixPreference, false);
+  chatLlmId = 'gpt-4';
+  fastLlmId = 'gpt-4';
+  funcLlmId = 'gpt-4';
 
   return { chatLLMId: chatLlmId, fastLLMId: fastLlmId, funcLLMId: funcLlmId };
 }
