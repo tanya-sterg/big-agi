@@ -1,42 +1,25 @@
 import { callChatGenerateWithFunctions, VChatFunctionIn } from '~/modules/llms/llm.client';
 import { useModelsStore } from '~/modules/llms/store-llms';
-
 import { useChatStore } from '~/common/state/store-chats';
-
 
 const suggestUserFollowUpFn: VChatFunctionIn = {
   name: 'suggest_user_prompt',
-  description: 'Surprises the user with a thought-provoking question/prompt/contrarian idea',
+  description: 'Para sugerir um jeito de descrever papéis',
   parameters: {
     type: 'object',
     properties: {
       question_as_user: {
         type: 'string',
-        description: 'The concise and insightful question that we propose the user should ask, designed to provoke deep thought and stimulate conversation',
+        description: 'Proponha um método de descrição de papéis que começe com as atividades do dia-a-dia que a pessoa faz',
       },
       title: {
         type: 'string',
-        description: 'Very brief title, e.g. Meaning of Life',
+        description: 'Título do Método, e.g. Descritor Master de Papéis',
       },
     },
     required: ['question_as_user', 'title'],
   },
 };
-
-const suggestPlantUMLFn: VChatFunctionIn = {
-  name: 'add_user_suggested_plantuml',
-  description: 'Adds a PlantUML diagram to the chat, if the content can be best represented as a diagram and there is no other diagram yet',
-  parameters: {
-    type: 'object',
-    properties: {
-      plantuml: {
-        type: 'string',
-        description: 'The PlantUML diagram, as a string',
-      }
-    }
-  }
-}
-
 
 /**
  * Formulates proposals for follow-up questions, prompts, and counterpoints, based on the last 2 chat messages
@@ -65,21 +48,11 @@ export async function autoSuggestions(conversationId: string) {
   ], [
     suggestUserFollowUpFn,
   ]).then(chatResponse => {
-    console.log(chatResponse);
-  });
-
-  callChatGenerateWithFunctions(funcLLMId, [
-    { role: 'system', content: systemMessage.text },
-    { role: 'user', content: userMessage.text },
-    { role: 'assistant', content: assistantMessage.text },
-  ], [
-    suggestPlantUMLFn,
-  ]).then(chatResponse => {
     const functionArguments = chatResponse?.function_arguments ?? null;
-    if (functionArguments && ('plantuml' in functionArguments)) {
-      editMessage(conversationId, assistantMessage.id, { text: assistantMessage.text + '\n\n```\n' + functionArguments.plantuml + '\n```\n' }, false);
+    if (functionArguments && ('question_as_user' in functionArguments) && ('title' in functionArguments)) {
+      const newAssistantMessage = `${assistantMessage.text}\n\nQuestion Suggestion: ${functionArguments.question_as_user}\nTitle: ${functionArguments.title}`
+      editMessage(conversationId, assistantMessage.id, { text: newAssistantMessage }, false);
     }
     console.log(chatResponse);
   });
-
 }
