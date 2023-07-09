@@ -33,12 +33,11 @@ export async function autoSuggestions(conversationId: string) {
   // only operate on valid conversations, without any title
   const { conversations, editMessage } = useChatStore.getState();
   const conversation = conversations.find(c => c.id === conversationId) ?? null;
-  if (!conversation || conversation.messages.length < 3) return;
+  if (!conversation) return;
 
   // get the first message of the conversation, and the last 2
   const systemMessage = conversation.messages[0];
   const [userMessage, assistantMessage] = conversation.messages.slice(-2);
-  if (!(systemMessage?.role === 'system') || !(userMessage?.role === 'user') || !(assistantMessage?.role === 'assistant')) return;
 
   // LLM
   callChatGenerateWithFunctions(funcLLMId, [
