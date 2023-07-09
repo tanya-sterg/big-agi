@@ -8,10 +8,11 @@ export type ModelVendorCallChatFn = (llm: DLLM, messages: VChatMessageIn[], maxT
 export type ModelVendorCallChatWithFunctionsFn = (llm: DLLM, messages: VChatMessageIn[], functions: VChatFunctionIn[], maxTokens?: number) => Promise<VChatMessageOrFunctionCallOut>;
 
 export interface VChatMessageIn {
-  role: 'assistant' | 'system' | 'user'; | 'function';
+  role: 'assistant' | 'system' | 'user' | 'function';
   content: string;
-  //name?: string; // when role: 'function'
+  name?: string; // when role: 'function'
 }
+
 
 export type VChatFunctionIn = OpenAI.Wire.ChatCompletion.RequestFunctionDef;
 
