@@ -3,15 +3,16 @@ import { ChatGenerateSchema } from '~/modules/llms/openai/openai.router';
 import { DLLMId } from '~/modules/llms/llm.types';
 import { LLMOptionsOpenAI, normalizeOAISetup, SourceSetupOpenAI } from '~/modules/llms/openai/openai.vendor';
 import { OpenAI } from '~/modules/llms/openai/openai.types';
-import { SystemPurposeId } from '../../../data';
+import { SystemPurposeId, SystemPurposes } from '../../../data';
 import { autoTitle } from '~/modules/aifn/autotitle/autoTitle';
 import { findLLMOrThrow } from '~/modules/llms/store-llms';
 import { speakText } from '~/modules/elevenlabs/elevenlabs.client';
 import { useElevenlabsStore } from '~/modules/elevenlabs/store-elevenlabs';
-import { DMessage, useChatStore } from '~/common/state/store-chats';
+import { DMessage, useChatStore, createDMessage } from '~/common/state/store-chats';
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { PineconeClient } from "@pinecone-database/pinecone";
 import { PineconeStore } from "langchain/vectorstores/pinecone";
+import { callPublish } from '~/modules/aifn/embeddings/embeddings.client';
 
 
 

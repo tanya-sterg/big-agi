@@ -4,7 +4,7 @@ import {NextRequest, NextResponse} from 'next/server';
 
 import {PineconeClient} from "@pinecone-database/pinecone";
 import {OpenAIEmbeddings} from "langchain/embeddings/openai";
-import {openAIAccess} from "scr/modules/llms/openai/openai.router";
+import {openAIAccess} from "~/modules/llms/openai/openai.router";
 import {PineconeStore} from "langchain/vectorstores/pinecone";
 
 
