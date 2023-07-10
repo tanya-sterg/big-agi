@@ -1,7 +1,7 @@
 import {Document} from "langchain/dist/document";
-import {Brand} from "@/common/brand";
-import {useSettingsStore} from "@/common/state/store-settings";
-import {getOpenAISettings} from "@/modules/openai/openai.client";
+import {Brand} from "scr/common/brand";
+import {useSettingsStore} from "scr/common/state/store-settings";
+import {openAIAccess} from "scr/modules/llms/openai/openai.router";
 
 export const requireUserKeyEmbeddings = !process.env.HAS_SERVER_KEY_OPENAI_EMBEDDINGS;
 
@@ -20,7 +20,7 @@ export async function callPublish(question: string): Promise<string | null> {
             dbHost: '59ae7db1-15f6-46e9-82c5-84b2ef7f2953',
             indexdb: index,
             docsCount:docsCount,
-            openaiKey: getOpenAISettings().apiKey,
+            openaiKey: openAIAccess().oaiKey,
             origin: getOrigin(),
         };
 

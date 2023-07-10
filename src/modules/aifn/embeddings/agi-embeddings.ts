@@ -4,7 +4,6 @@ import { DLLMId } from '~/modules/llms/llm.types';
 import { LLMOptionsOpenAI, normalizeOAISetup, SourceSetupOpenAI } from '~/modules/llms/openai/openai.vendor';
 import { OpenAI } from '~/modules/llms/openai/openai.types';
 import { SystemPurposeId } from '../../../data';
-import { apiAsync } from '~/modules/trpc/trpc.client';
 import { autoTitle } from '~/modules/aifn/autotitle/autoTitle';
 import { findLLMOrThrow } from '~/modules/llms/store-llms';
 import { speakText } from '~/modules/elevenlabs/elevenlabs.client';
