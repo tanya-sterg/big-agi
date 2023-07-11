@@ -45,9 +45,19 @@ export async function autoSuggestions(conversationId: string) {
   ], [
     suggestUserFollowUpFn,
   ]).then(chatResponse => {
-    const functionArguments = chatResponse?.function_arguments ?? null;
-    if (functionArguments && ('question_as_user' in functionArguments)) {
-      editMessage(conversationId, assistantMessage.id, { text: assistantMessage.text + '\n\n```\n' + functionArguments.question_as_user + '\n```\n' }, false);
+    const functionArguments = chatResponse?.function_arguments as { question_as_user?: string } ?? null;
+    if (functionArguments && typeof functionArguments.question_as_user === 'string') {
+      const question = functionArguments.question_as_user;
+      editMessage(conversationId, assistantMessage.id, { text: assistantMessage.text + '\n\n```\n' + question + '\n```\n' }, false);
+
+      // Agora chame a função runEmbeddingsUpdatingState.
+      runEmbeddingsUpdatingState(conversationId, conversation.messages, question, funcLLMId)
+        .then(() => {
+          console.log('Embeddings updated.');
+        })
+        .catch(err => {
+          console.error('Error updating embeddings:', err);
+        });
     }
     console.log(chatResponse);
   });
