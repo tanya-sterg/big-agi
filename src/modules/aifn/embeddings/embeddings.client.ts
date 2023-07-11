@@ -28,20 +28,21 @@ export async function callPublish(question: string): Promise<string | null> {
             body: JSON.stringify(body),
         });
 
-        if (response.ok) {
-            const res = await response.json();
+        if (!response.ok) {
+            const text = await response.text();
+            throw new Error(`Failed to request db. Status: ${response.status}. Body: ${text}`);
 
-            if (res.type === 'success') {
+         //   if (res.type === 'success') {
                 // we log this to the console for extra safety
-                console.log('Data from middleware', res);
-                return res.prompt
-            }
+          //      console.log('Data from middleware', res);
+          //      return res.prompt
+           // }
 
-            if (res.type === 'error')
-                throw new Error(`Failed to send the req`);
+          //  if (res.type === 'error')
+            //    throw new Error(`Failed to send the req`);
         }
 
-        throw new Error(`Failed to request db`);
+       // throw new Error(`Failed to request db`);
 
     } catch (error) {
         console.error('Publish issue', error);
