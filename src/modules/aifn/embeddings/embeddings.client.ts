@@ -18,7 +18,7 @@ export async function callPublish(question: string): Promise<string | null> {
             dbHost: '59ae7db1-15f6-46e9-82c5-84b2ef7f2953',
             indexdb: 'tt-kb',
             docsCount:'1',
-            openaiKey: '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,
+            openaiKey: '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',
             origin: getOrigin(),
         };
 
