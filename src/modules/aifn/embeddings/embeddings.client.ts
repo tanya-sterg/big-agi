@@ -15,7 +15,7 @@ export async function callPublish(question: string): Promise<string | null> {
       try {
         const body = {
             to: "pinecone.com",
-            question: question,
+            question: "Como analisar papéis",
             dbHost: '59ae7db1-15f6-46e9-82c5-84b2ef7f2953',
             indexdb: index,
             docsCount:docsCount,
