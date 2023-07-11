@@ -1,31 +1,27 @@
-import { callChatGenerateWithFunctions, VChatFunctionIn } from '~/modules/llms/llm.client';
+import { VChatFunctionIn } from '~/modules/llms/llm.client';
 import { useModelsStore } from '~/modules/llms/store-llms';
 import { useChatStore } from '~/common/state/store-chats';
+import { runEmbeddingsUpdatingState } from '~/modules/aifn/embeddings/agi-embeddings';
 
 const suggestUserFollowUpFn: VChatFunctionIn = {
-  name: 'suggest_user_prompt',
-  description: 'Para sugerir métodos úteis no design organizacional, como descrever papéis e mapear círculos.',
+  name: 'search_database',
+  description: 'Para buscar na base de dados da Target Teal métodos úteis no design organizacional, como descrever papéis e mapear círculos.',
   parameters: {
     type: 'object',
     properties: {
       question_as_user: {
         type: 'string',
-        description: 'Pergunte como se o usuário quisesse um método da tecnologia social O2',
+        description: 'Cite o nome do método útil para o usuário',
       },
-      title: {
-        type: 'string',
-        description: 'Título do Método, e.g. Descritor Master de Papéis',
-      },
-    },
-    required: ['question_as_user', 'title'],
+          },
+    required: ['question_as_user'],
   },
 };
 
 /**
- * Formulates proposals for follow-up questions, prompts, and counterpoints, based on the last 2 chat messages
+ * Para buscar no Pinecone info para a sysmsg
  */
 export async function autoSuggestions(conversationId: string) {
-
   // use valid fast model
   const { funcLLMId } = useModelsStore.getState();
   if (!funcLLMId) return;
@@ -39,19 +35,13 @@ export async function autoSuggestions(conversationId: string) {
   const systemMessage = conversation.messages[0];
   const [userMessage, assistantMessage] = conversation.messages.slice(-2);
 
-  // LLM
-  callChatGenerateWithFunctions(funcLLMId, [
-    { role: 'system', content: systemMessage.text },
-    { role: 'user', content: userMessage.text },
-    { role: 'assistant', content: assistantMessage.text },
-  ], [
-    suggestUserFollowUpFn,
-  ]).then(chatResponse => {
-    const functionArguments = chatResponse?.function_arguments ?? null;
-    if (functionArguments && ('question_as_user' in functionArguments) && ('title' in functionArguments)) {
-      const newAssistantMessage = `${assistantMessage.text}\n\Pergunta segundo a O2: ${functionArguments.question_as_user}\nMetodo: ${functionArguments.title}`
-      editMessage(conversationId, assistantMessage.id, { text: newAssistantMessage }, false);
-    }
-    console.log(chatResponse);
-  });
+  // Parse assistant message and extract 'question_as_user' from functionArguments
+  const functionArguments = JSON.parse(assistantMessage.text);
+  const question = functionArguments.question_as_user;
+  if (!question) return;
+
+  // runEmbeddingsUpdatingState function call
+  const chatResponse = await runEmbeddingsUpdatingState(conversationId, conversation.messages, question, funcLLMId);
+
+  console.log(chatResponse);
 }
