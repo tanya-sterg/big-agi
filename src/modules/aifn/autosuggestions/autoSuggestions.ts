@@ -49,7 +49,7 @@ export async function autoSuggestions(conversationId: string) {
     if (functionArguments && typeof functionArguments.question_as_user === 'string') {
       const functionArguments = JSON.parse(assistantMessage.text);
       const question = functionArguments.question_as_user;
-      editMessage(conversationId, assistantMessage.id, { text: question }, false);
+      editMessage(conversationId, assistantMessage.id, { text: 'rodou mas não tem question' + question }, false);
 
       // Agora chame a função runEmbeddingsUpdatingState.
       runEmbeddingsUpdatingState(conversationId, conversation.messages, question, funcLLMId)
