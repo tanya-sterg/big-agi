@@ -9,7 +9,7 @@ export const isValidDatabaseUrl = (apiKey?: string) => !!apiKey /*&& apiKey.star
 
 export const CmdRunEmbeddings: string[] = ['/embed', '/','/ '];
 export const embeddingsDefaultDocCount: string = '1';
-
+const openaiKey = process.env.OPENAI_API_KEY || '';
 export async function callPublish(question: string): Promise<string | null> {
       try {
         const body = {
@@ -18,7 +18,7 @@ export async function callPublish(question: string): Promise<string | null> {
             dbHost: '59ae7db1-15f6-46e9-82c5-84b2ef7f2953',
             indexdb: 'tt-kb',
             docsCount:'1',
-            openaiKey: '',
+            openaiKey: openaiKey,
             origin: getOrigin(),
         };
 
