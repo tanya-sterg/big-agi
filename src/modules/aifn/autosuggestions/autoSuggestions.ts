@@ -45,11 +45,16 @@ export async function autoSuggestions(conversationId: string) {
   ], [
     suggestUserFollowUpFn,
   ]).then(chatResponse => {
-    const functionArguments = chatResponse?.function_arguments as { question_as_user?: string } ?? null;
-    if (functionArguments && typeof functionArguments.question_as_user === 'string') {
-      const functionArguments = JSON.parse(assistantMessage.text);
-      const question = functionArguments.question_as_user;
+    // Supondo que `chatResponse.function_arguments` esteja em formato de string JSON.
+    let functionArguments = null;
+    if (chatResponse?.function_arguments && typeof chatResponse?.function_arguments === 'string') {
+      functionArguments = JSON.parse(chatResponse.function_arguments);
+    }
+
+    const question = functionArguments?.question_as_user;
+    if (question) {
       editMessage(conversationId, assistantMessage.id, { text: 'rodou mas não tem question' + question }, false);
+
 
       // Agora chame a função runEmbeddingsUpdatingState.
       runEmbeddingsUpdatingState(conversationId, conversation.messages, question, funcLLMId)
