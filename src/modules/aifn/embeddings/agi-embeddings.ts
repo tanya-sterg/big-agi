@@ -9,9 +9,7 @@ import { findLLMOrThrow } from '~/modules/llms/store-llms';
 import { speakText } from '~/modules/elevenlabs/elevenlabs.client';
 import { useElevenlabsStore } from '~/modules/elevenlabs/store-elevenlabs';
 import { DMessage, useChatStore, createDMessage } from '~/common/state/store-chats';
-import { OpenAIEmbeddings } from "langchain/embeddings/openai";
-import { PineconeClient } from "@pinecone-database/pinecone";
-import { PineconeStore } from "langchain/vectorstores/pinecone";
+
 import { callPublish } from '~/modules/aifn/embeddings/embeddings.client';
 import { apiAsync } from '~/modules/trpc/trpc.client';
 
