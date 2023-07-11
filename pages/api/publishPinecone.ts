@@ -28,7 +28,7 @@ Se o conteúdo não tiver relação, diga que sua pesquisa não encontrou inform
         });
 
    const embeddings = new OpenAIEmbeddings({
-    openAIApiKey: openaiKey
+    openAIApiKey: process.env.OPENAI_API_KEY
 });
 const pineconeIndex = client.Index(index);
 const docsearch = await PineconeStore.fromExistingIndex(embeddings, {pineconeIndex});
