@@ -33,9 +33,9 @@ export async function autoSuggestions(conversationId: string) {
   const conversation = conversations.find(c => c.id === conversationId) ?? null;
   if (!conversation) return;
 
-  // get the first message of the conversation, and the last 2
+  // get the first message of the conversation, and the last 1
   const systemMessage = conversation.messages[0];
-  const [userMessage, assistantMessage] = conversation.messages.slice(-2);
+  const [userMessage, assistantMessage] = conversation.messages.slice(-1);
 
   //LLM
   callChatGenerateWithFunctions(funcLLMId, [
