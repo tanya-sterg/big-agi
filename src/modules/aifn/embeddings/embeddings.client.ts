@@ -1,26 +1,23 @@
 import {Document} from "langchain/dist/document";
 import {Brand} from "~/common/brand";
-import {useSettingsStore} from "~/common/state/store-chats";
-import {openAIAccess} from "~/modules/llms/openai/openai.router";
+
+
 
 export const requireUserKeyEmbeddings = !process.env.HAS_SERVER_KEY_OPENAI_EMBEDDINGS;
 
 export const isValidDatabaseUrl = (apiKey?: string) => !!apiKey /*&& apiKey.startsWith("redis")*/;
 
-export const embeddingsDefaultIndex: string = 'tt-kb';
 export const CmdRunEmbeddings: string[] = ['/embed', '/','/ '];
 export const embeddingsDefaultDocCount: string = '1';
 
 export async function callPublish(question: string): Promise<string | null> {
-    const {embeddingsApiKey:dbHost, embeddingsIndex:index, embeddingsDocs:docsCount} = useSettingsStore.getState(); // não precisamos pegar esseas variáveis do state ou settings, pode estar direto no Env ou hardcode
-    try {
+      try {
         const body = {
             to: "pinecone.com",
             question: question,
             dbHost: '59ae7db1-15f6-46e9-82c5-84b2ef7f2953',
-            indexdb: index,
-            docsCount:docsCount,
-            openaiKey: openAIAccess().oaiKey,
+            indexdb: 'tt-kb',
+            docsCount:'1',
             origin: getOrigin(),
         };
 
