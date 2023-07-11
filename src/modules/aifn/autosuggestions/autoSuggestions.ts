@@ -18,6 +18,20 @@ const suggestUserFollowUpFn: VChatFunctionIn = {
   },
 };
 
+const suggestPlantUMLFn: VChatFunctionIn = {
+  name: 'add_user_suggested_plantuml',
+  description: 'Adds a PlantUML diagram to the chat, if the content can be best represented as a diagram and there is no other diagram yet',
+  parameters: {
+    type: 'object',
+    properties: {
+      plantuml: {
+        type: 'string',
+        description: 'The PlantUML diagram, as a string',
+      }
+    }
+  }
+}
+
 /**
  * Para buscar no Pinecone info para a sysmsg
  */
@@ -46,13 +60,26 @@ export async function autoSuggestions(conversationId: string) {
     console.log(chatResponse);
   });
 
+  callChatGenerateWithFunctions(funcLLMId, [
+    { role: 'system', content: systemMessage.text },
+    { role: 'user', content: userMessage.text },
+    { role: 'assistant', content: assistantMessage.text },
+  ], [
+    suggestPlantUMLFn,
+  ]).then(chatResponse => {
+    const functionArguments = chatResponse?.function_arguments ?? null;
+    if (functionArguments && ('plantuml' in functionArguments)) {
+      editMessage(conversationId, assistantMessage.id, { text: assistantMessage.text + '\n\n```\n' + functionArguments.plantuml + '\n```\n' }, false);
+    }
+    console.log(chatResponse);
+  });
     // Parse assistant message and extract 'question_as_user' from functionArguments
-  const functionArguments = JSON.parse(assistantMessage.text);
-  const question = functionArguments.question_as_user;
-  if (!question) return;
+ // const functionArguments = JSON.parse(assistantMessage.text);
+  //const question = functionArguments.question_as_user;
+ // if (!question) return;
 
   // runEmbeddingsUpdatingState function call
-  const chatResponse = await runEmbeddingsUpdatingState(conversationId, conversation.messages, question, funcLLMId);
+  //const chatResponse = await runEmbeddingsUpdatingState(conversationId, conversation.messages, question, funcLLMId);
 
-  console.log(chatResponse);
+  //console.log(chatResponse);
 }
