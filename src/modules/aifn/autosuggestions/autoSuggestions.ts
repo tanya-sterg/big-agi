@@ -47,8 +47,9 @@ export async function autoSuggestions(conversationId: string) {
   ]).then(chatResponse => {
     const functionArguments = chatResponse?.function_arguments as { question_as_user?: string } ?? null;
     if (functionArguments && typeof functionArguments.question_as_user === 'string') {
+      const functionArguments = JSON.parse(assistantMessage.text);
       const question = functionArguments.question_as_user;
-      editMessage(conversationId, assistantMessage.id, { text: assistantMessage.text + '\n\n```\n' + question + '\n```\n' }, false);
+      editMessage(conversationId, assistantMessage.id, { text: question }, false);
 
       // Agora chame a função runEmbeddingsUpdatingState.
       runEmbeddingsUpdatingState(conversationId, conversation.messages, question, funcLLMId)
