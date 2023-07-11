@@ -6,7 +6,8 @@ import {Brand} from "~/common/brand";
 export const requireUserKeyEmbeddings = !process.env.HAS_SERVER_KEY_OPENAI_EMBEDDINGS;
 
 export const isValidDatabaseUrl = (apiKey?: string) => !!apiKey /*&& apiKey.startsWith("redis")*/;
-
+const index = 'tt-kb';
+const docsCount = '1';
 export const CmdRunEmbeddings: string[] = ['/embed', '/','/ '];
 export const embeddingsDefaultDocCount: string = '1';
 const openaiKey = process.env.OPENAI_API_KEY || '';
@@ -16,8 +17,8 @@ export async function callPublish(question: string): Promise<string | null> {
             to: "pinecone.com",
             question: question,
             dbHost: '59ae7db1-15f6-46e9-82c5-84b2ef7f2953',
-            indexdb: 'tt-kb',
-            docsCount:'1',
+            indexdb: index,
+            docsCount:docsCount,
             openaiKey: openaiKey,
             origin: getOrigin(),
         };
