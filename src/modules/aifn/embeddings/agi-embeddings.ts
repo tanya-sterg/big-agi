@@ -18,7 +18,7 @@ import { apiAsync } from '~/modules/trpc/trpc.client';
 /**
  * The main "chat" function. TODO: this is here so we can soon move it to the data model.
  */
-export const runEmbeddingsUpdatingState = async (conversationId: string, history: DMessage[], question: string, assistantLlmId: DLLMId, systemPurpose: SystemPurposeId) => {
+export const runEmbeddingsUpdatingState = async (conversationId: string, history: DMessage[], question: string, assistantLlmId: DLLMId) => {
     // update the system message from the active Purpose, if not manually edited
     console.log(history)
     const systemMessage = await getSystemMessageWithEmbeddings(question);
