@@ -38,23 +38,18 @@ export async function autoSuggestions(conversationId: string) {
   const [userMessage, assistantMessage] = conversation.messages.slice(-2);
 
   //LLM
+ 
   callChatGenerateWithFunctions(funcLLMId, [
     { role: 'system', content: systemMessage.text },
     { role: 'user', content: userMessage.text },
     { role: 'assistant', content: assistantMessage.text },
   ], [
     suggestUserFollowUpFn,
-  ]).then(chatResponse => {
-    // Supondo que `chatResponse.function_arguments` esteja em formato de string JSON.
-    let functionArguments = null;
-    if (chatResponse?.function_arguments && typeof chatResponse?.function_arguments === 'string') {
-      functionArguments = JSON.parse(chatResponse.function_arguments);
-    }
-
+  ]).then((chatResponse: any) => {
+    const functionArguments = chatResponse?.function_arguments;
     const question = functionArguments?.question_as_user;
     if (question) {
       editMessage(conversationId, assistantMessage.id, { text: 'rodou mas não tem question' + question }, false);
-
 
       // Agora chame a função runEmbeddingsUpdatingState.
       runEmbeddingsUpdatingState(conversationId, conversation.messages, question, funcLLMId)
@@ -67,7 +62,6 @@ export async function autoSuggestions(conversationId: string) {
     }
     console.log(chatResponse);
   });
-
 
     // Parse assistant message and extract 'question_as_user' from functionArguments
  // const functionArguments = JSON.parse(assistantMessage.text);
