@@ -50,20 +50,16 @@ export async function autoSuggestions(conversationId: string) {
     if ('question_as_user' in functionArguments) {
       const question = functionArguments.question_as_user;
       if (question) {
-      console.log(conversationId, systemMessage.id, { text: question }, false);
-      editMessage(conversationId, systemMessage.id, { text: 'isso é um teste ' + functionArguments.question_as_user }, false);
-
-      // Agora chame a função runEmbeddingsUpdatingState.
-      runEmbeddingsUpdatingState(conversationId, conversation.messages, question, funcLLMId)
+         
+        // Agora chame a função runEmbeddingsUpdatingState.
+        runEmbeddingsUpdatingState(conversationId, conversation.messages, question, funcLLMId)
         .then(() => {
           console.log('Embeddings updated.');
         })
         .catch(err => {
           console.error('Error updating embeddings:', err);
         });
+      }
     }
-  }
-    console.log(chatResponse);
-  });
-
- }
+    });
+}
