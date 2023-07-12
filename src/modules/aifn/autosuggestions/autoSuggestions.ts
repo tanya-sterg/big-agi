@@ -50,7 +50,8 @@ export async function autoSuggestions(conversationId: string) {
     if ('question_as_user' in functionArguments) {
       const question = functionArguments.question_as_user;
       if (question) {
-      editMessage(conversationId, systemMessage.id, { text: 'isso é um teste' + question }, false);
+      console.log(conversationId, systemMessage.id, { text: question }, false);
+      editMessage(conversationId, systemMessage.id, { text: 'isso é um teste ' + functionArguments.question_as_user }, false);
 
       // Agora chame a função runEmbeddingsUpdatingState.
       runEmbeddingsUpdatingState(conversationId, conversation.messages, question, funcLLMId)
