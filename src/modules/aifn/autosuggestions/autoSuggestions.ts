@@ -46,10 +46,11 @@ export async function autoSuggestions(conversationId: string) {
   ], [
     suggestUserFollowUpFn,
   ]).then((chatResponse: any) => {
-    const functionArguments = chatResponse?.function_arguments;
-    const question = functionArguments?.question_as_user;
-    if (question) {
-      editMessage(conversationId, assistantMessage.id, { text: question }, false);
+    const functionArguments = chatResponse?.function_arguments ?? null;
+    if ('question_as_user' in functionArguments) {
+      const question = functionArguments.question_as_user;
+      if (question) {
+      editMessage(conversationId, assistantMessage.id, { text: assistantMessage.text + question }, false);
 
       // Agora chame a função runEmbeddingsUpdatingState.
       runEmbeddingsUpdatingState(conversationId, conversation.messages, question, funcLLMId)
@@ -60,16 +61,8 @@ export async function autoSuggestions(conversationId: string) {
           console.error('Error updating embeddings:', err);
         });
     }
+  }
     console.log(chatResponse);
   });
 
-    // Parse assistant message and extract 'question_as_user' from functionArguments
- // const functionArguments = JSON.parse(assistantMessage.text);
-  //const question = functionArguments.question_as_user;
- // if (!question) return;
-
-  // runEmbeddingsUpdatingState function call
-  //const chatResponse = await runEmbeddingsUpdatingState(conversationId, conversation.messages, question, funcLLMId);
-
-  //console.log(chatResponse);
-}
+ }
