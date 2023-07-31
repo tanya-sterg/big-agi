@@ -1,65 +1,54 @@
 import { useModelsStore } from '~/modules/llms/store-llms';
-import { useChatStore } from '~/common/state/store-chats';
+import { DMessage, useChatStore } from '~/common/state/store-chats';
 import { runEmbeddingsUpdatingState } from '~/modules/aifn/embeddings/agi-embeddings';
-import { callChatGenerateWithFunctions, VChatFunctionIn } from '~/modules/llms/llm.client';
+import { callChatGenerateWithFunctions, VChatFunctionIn, VChatMessageIn } from '~/modules/llms/llm.client';
+import { runAssistantUpdatingState } from 'src/apps/chat/editors/chat-stream';
+import { SystemPurposeId } from 'src/data';
 
 const suggestUserFollowUpFn: VChatFunctionIn = {
   name: 'search_database',
-  description: 'Para buscar na base de dados da Target Teal métodos úteis no design organizacional, como descrever papéis e mapear círculos.',
+  description:
+    'Utilizada para buscar na base de dados da Target Teal os conteúdos mencionados pelo usuário. Deve ser usada somente se o conteúdo não estiver disponível em mensagens anteriores',
   parameters: {
     type: 'object',
     properties: {
       question_as_user: {
         type: 'string',
-        description: 'Cite o nome do método para buscar no banco de dados',
+        description: 'O nome do conteúdo para buscar no banco de dados, por exemplo "Descrever Tensão", "Avaliar Tensão", "Analisar Forças"',
       },
-          },
+    },
     required: ['question_as_user'],
   },
 };
 
-
-
 /**
  * Para buscar no Pinecone info para a sysmsg
  */
-export async function autoSuggestions(conversationId: string) {
+export async function autoSuggestions(systemPurposeId: SystemPurposeId, conversationId: string, history: DMessage[]) {
   // use valid fast model
   const { funcLLMId } = useModelsStore.getState();
   if (!funcLLMId) return;
 
-  // only operate on valid conversations
-  const { conversations, editMessage } = useChatStore.getState();
-  const conversation = conversations.find(c => c.id === conversationId) ?? null;
-  if (!conversation) return;
-
-  // get the first message of the conversation, and the last 2
-  const systemMessage = conversation.messages[0];
-  const [userMessage, assistantMessage] = conversation.messages.slice(-2);
+  const vChatMessages: VChatMessageIn[] = history.map((dMessage) => {
+    const { text, role } = dMessage;
+    return {
+      role,
+      content: text,
+    };
+  });
 
   //LLM
- 
-  callChatGenerateWithFunctions(funcLLMId, [
-    { role: 'system', content: systemMessage.text },
-    { role: 'user', content: userMessage.text },
-    { role: 'assistant', content: assistantMessage.text },
-  ], [
-    suggestUserFollowUpFn,
-  ]).then((chatResponse: any) => {
-    const functionArguments = chatResponse?.function_arguments ?? null;
+  if (history.length > 0) {
+    var chatResponse = await callChatGenerateWithFunctions(funcLLMId, vChatMessages, [suggestUserFollowUpFn]);
+
+    const functionArguments = chatResponse?.function_arguments ?? {};
     if ('question_as_user' in functionArguments) {
-      const question = functionArguments.question_as_user;
+      var question = typeof functionArguments.question_as_user === 'string' ? functionArguments.question_as_user : undefined;
+      
       if (question) {
-         
-        // Agora chame a função runEmbeddingsUpdatingState.
-        runEmbeddingsUpdatingState(conversationId, conversation.messages, question, funcLLMId)
-        .then(() => {
-          console.log('Embeddings updated.');
-        })
-        .catch(err => {
-          console.error('Error updating embeddings:', err);
-        });
+        await runEmbeddingsUpdatingState(conversationId, history, question, funcLLMId);
       }
     }
-    });
+  }
+  runAssistantUpdatingState(conversationId, history, funcLLMId, systemPurposeId, true);
 }

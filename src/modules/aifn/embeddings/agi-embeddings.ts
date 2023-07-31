@@ -14,31 +14,26 @@ import { callPublish } from '~/modules/aifn/embeddings/embeddings.client';
 import { apiAsync } from '~/modules/trpc/trpc.client';
 
 
-
-/**
- * The main "chat" function. TODO: this is here so we can soon move it to the data model.
- */
 export const runEmbeddingsUpdatingState = async (conversationId: string, history: DMessage[], question: string, assistantLlmId: DLLMId) => {
     // update the system message from the active Purpose, if not manually edited
-    console.log(history)
     const systemMessage = await getSystemMessageWithEmbeddings(question);
     history = appendSystemMessageToHistory(conversationId, history, systemMessage);
 
-    // create a blank and 'typing' message for the assistant
-    const assistantMessageId = createAssistantTypingMessage(conversationId, assistantLlmId, history[0].purposeId, '...');
+    // // create a blank and 'typing' message for the assistant
+    // const assistantMessageId = createAssistantTypingMessage(conversationId, assistantLlmId, history[0].purposeId, '...');
 
-    // when an abort controller is set, the UI switches to the "stop" mode
-    const controller = new AbortController();
-    const {startTyping, editMessage} = useChatStore.getState();
-    startTyping(conversationId, controller);
+    // // when an abort controller is set, the UI switches to the "stop" mode
+    // const controller = new AbortController();
+    // const {startTyping, editMessage} = useChatStore.getState();
+    // startTyping(conversationId, controller);
 
-    await streamAssistantMessage(conversationId, assistantMessageId, history, assistantLlmId, editMessage, controller.signal);
+    // await streamAssistantMessage(conversationId, assistantMessageId, history, assistantLlmId, editMessage, controller.signal);
 
-    // clear to send, again
-    startTyping(conversationId, null);
+    // // clear to send, again
+    // startTyping(conversationId, null);
 
-    // update text, if needed
-    await autoTitle(conversationId);
+    // // update text, if needed
+    // await autoTitle(conversationId);
 };
 
 export function appendSystemMessageToHistory(conversationId: string, history: DMessage[], systemMessage: DMessage): DMessage[] {

@@ -31,6 +31,7 @@ import { restoreConversationFromJson } from './exportImport';
 import { runAssistantUpdatingState } from './editors/chat-stream';
 import { runImageGenerationUpdatingState } from './editors/image-generate';
 import { runReActUpdatingState } from './editors/react-tangent';
+import { autoSuggestions } from '~/modules/aifn/autosuggestions/autoSuggestions';
 
 
 const SPECIAL_ID_ALL_CHATS = 'all-chats';
@@ -126,10 +127,10 @@ export function AppChat() {
       switch (chatModeId) {
         case 'immediate':
         case 'immediate-follow-up':
-          return await runAssistantUpdatingState(conversationId, history, chatLLMId, systemPurposeId, true, chatModeId === 'immediate-follow-up');
+          // Auto Suggestions
+          return await autoSuggestions(systemPurposeId, conversationId, history);
         case 'react':
-          if (!lastMessage?.text)
-            break;
+          if (!lastMessage?.text) break;
           setMessages(conversationId, history);
           return await runReActUpdatingState(conversationId, lastMessage.text, chatLLMId);
         case 'write-user':
