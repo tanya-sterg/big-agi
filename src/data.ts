@@ -1,6 +1,6 @@
 export type SystemPurposeId = 'Suzano' | 'Developer';
 
-export const defaultSystemPurposeId: SystemPurposeId = 'Suzano';
+export const defaultSystemPurposeId: SystemPurposeId = 'Developer';
 
 type SystemPurposeData = {
   title: string;
