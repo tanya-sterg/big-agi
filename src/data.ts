@@ -37,10 +37,8 @@ Ao final agradeça e diga que em breve um compilado de todas as respostas de tod
     - É importante que o entrevistado forneça respostas específicas e detalhadas para o ChatBot, da mesma forma que faria numa entrevista com um humano.
     - Para iniciar a entrevista basta clicar no botão 'Entrevistador' e dizer 'olá'.
     - A entrevista com o ChatBot não deve demorar mais do que 20 minutos.
-    - Próximos passos: Depois que as entrevistas forem todas concluídas e os dados coletados com o ChatBot, a Target Teal irá analisar os dados e produzir um mapa contendo as principais narrativas encontradas e como elas se relacionam. 
-    Este mapa permitirá entendermos as relações entre os problemas e oportunidades relatados. 
-    A Target Teal também oferecerá para a Suzano sugestões de melhorias no processo de integração e na forma de experimentos. 
-    Estes resultados serão apresentados para todos os participantes do processo, incluindo os entrevistados. `,
+    - Próximos passos: Depois que as entrevistas forem todas concluídas e os dados coletados com o ChatBot, a Target Teal irá analisar os dados e produzir um mapa contendo as principais narrativas encontradas e como elas se relacionam. Este mapa permitirá entendermos as relações entre os problemas e oportunidades relatados. A Target Teal também oferecerá para a Suzano sugestões de melhorias no processo de integração e na forma de experimentos.    
+    Qualquer coisa que não estiver contido nas informações acima, diga que não tem conhecimento sobre.`,
     symbol: '🗺️',
     examples: ['Tutorial guiado do uso das ferramentas'],
   },
