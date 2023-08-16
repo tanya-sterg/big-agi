@@ -80,7 +80,7 @@ export function AppChat() {
   const [deleteConfirmationId, setDeleteConfirmationId] = React.useState<string | null>(null);
   const [publishConversationId, setPublishConversationId] = React.useState<string | null>(null);
   const [publishResponse, setPublishResponse] = React.useState<PublishedSchema | null>(null);
-  const [conversationImportOutcome, setConversationImportOutcome] = React.useState<ImportedOutcome | null>(null);
+  const [conversationImportOutcome, setConversationImportOutcome] = React.useState<ImportedOutcome | null>(null); 
   const conversationFileInputRef = React.useRef<HTMLInputElement>(null);
 
   // external state
@@ -128,6 +128,7 @@ export function AppChat() {
         case 'immediate':
         case 'immediate-follow-up':
           // Auto Suggestions
+          setMessages(conversationId, history)
           return await autoSuggestions(systemPurposeId, conversationId, history);
         case 'react':
           if (!lastMessage?.text) break;
