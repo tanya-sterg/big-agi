@@ -11,19 +11,12 @@ import { useElevenlabsStore } from '~/modules/elevenlabs/store-elevenlabs';
 
 import { DMessage, useChatStore } from '~/common/state/store-chats';
 
-import { createAssistantTypingMessage, updatePurposeInHistory } from './editors';
-
 
 /**
  * The main "chat" function. TODO: this is here so we can soon move it to the data model.
  */
-export async function runAssistantUpdatingState(conversationId: string, history: DMessage[], assistantLlmId: DLLMId, systemPurpose: SystemPurposeId, _autoTitle: boolean) {
+export async function runAssistantUpdatingState(conversationId: string, history: DMessage[], assistantLlmId: DLLMId, _autoTitle: boolean, assistantMessageId: string) {
 
-  // update the system message from the active Purpose, if not manually edited
-  history = updatePurposeInHistory(conversationId, history, systemPurpose);
-
-  // create a blank and 'typing' message for the assistant
-  const assistantMessageId = createAssistantTypingMessage(conversationId, assistantLlmId, history[0].purposeId, '...');
 
   // when an abort controller is set, the UI switches to the "stop" mode
   const controller = new AbortController();

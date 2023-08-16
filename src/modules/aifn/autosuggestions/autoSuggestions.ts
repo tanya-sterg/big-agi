@@ -3,6 +3,8 @@ import { DMessage, useChatStore } from '~/common/state/store-chats';
 import { runEmbeddingsUpdatingState } from '~/modules/aifn/embeddings/agi-embeddings';
 import { callChatGenerateWithFunctions, VChatFunctionIn, VChatMessageIn } from '~/modules/llms/llm.client';
 import { runAssistantUpdatingState } from 'src/apps/chat/editors/chat-stream';
+import { createAssistantTypingMessage, updatePurposeInHistory } from 'src/apps/chat/editors/editors';
+
 import { SystemPurposeId } from 'src/data';
 
 const suggestUserFollowUpFn: VChatFunctionIn = {
@@ -37,8 +39,15 @@ export async function autoSuggestions(systemPurposeId: SystemPurposeId, conversa
     };
   });
 
+  // update the system message from the active Purpose, if not manually edited
+  history = updatePurposeInHistory(conversationId, history, systemPurposeId);
+
+  // create a blank and 'typing' message for the assistant
+  const assistantMessageId = createAssistantTypingMessage(conversationId, funcLLMId, history[0].purposeId, '...');
+
   //LLM
   if (history.length > 0) {
+
     var chatResponse = await callChatGenerateWithFunctions(funcLLMId, vChatMessages, [suggestUserFollowUpFn]);
 
     const functionArguments = chatResponse?.function_arguments ?? {};
@@ -50,5 +59,6 @@ export async function autoSuggestions(systemPurposeId: SystemPurposeId, conversa
       }
     }
   }
-  runAssistantUpdatingState(conversationId, history, funcLLMId, systemPurposeId, true);
+
+  runAssistantUpdatingState(conversationId, history, funcLLMId, true, assistantMessageId);
 }
