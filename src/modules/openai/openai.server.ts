@@ -78,7 +78,7 @@ export function toApiChatRequest(body: Partial<OpenAI.API.Chat.Request>): Omit<O
   if (!api.apiKey) throw new Error('Missing OpenAI API Key. Add it on the client side (Settings icon) or server side (your deployment).');
 
   // require 'model' and 'messages' to be set
-  const { model, messages, temperature = 0.5, max_tokens = 1024 } = body;
+  const { model, messages, temperature = 0.8, max_tokens = 1024 } = body;
   if (!model || !messages) throw new Error('Missing required parameters: api, model, messages');
 
   return { api, model, messages, temperature, max_tokens };
