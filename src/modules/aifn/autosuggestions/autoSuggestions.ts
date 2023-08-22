@@ -43,7 +43,7 @@ export async function autoSuggestions(systemPurposeId: SystemPurposeId, conversa
   history = updatePurposeInHistory(conversationId, history, systemPurposeId);
 
   // create a blank and 'typing' message for the assistant
-  const assistantMessageId = createAssistantTypingMessage(conversationId, funcLLMId, history[0].purposeId, '...');
+  var assistantMessageId = createAssistantTypingMessage(conversationId, funcLLMId, history[0].purposeId, '...');
 
   //LLM
   if (history.length > 0) {
@@ -56,6 +56,7 @@ export async function autoSuggestions(systemPurposeId: SystemPurposeId, conversa
       
       if (question) {
         await runEmbeddingsUpdatingState(conversationId, history, question, funcLLMId);
+        assistantMessageId = createAssistantTypingMessage(conversationId, funcLLMId, history[0].purposeId, '...');
       }
     }
   }
