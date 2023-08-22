@@ -140,7 +140,7 @@ export const useSettingsStore = create<SettingsStore>()(
             heliconeKey: '',
             setHeliconeKey: (heliconeKey: string) => set({heliconeKey}),
 
-            modelTemperature: 0.5,
+            modelTemperature: 0.8,
             setModelTemperature: (modelTemperature: number) => set({modelTemperature}),
 
             modelMaxResponseTokens: 1024,
