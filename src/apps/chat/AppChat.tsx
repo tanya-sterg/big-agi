@@ -85,7 +85,7 @@ export function AppChat() {
 
   // external state
   const theme = useTheme();
-  const { activeConversationId, isConversationEmpty, conversationsCount, importConversation, deleteAllConversations, setMessages, systemPurposeId, setAutoTitle } = useChatStore(state => {
+  const { activeConversationId, isConversationEmpty, conversationsCount, importConversation, deleteAllConversations, setMessages, systemPurposeId, setAutoTitle, historyTokenCount } = useChatStore(state => {
     const conversation = state.conversations.find(conversation => conversation.id === state.activeConversationId);
     return {
       activeConversationId: state.activeConversationId,
@@ -96,6 +96,7 @@ export function AppChat() {
       setMessages: state.setMessages,
       systemPurposeId: conversation?.systemPurposeId ?? null,
       setAutoTitle: state.setAutoTitle,
+      historyTokenCount: conversation ? conversation.tokenCount : 0,
     };
   }, shallow);
 
@@ -129,7 +130,7 @@ export function AppChat() {
         case 'immediate-follow-up':
           // Auto Suggestions
           setMessages(conversationId, history)
-          return await autoSuggestions(systemPurposeId, conversationId, history);
+          return await autoSuggestions(systemPurposeId, conversationId, history, historyTokenCount);
         case 'react':
           if (!lastMessage?.text) break;
           setMessages(conversationId, history);
