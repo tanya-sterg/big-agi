@@ -32,6 +32,10 @@ function removeSecondElement(list: any[]){
   return list
 }
 
+function getFunctionTokens(){
+  return 114
+}
+
 function deleteOldMessagesIfNeeded(funcLLMId: string, history: DMessage[]){
   const llm = findLLMOrThrow(funcLLMId);
   var maxContextTokens = llm?.contextTokens;
@@ -45,20 +49,22 @@ function deleteOldMessagesIfNeeded(funcLLMId: string, history: DMessage[]){
   const responseTokens = llm.options?.llmResponseTokens!
   console.log("responseTokens", responseTokens)
 
+  const functionTokens = getFunctionTokens();
+
   var tokenCounts = updateTokenCounts(history, false, 'setMessages');
   console.log("tokenCounts", tokenCounts)
 
-  var totalUsedTokens = tokenCounts + responseTokens;
+  var totalUsedTokens = tokenCounts + responseTokens + functionTokens;
   console.log("totalUsedTokens", totalUsedTokens)
 
   while (totalUsedTokens > maxContextTokens!){
     console.log("tokenCounts + responseTokens > maxContextTokens");
-    console.log(`Before: ${tokenCounts} + ${responseTokens} = ${totalUsedTokens} > ${maxContextTokens}`)
+    console.log(`Before: ${tokenCounts} + ${responseTokens} + ${functionTokens} = ${totalUsedTokens} > ${maxContextTokens}`)
 
     history = removeSecondElement(history);
     tokenCounts = updateTokenCounts(history, false, 'deleteOldMessagesIfNeeded');
-    totalUsedTokens = tokenCounts + responseTokens;
-    console.log(`After: ${tokenCounts} + ${responseTokens} = ${totalUsedTokens} > ${maxContextTokens}`)
+    totalUsedTokens = tokenCounts + responseTokens + functionTokens;
+    console.log(`After: ${tokenCounts} + ${responseTokens} + ${functionTokens} = ${totalUsedTokens} > ${maxContextTokens}`)
   }
 }
 
