@@ -27,7 +27,7 @@ export function OpenAILLMOptions(props: { llm: DLLM }) {
       </Box>
       <Slider
         aria-label='Model Temperature' color='neutral'
-        min={0} max={1} step={0.1} defaultValue={0.5}
+        min={0} max={1} step={0.1} defaultValue={0.0}
         value={llmTemperature} onChange={(event, value) => updateLLMOptions(llmId, { llmTemperature: value as number })}
         valueLabelDisplay='auto'
         sx={{ py: 1, mt: 1.1 }}

@@ -52,7 +52,7 @@ export interface LLMOptionsOpenAI {
 export function normalizeOAIOptions(partialOptions?: Partial<LLMOptionsOpenAI>): LLMOptionsOpenAI {
   return {
     llmRef: 'unknown_id',
-    llmTemperature: 0.5,
+    llmTemperature: 0.0,
     llmResponseTokens: 1024,
     ...partialOptions,
   };
