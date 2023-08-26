@@ -62,33 +62,30 @@ ${parameters.join('\n')}
 function deleteOldMessagesIfNeeded(funcLLMId: string, history: DMessage[]) {
   const llm = findLLMOrThrow(funcLLMId);
   var maxContextTokens = llm?.contextTokens;
-
-  // TESTE APAGAR -------------
-  // maxContextTokens = 1000;
-  // --------------------------
-
-  console.log('maxContextTokens', maxContextTokens);
+  // console.log('maxContextTokens', maxContextTokens);
 
   const responseTokens = llm.options?.llmResponseTokens!;
-  console.log('responseTokens', responseTokens);
+  // console.log('responseTokens', responseTokens);
 
   const functionTokens = getFunctionTokens(suggestUserFollowUpFn, funcLLMId);
-  console.log('functionTokens', functionTokens);
+  // console.log('functionTokens', functionTokens);
 
   var tokenCounts = updateTokenCounts(history, false, 'setMessages');
-  console.log('tokenCounts', tokenCounts);
+  // console.log('tokenCounts', tokenCounts);
 
-  var totalUsedTokens = tokenCounts + responseTokens + functionTokens;
-  console.log('totalUsedTokens', totalUsedTokens);
+  var errorMargin = 50; // Número arbitrário
+
+  var totalUsedTokens = tokenCounts + responseTokens + functionTokens + errorMargin;
+  // console.log('totalUsedTokens', totalUsedTokens);
 
   while (totalUsedTokens > maxContextTokens!) {
-    console.log('tokenCounts + responseTokens + functionTokens > maxContextTokens');
-    console.log(`Before: ${tokenCounts} + ${responseTokens} + ${functionTokens} = ${totalUsedTokens} > ${maxContextTokens}`);
+    // console.log('tokenCounts + responseTokens + functionTokens > maxContextTokens');
+    // console.log(`Before: ${tokenCounts} + ${responseTokens} + ${functionTokens} = ${totalUsedTokens} > ${maxContextTokens}`);
 
     history = removeSecondElement(history);
     tokenCounts = updateTokenCounts(history, false, 'deleteOldMessagesIfNeeded');
-    totalUsedTokens = tokenCounts + responseTokens + functionTokens;
-    console.log(`After: ${tokenCounts} + ${responseTokens} + ${functionTokens} = ${totalUsedTokens} > ${maxContextTokens}`);
+    totalUsedTokens = tokenCounts + responseTokens + functionTokens + errorMargin;
+    // console.log(`After: ${tokenCounts} + ${responseTokens} + ${functionTokens} = ${totalUsedTokens} > ${maxContextTokens}`);
   }
 }
 
