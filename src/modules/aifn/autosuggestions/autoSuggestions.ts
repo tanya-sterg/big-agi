@@ -9,13 +9,11 @@ import { SystemPurposeId } from 'src/data';
 import { countModelTokens } from '~/common/llm-util/token-counter';
 import { DLLMId } from '~/modules/llms/llm.types';
 
-
 /**
  * Convenience function to count the tokens in a DMessage object
  */
 function updateDMessageTokenCount(message: DMessage, llmId: DLLMId | null, forceUpdate: boolean, debugFrom: string): number {
-  if (forceUpdate || !message.tokenCount)
-    message.tokenCount = llmId ? countModelTokens(message.text, llmId, debugFrom) : 0;
+  if (forceUpdate || !message.tokenCount) message.tokenCount = llmId ? countModelTokens(message.text, llmId, debugFrom) : 0;
   return message.tokenCount;
 }
 
@@ -23,20 +21,45 @@ function updateDMessageTokenCount(message: DMessage, llmId: DLLMId | null, force
  * Convenience function to update a set of messages, using the current chatLLM
  */
 function updateTokenCounts(messages: DMessage[], forceUpdate: boolean, debugFrom: string): number {
-  const { chatLLMId } = useModelsStore.getState();
-  return 3 + messages.reduce((sum, message) => 4 + updateDMessageTokenCount(message, chatLLMId, forceUpdate, debugFrom) + sum, 0);
+  const { funcLLMId } = useModelsStore.getState();
+  return 3 + messages.reduce((sum, message) => 4 + updateDMessageTokenCount(message, funcLLMId, forceUpdate, debugFrom) + sum, 0);
 }
 
-function removeSecondElement(list: any[]){
-  list.splice(1,1)
-  return list
+function removeSecondElement(list: any[]) {
+  list.splice(1, 1);
+  return list;
 }
 
-function getFunctionTokens(){
-  return 114
+function getFunctionTokens(fn: VChatFunctionIn, llmId: DLLMId) {
+  var functionString = generateFunctionString(fn);
+  return countModelTokens(functionString, llmId, 'getFunctionTokens');
 }
 
-function deleteOldMessagesIfNeeded(funcLLMId: string, history: DMessage[]){
+function generateFunctionString(input: VChatFunctionIn) {
+  const functionName = input.name;
+  const functionDescription = input.description;
+
+  // Generate function parameters
+  let parameters = [];
+  for (let [key, value] of Object.entries(input.parameters!.properties)) {
+    let paramDescription = value.description;
+    let paramType = value.type;
+    parameters.push(`// ${paramDescription}\n${key}: ${paramType},`);
+  }
+
+  return `
+namespace functions {
+
+// ${functionDescription}
+type ${functionName} = (_: {
+${parameters.join('\n')}
+}) => any;
+
+} // namespace functions
+  `;
+}
+
+function deleteOldMessagesIfNeeded(funcLLMId: string, history: DMessage[]) {
   const llm = findLLMOrThrow(funcLLMId);
   var maxContextTokens = llm?.contextTokens;
 
@@ -44,27 +67,28 @@ function deleteOldMessagesIfNeeded(funcLLMId: string, history: DMessage[]){
   // maxContextTokens = 1000;
   // --------------------------
 
-  console.log("maxContextTokens", maxContextTokens)
+  console.log('maxContextTokens', maxContextTokens);
 
-  const responseTokens = llm.options?.llmResponseTokens!
-  console.log("responseTokens", responseTokens)
+  const responseTokens = llm.options?.llmResponseTokens!;
+  console.log('responseTokens', responseTokens);
 
-  const functionTokens = getFunctionTokens();
+  const functionTokens = getFunctionTokens(suggestUserFollowUpFn, funcLLMId);
+  console.log('functionTokens', functionTokens);
 
   var tokenCounts = updateTokenCounts(history, false, 'setMessages');
-  console.log("tokenCounts", tokenCounts)
+  console.log('tokenCounts', tokenCounts);
 
   var totalUsedTokens = tokenCounts + responseTokens + functionTokens;
-  console.log("totalUsedTokens", totalUsedTokens)
+  console.log('totalUsedTokens', totalUsedTokens);
 
-  while (totalUsedTokens > maxContextTokens!){
-    console.log("tokenCounts + responseTokens > maxContextTokens");
-    console.log(`Before: ${tokenCounts} + ${responseTokens} + ${functionTokens} = ${totalUsedTokens} > ${maxContextTokens}`)
+  while (totalUsedTokens > maxContextTokens!) {
+    console.log('tokenCounts + responseTokens + functionTokens > maxContextTokens');
+    console.log(`Before: ${tokenCounts} + ${responseTokens} + ${functionTokens} = ${totalUsedTokens} > ${maxContextTokens}`);
 
     history = removeSecondElement(history);
     tokenCounts = updateTokenCounts(history, false, 'deleteOldMessagesIfNeeded');
     totalUsedTokens = tokenCounts + responseTokens + functionTokens;
-    console.log(`After: ${tokenCounts} + ${responseTokens} + ${functionTokens} = ${totalUsedTokens} > ${maxContextTokens}`)
+    console.log(`After: ${tokenCounts} + ${responseTokens} + ${functionTokens} = ${totalUsedTokens} > ${maxContextTokens}`);
   }
 }
 
@@ -92,7 +116,7 @@ export async function autoSuggestions(systemPurposeId: SystemPurposeId, conversa
   const { funcLLMId, llms } = useModelsStore.getState();
 
   if (!funcLLMId) return;
- 
+
   const vChatMessages: VChatMessageIn[] = history.map((dMessage) => {
     const { text, role } = dMessage;
     return {
@@ -103,26 +127,24 @@ export async function autoSuggestions(systemPurposeId: SystemPurposeId, conversa
 
   // update the system message from the active Purpose, if not manually edited
   history = updatePurposeInHistory(conversationId, history, systemPurposeId);
-  
+
   deleteOldMessagesIfNeeded(funcLLMId, history);
 
   // create a blank and 'typing' message for the assistant
   var assistantMessageId = createAssistantTypingMessage(conversationId, funcLLMId, history[0].purposeId, '...');
 
   if (history.length > 0) {
-    
     var chatResponse = await callChatGenerateWithFunctions(funcLLMId, vChatMessages, [suggestUserFollowUpFn]);
 
     const functionArguments = chatResponse?.function_arguments ?? {};
     if ('question_as_user' in functionArguments) {
       var question = typeof functionArguments.question_as_user === 'string' ? functionArguments.question_as_user : undefined;
-      
+
       if (question) {
         await runEmbeddingsUpdatingState(conversationId, history, question, funcLLMId);
         assistantMessageId = createAssistantTypingMessage(conversationId, funcLLMId, history[0].purposeId, '...');
-      
+
         deleteOldMessagesIfNeeded(funcLLMId, history);
-      
       }
     }
   }
