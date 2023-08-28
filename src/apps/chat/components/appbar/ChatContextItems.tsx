@@ -24,13 +24,11 @@ export function ChatContextItems(props: {
 }) {
 
   // external state
-  const { showSystemMessages, setShowSystemMessages } = useUIPreferencesStore(state => ({
-    showSystemMessages: state.showSystemMessages, setShowSystemMessages: state.setShowSystemMessages,
-  }), shallow);
+  const showSystemMessages = false;
 
   const closeContextMenu = () => useApplicationBarStore.getState().setContextMenuAnchor(null);
 
-  const handleSystemMessagesToggle = () => setShowSystemMessages(!showSystemMessages);
+  //const handleSystemMessagesToggle = () => setShowSystemMessages(!showSystemMessages);
 
   const handleConversationPublish = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -64,12 +62,6 @@ export function ChatContextItems(props: {
         Conversation
       </Typography>
     </ListItem>
-
-    <MenuItem onClick={handleSystemMessagesToggle}>
-      <ListItemDecorator><SettingsSuggestIcon /></ListItemDecorator>
-      System message
-      <Switch checked={showSystemMessages} onChange={handleSystemMessagesToggle} sx={{ ml: 'auto' }} />
-    </MenuItem>
 
     <ListDivider inset='startContent' />
 
