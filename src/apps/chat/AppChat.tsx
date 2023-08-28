@@ -196,7 +196,7 @@ export function AppChat() {
       const conversation = _findConversation(publishConversationId);
       setPublishConversationId(null);
       if (conversation) {
-        const markdownContent = conversationToMarkdown(conversation, !useUIPreferencesStore.getState().showSystemMessages);
+        const markdownContent = conversationToMarkdown(conversation, true);
         try {
           const paste = await apiAsync.publish.publish.mutate({
             to: 'paste.gg',
