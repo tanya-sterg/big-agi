@@ -66,9 +66,6 @@ interface UIPreferencesStore {
   showPurposeFinder: boolean;
   setShowPurposeFinder: (showPurposeFinder: boolean) => void;
 
-  showSystemMessages: boolean;
-  setShowSystemMessages: (showSystemMessages: boolean) => void;
-
   zenMode: 'clean' | 'cleaner';
   setZenMode: (zenMode: 'clean' | 'cleaner') => void;
 
