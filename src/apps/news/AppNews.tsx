@@ -31,11 +31,12 @@ export default function AppNews() {
     }}>
 
       <Typography level='display2'>
-        New updates!
+        Updates - Novidades!
       </Typography>
 
       <Typography level='body1'>
-        {capitalizeFirstLetter(Brand.Title.Base)} has been updated to version {firstNews?.versionName}. Enjoy what&apos;s new:
+        Não é mais necessário usar comandos! Assistentes mais inteligentes!
+        Quando o limite de texto em um chat chegar ao máximo as mensagens mais antigas são apagadas, e você pode continuar conversando!
       </Typography>
 
       {!!news && <Container disableGutters maxWidth='sm'>
@@ -80,7 +81,7 @@ export default function AppNews() {
       </Container>}
 
       <Button variant='solid' color='neutral' size='lg' component={Link} href='/' noLinkStyle>
-        Got it!
+        Ok!
       </Button>
 
       {/*<Typography level='body1' sx={{ textAlign: 'center' }}>*/}
