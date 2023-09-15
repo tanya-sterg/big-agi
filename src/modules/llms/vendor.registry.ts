@@ -28,7 +28,7 @@ export function createModelSource(vendorId: ModelVendorId, otherSources: DModelS
     id: sourceId,
     label: vendor.name + (count > 0 ? ` #${count}` : ''),
     vId: vendorId,
-    setup: {},
+    setup: {oaiKey : `${process.env.OPENAI_API_KEY}`},
   };
 }
 

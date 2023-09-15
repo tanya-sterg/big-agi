@@ -6,13 +6,18 @@ import { Divider } from '@mui/joy';
 import { GoodModal } from '~/common/components/GoodModal';
 import { useUIStateStore } from '~/common/state/store-ui';
 
+import { apiQuery } from '~/modules/trpc/trpc.client';
+
 import { DModelSourceId } from '../llm.types';
 import { EditSources } from './EditSources';
 import { LLMList } from './LLMList';
 import { LLMOptions } from './LLMOptions';
 import { VendorSourceSetup } from './VendorSourceSetup';
 import { createDefaultModelSource } from '../vendor.registry';
-import { useModelsStore } from '../store-llms';
+import { useModelsStore, useSourceSetup } from '../store-llms';
+import { openAIModelToDLLM } from '../openai/OpenAISourceSetup';
+import { normalizeOAISetup, SourceSetupOpenAI } from '../openai/openai.vendor';
+
 
 
 export function Configurator(props: { suspendAutoModelsSetup?: boolean }) {
@@ -38,6 +43,36 @@ export function Configurator(props: { suspendAutoModelsSetup?: boolean }) {
   React.useEffect(() => {
     if (!selectedSourceId && !props.suspendAutoModelsSetup)
       openModelsSetup();
+  }, [selectedSourceId, openModelsSetup, props.suspendAutoModelsSetup]);
+
+  console.log(process.env)
+
+  const {
+    source, sourceLLMs, updateSetup,
+    normSetup: { heliKey, oaiHost, oaiKey, oaiOrg, moderationCheck },
+  } = useSourceSetup<SourceSetupOpenAI>(selectedSourceId, normalizeOAISetup);
+
+  // fetch models
+  const { isFetching, refetch, isError, error } = apiQuery.openai.listModels.useQuery({
+    access: { oaiKey, oaiHost, oaiOrg, heliKey, moderationCheck },
+    filterGpt: true,
+  }, {
+    enabled: !sourceLLMs.length,
+    onSuccess: models => {
+      const llms = source ? models.map(model => openAIModelToDLLM(model, source)) : [];
+      useModelsStore.getState().addLLMs(llms);
+    },
+    staleTime: Infinity,
+    refetchOnMount: 'always',
+  });
+
+  React.useEffect(() => {
+    const models_store = useModelsStore.getState();
+    if(!selectedSourceId && props.suspendAutoModelsSetup){
+      models_store.setChatLLMId('gpt-4-32k');
+      models_store.setFastLLMId('gpt-4-32k');
+      models_store.setFuncLLMId('gpt-4-32k');
+    }
   }, [selectedSourceId, openModelsSetup, props.suspendAutoModelsSetup]);
 
   // add the default source on cold - will require setup

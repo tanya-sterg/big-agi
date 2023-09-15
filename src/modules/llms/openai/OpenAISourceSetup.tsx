@@ -189,7 +189,7 @@ const knownBases = [
 ];
 
 
-function openAIModelToDLLM(model: OpenAI.Wire.Models.ModelDescription, source: DModelSource): DLLM & { options: LLMOptionsOpenAI } {
+export function openAIModelToDLLM(model: OpenAI.Wire.Models.ModelDescription, source: DModelSource): DLLM & { options: LLMOptionsOpenAI } {
   const base = knownBases.find(base => model.id.startsWith(base.id)) || knownBases[knownBases.length - 1];
   const suffix = model.id.slice(base.id.length).trim();
   const hidden = !!suffix && suffix.startsWith('-03');
