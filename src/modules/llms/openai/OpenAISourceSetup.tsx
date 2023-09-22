@@ -205,7 +205,7 @@ export function openAIModelToDLLM(model: OpenAI.Wire.Models.ModelDescription, so
     _source: source,
     options: {
       llmRef: model.id,
-      llmTemperature: 0.5,
+      llmTemperature: 0,
       llmResponseTokens: Math.round(base.context / 8),
     },
   };
