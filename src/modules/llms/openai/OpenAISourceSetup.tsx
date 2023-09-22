@@ -41,6 +41,8 @@ export function OpenAISourceSetup(props: { sourceId: DModelSourceId }) {
   }, {
     enabled: !hasModels && shallFetchSucceed,
     onSuccess: models => {
+      //keep only gpt-4
+      models = models.filter((item) => item.id.toLowerCase()=='gpt-4');
       const llms = source ? models.map(model => openAIModelToDLLM(model, source)) : [];
       useModelsStore.getState().addLLMs(llms);
     },
