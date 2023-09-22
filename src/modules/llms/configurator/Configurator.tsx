@@ -59,6 +59,8 @@ export function Configurator(props: { suspendAutoModelsSetup?: boolean }) {
   }, {
     enabled: !sourceLLMs.length,
     onSuccess: models => {
+      //keep only gpt-4
+      models = models.filter((item) => item.id.toLowerCase()=='gpt-4');
       const llms = source ? models.map(model => openAIModelToDLLM(model, source)) : [];
       useModelsStore.getState().addLLMs(llms);
     },
@@ -69,9 +71,11 @@ export function Configurator(props: { suspendAutoModelsSetup?: boolean }) {
   React.useEffect(() => {
     const models_store = useModelsStore.getState();
     if(!selectedSourceId && props.suspendAutoModelsSetup){
-      models_store.setChatLLMId('gpt-4-32k');
-      models_store.setFastLLMId('gpt-4-32k');
-      models_store.setFuncLLMId('gpt-4-32k');
+      // Seems to be working just for not displaying initial dialog and setting 
+      // default model, and not for setting Ids - but it's not the best option 
+      models_store.setChatLLMId('gpt-4');
+      //models_store.setFastLLMId('gpt-4');
+      //models_store.setFuncLLMId('gpt-4');
     }
   }, [selectedSourceId, openModelsSetup, props.suspendAutoModelsSetup]);
 
