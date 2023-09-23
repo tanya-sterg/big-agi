@@ -14,11 +14,8 @@ export const incrementalVersion: number = 1;
 export const NewsItems: NewsItem[] = [
   {
     versionName: '1.2.1',
-    // text: '',
     items: [
-      { text: <>New home page: <b><Link href={Brand.URIs.Home + clientUtmSource()} target='_blank'>{Brand.URIs.Home.replace('https://', '')}</Link></b></> },
-      { text: 'Support 𝑓unction models' }, // (n)
-      { text: <Box sx={{ display: 'flex', alignItems: 'center' }}>Goofy labs: experiments</Box> }, // ⚗️🧬🔬🥼 🥽🧪 <ScienceIcon sx={{ fontSize: 24, opacity: 0.5 }} />
+      { text: <>Visite <b><Link href="https://targetteal.com" target='_blank'>targetteal.com</Link></b> para mais informações</> },
     ],
   },
 ];
