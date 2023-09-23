@@ -49,9 +49,9 @@ export function SupportMenuItem() {
     display: 'flex', flexDirection: 'row', gap: 1,
     justifyContent: 'space-between',
   }}>
-  <span style={{ color: fadedColor }}>Parceria </span>
+  <span style={{ color: fadedColor }}>Parceria</span>
   <BringTheLove text='Target Teal' link='https://targetteal.com/' sx={{ color: fadedColor }} />
-  <span style={{ color: fadedColor }}> & </span>
+  <span style={{ color: fadedColor }}>&</span>
   <BringTheLove text='Inspira' link='https://www.inspira.com.br/' sx={{ color: fadedColor }} />
 </ListItem>
   );
