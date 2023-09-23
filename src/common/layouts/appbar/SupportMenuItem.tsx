@@ -39,28 +39,23 @@ function BringTheLove(props: { text: string, link: string, icon?: React.JSX.Elem
 export function SupportMenuItem() {
   const theme = useTheme();
   const fadedColor = theme.palette.neutral.plainDisabledColor;
-  const iconColor = '';
+  
   return (
     <ListItem
       variant='solid' color='neutral'
       sx={{
         mb: -1, // absorb the bottom margin of the list
         mt: 1,
-        // background: theme.palette.neutral.solidActiveBg,
         display: 'flex', flexDirection: 'row', gap: 1,
         justifyContent: 'space-between',
       }}>
-      {/*<Box*/}
-      {/*  sx={{*/}
-      {/*    mx: { xs: 1, sm: 2 },*/}
-      {/*    fontWeight: 600,*/}
-      {/*    color: fadedColor,*/}
-      {/*  }}>*/}
-      {/*  {Brand.Meta.SiteName}*/}
-      {/*</Box>*/}
-      <BringTheLove text={Brand.Title.Base} link={Brand.URIs.Home} sx={{ color: fadedColor }} />
-      <BringTheLove text='Discord' icon={<DiscordIcon sx={{ color: iconColor }} />} link={Brand.URIs.SupportInvite} />
-      <BringTheLove text='GitHub' icon={<GitHubIcon sx={{ color: iconColor }} />} link={Brand.URIs.OpenRepo} />
+
+      <Box sx={{color: fadedColor, display: 'flex', alignItems: 'center', gap: 1}}>
+        <Text sx={{ color: fadedColor }}>Feito pela</Text>
+        <BringTheLove text='Target Teal' link='https://targetteal.com/' sx={{ color: fadedColor }} />
+        <Text sx={{ color: fadedColor }}>em parceria com a</Text>
+        <BringTheLove text='Inspira' link='https://www.inspira.com.br/' sx={{ color: fadedColor }} />
+      </Box>
     </ListItem>
   );
 }
