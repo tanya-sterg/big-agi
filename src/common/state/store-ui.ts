@@ -92,7 +92,7 @@ export const useUIPreferencesStore = create<UIPreferencesStore>()(
 
       goofyLabs: false,
       setGoofyLabs: (goofyLabs: boolean) => set({ goofyLabs }),
-      renderMarkdown: false,
+      renderMarkdown: true,
       setRenderMarkdown: (renderMarkdown: boolean) => set({ renderMarkdown }),
 
       showPurposeFinder: false,
