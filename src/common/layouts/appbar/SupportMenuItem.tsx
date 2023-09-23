@@ -41,21 +41,18 @@ export function SupportMenuItem() {
   const fadedColor = theme.palette.neutral.plainDisabledColor;
   
   return (
-    <ListItem
-      variant='solid' color='neutral'
-      sx={{
-        mb: -1, // absorb the bottom margin of the list
-        mt: 1,
-        display: 'flex', flexDirection: 'row', gap: 1,
-        justifyContent: 'space-between',
-      }}>
-
-      <Box sx={{color: fadedColor, display: 'flex', alignItems: 'center', gap: 1}}>
-        <Text sx={{ color: fadedColor }}>Feito pela</Text>
-        <BringTheLove text='Target Teal' link='https://targetteal.com/' sx={{ color: fadedColor }} />
-        <Text sx={{ color: fadedColor }}>em parceria com a</Text>
-        <BringTheLove text='Inspira' link='https://www.inspira.com.br/' sx={{ color: fadedColor }} />
-      </Box>
-    </ListItem>
+   <ListItem
+  variant='solid' color='neutral'
+  sx={{
+    mb: -1, // absorb the bottom margin of the list
+    mt: 1,
+    display: 'flex', flexDirection: 'row', gap: 1,
+    justifyContent: 'space-between',
+  }}>
+  <span style={{ color: fadedColor }}>Feito pela </span>
+  <BringTheLove text='Target Teal' link='https://targetteal.com/' sx={{ color: fadedColor }} />
+  <span style={{ color: fadedColor }}> em parceria com a </span>
+  <BringTheLove text='Inspira' link='https://www.inspira.com.br/' sx={{ color: fadedColor }} />
+</ListItem>
   );
 }
