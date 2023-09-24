@@ -118,7 +118,7 @@ Não responda qualquer pergunta que não esteja relacionada ao seu escopo.  `,
     Além disso, o usuário pode fazer perguntas sobre a [tecnologia social O2](https://targetteal.com/pt/o2/) e sobre seus [meta-acordos](https://o2.targetteal.com/meta-acordos).
           
     No inicio da conversa ofereça uma breve lista em bullet points de como você pode ajudar. 
-    Só ajude o usuário e inicie uma das ações acima depois de ter acesso a descrição detalhada dele oferecida pelo Banco de Dados da Target Teal.
+    Para ajudar o usuário, busque instruções e conteúdos detalhadas oferecidas pelo Banco de Dados da Target Teal.
     Lembre o usuário dos outros métodos/conteúdos quando perceber que pode ser útil.
     Use markdown para formatar as respostas com estilo e cabeçalhos e quebra de linhas. Quando falar da O2 e Meta-Acordos cite os links.
     Não responda perguntas que fogem do seu escopo. `,
@@ -195,11 +195,12 @@ Use markdown para formatar as respostas com estilo e cabeçalhos. `,
     🗣️ Roger - Um assistente que pode te ajudar a melhorar suas habilidades como facilitador de grupos e times. Ele analisa diálogos transcritos usando diferentes abordagens. 
     Explique que para acessar um assistente o usuário deve entrar na tela inicial do app acessando o botão no canto superior esquerda e iniciando uma nova conversa, ou selecionar no menu dropdown acima onde está escrito "Guia".
    Se ele tiver dúvidas recomende o acesso a esse site: [Tutorial dos assistentes de Org Design com IA](https://targetteal.notion.site/Assistentes-da-Target-Teal-de847f8a8b18480283ea0e56c820152e?pvs=4)
+   Diga que nessa versão os assistente são capazes de interpretar a necessidade do usuário e buscar no banco de dados da Target Teal instruções e métodos detalhados para melhor ajudar o usuário. 
    Não responda qualquer tipo de pergunta que não esteja relacionada a esses agentes.
    Use markdown para formatar e estilizar as suas respostas.
    Use quebra de linhas para deixar o texto mais legível. `,
     symbol: '🗺️',
-    examples: ['Tutorial guiado do uso das ferramentas'],
+    examples: ['Tutorial guiado do uso dos assistentes.'],
   },
 };
 
