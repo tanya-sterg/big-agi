@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useRouter } from 'next/router';
 import { Button, Card, CardContent, Container, Sheet, Typography, IconButton, TextField } from '@mui/joy';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
+import TextField from '@mui/material/TextField';
 import { Link } from '~/common/components/Link';
 import { NewsItems } from './news.data';
 import { useMarkNewsAsSeen } from './news.hooks';
