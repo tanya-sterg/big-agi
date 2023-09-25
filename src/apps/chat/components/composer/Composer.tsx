@@ -436,11 +436,11 @@ export function Composer(props: {
 
   const chatButton = (
     <Button
-      fullWidth variant={isWriteUser ? 'soft' : 'solid'} color={isReAct ? 'info' : isFollowUp ? 'warning' : 'primary'} disabled={!props.conversationId || !chatLLM}
+      fullWidth variant={isWriteUser ? 'soft' : 'solid'} color={isReAct ? 'info' : isFollowUp ? 'primary' : 'primary'} disabled={!props.conversationId || !chatLLM}
       onClick={handleSendClicked} onDoubleClick={handleToggleChatMode}
       endDecorator={isWriteUser ? <SendIcon sx={{ fontSize: 18 }} /> : isReAct ? <PsychologyIcon /> : <TelegramIcon />}
     >
-      {isWriteUser ? 'Write' : isReAct ? 'ReAct' : isFollowUp ? 'Chat+' : 'Chat'}
+      {isWriteUser ? 'Write' : isReAct ? 'ReAct' : isFollowUp ? 'Enviar' : 'Enviar'}
     </Button>
   );
 
