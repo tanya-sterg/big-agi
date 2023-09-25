@@ -8,8 +8,8 @@
  */
 export const Brand = {
   Title: {
-    Base: 'big-AGI',
-    Common: (process.env.NODE_ENV === 'development' ? '[DEV] ' : '') + 'big-AGI',
+    Base: 'Target Teal',
+    Common: (process.env.NODE_ENV === 'development' ? '[DEV] ' : '') + 'Target Teal',
   },
  Meta: {
     SiteName: 'AI - Target Teal',
