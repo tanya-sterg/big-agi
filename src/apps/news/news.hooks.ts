@@ -9,17 +9,10 @@ import { incrementalVersion } from './news.data';
 
 export function useShowNewsOnUpdate() {
   const { push } = useRouter();
-  const { usageCount, lastSeenNewsVersion } = useAppStateStore(state => ({
-    usageCount: state.usageCount,
-    lastSeenNewsVersion: state.lastSeenNewsVersion,
-  }), shallow);
   React.useEffect(() => {
-    const isNewsOutdated = (lastSeenNewsVersion || 0) < incrementalVersion;
-    if (isNewsOutdated && usageCount > 2) {
-      // Disable for now
-      push('/news').then(() => null);
-    }
-  }, [lastSeenNewsVersion, push, usageCount]);
+    // Sempre redireciona para a página de notícias
+    push('/news').then(() => null);
+  }, [push]); // Dependência do useEffect
 }
 
 export function useMarkNewsAsSeen() {
