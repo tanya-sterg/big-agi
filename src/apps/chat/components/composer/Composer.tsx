@@ -160,7 +160,7 @@ export function Composer(props: {
   const [isDragging, setIsDragging] = React.useState(false);
   const [reducerText, setReducerText] = React.useState('');
   const [reducerTextTokens, setReducerTextTokens] = React.useState(0);
-  const [chatModeMenuAnchor, setChatModeMenuAnchor] = React.useState<HTMLAnchorElement | null>(null);
+  // const [chatModeMenuAnchor, setChatModeMenuAnchor] = React.useState<HTMLAnchorElement | null>(null);
   const [sentMessagesAnchor, setSentMessagesAnchor] = React.useState<HTMLAnchorElement | null>(null);
   const [confirmClearSent, setConfirmClearSent] = React.useState(false);
   const attachmentFileInputRef = React.useRef<HTMLInputElement>(null);
@@ -209,10 +209,9 @@ export function Composer(props: {
     }
   };
 
-  const handleToggleChatMode = (event: React.MouseEvent<HTMLAnchorElement>) =>
-    setChatModeMenuAnchor(anchor => anchor ? null : event.currentTarget);
+  //const handleToggleChatMode = (event: React.MouseEvent<HTMLAnchorElement>) => setChatModeMenuAnchor(anchor => anchor ? null : event.currentTarget);
 
-  const handleHideChatMode = () => setChatModeMenuAnchor(null);
+  // const handleHideChatMode = () => setChatModeMenuAnchor(null);
 
   const handleSetChatModeId = (chatModeId: ChatModeId) => {
     handleHideChatMode();
