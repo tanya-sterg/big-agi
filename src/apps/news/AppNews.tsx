@@ -85,16 +85,21 @@ export default function AppNews() {
       
       <form onSubmit={handleSubmit}>
         <label>
-          Enter Keyword to Proceed:
+          Entre com a palavra chave :
           <input 
             type="text" 
             value={keyword} 
             onChange={(e) => setKeyword(e.target.value)} 
           />
         </label>
-        <button type="submit">Submit</button>
+        <button type="submit">Enviar</button>
       </form>
-
+<div 
+        className="_form_101" 
+        dangerouslySetInnerHTML={{ 
+          __html: `<script src="https://targetteal.activehosted.com/f/embed.php?id=101" type="text/javascript" charset="utf-8"></script>` 
+        }} 
+      />
       <Button variant='solid' color='neutral' size='lg' component={Link} href='/' noLinkStyle>
         Ok!
       </Button>
