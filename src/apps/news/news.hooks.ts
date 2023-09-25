@@ -6,30 +6,31 @@ import { incrementalVersion } from './news.data';
 
 export function useShowNewsOnUpdate() {
   const { push } = useRouter();
-  const { usageCount, lastSeenNewsVersion } = useAppStateStore(state => ({
-    usageCount: state.usageCount,
+  const { lastSeenNewsVersion } = useAppStateStore(state => ({
     lastSeenNewsVersion: state.lastSeenNewsVersion,
   }), shallow);
 
   React.useEffect(() => {
+    console.log('Checking if news is outdated');
     const isNewsOutdated = (lastSeenNewsVersion || 0) < incrementalVersion;
-    if (isNewsOutdated && usageCount > 2) {
-      // Disable for now
+    console.log(`Is News Outdated: ${isNewsOutdated}, Last Seen: ${lastSeenNewsVersion}, Current Version: ${incrementalVersion}`);
+    if (isNewsOutdated) {
+      console.log('Redirecting to News Page');
       push('/news').then(() => null);
     }
-  }, [lastSeenNewsVersion, push, usageCount]);
+  }, [lastSeenNewsVersion, push]);
 }
 
 export function useMarkNewsAsSeen() {
-  const { push } = useRouter(); // Use useRouter to perform redirections
+  const { push } = useRouter();
 
   return React.useCallback((keyword: string) => {
     if (keyword === 'aitt23') {
-      // If the keyword is correct, mark the news as seen and redirect to the app/home page
+      console.log('Correct keyword, updating the last seen news version and redirecting to home');
       useAppStateStore.getState().setLastSeenNewsVersion(incrementalVersion);
       push('/'); // redirects to the home or app page
     } else {
-      // If the keyword is incorrect, show an alert
+      console.log('Incorrect keyword');
       alert('Invalid Keyword!');
     }
   }, [push]);
