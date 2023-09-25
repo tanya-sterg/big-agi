@@ -17,7 +17,7 @@ export default function AppNews() {
     e.preventDefault();
     markNewsAsSeen(keyword);
   };
-
+const greyBlue = "#5a5a72"; 
   return (
     <Sheet variant='soft' invertedColors sx={{
       display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
@@ -38,17 +38,49 @@ export default function AppNews() {
       </Typography>
 
       {!!news && <Container disableGutters maxWidth='sm'>
-        {news.map((item, idx) => (
-          <Card key={'news-' + idx} sx={{ mb: 2, minHeight: 32 }}>
-            <CardContent sx={{ position: 'relative' }}>
-              {/*...resto do mapeamento*/}
-            </CardContent>
-          </Card>
-        ))}
+        {news.map((item, idx) => {
+          const firstCard = idx === 0;
+          const hasCardAfter = news.length < NewsItems.length;
+          const showExpander = hasCardAfter && (idx === news.length - 1);
+          const addPadding = !firstCard || showExpander;
+          return (
+            <Card key={'news-' + idx} sx={{ mb: 2, minHeight: 32 }}>
+              <CardContent sx={{ position: 'relative', pr: addPadding ? 4 : 0 }}>
+                {!!item.text && <Typography component='div' level='body1'>
+                  {item.text}
+                </Typography>}
+
+                {!!item.items && (item.items.length > 0) && <ul style={{ marginTop: 8, marginBottom: 8, paddingInlineStart: 32 }}>
+                  {item.items.map((item, idx) => <li key={idx}>
+                    <Typography component='div' level='body1'>
+                      {item.text}
+                    </Typography>
+                  </li>)}
+                </ul>}
+
+                {!firstCard && (
+                  <Typography level='body2' sx={{ position: 'absolute', right: 0, top: 0 }}>
+                    {item.versionName}
+                  </Typography>
+                )}
+
+                {showExpander && (
+                  <IconButton
+                    variant='plain' size='sm'
+                    onClick={() => setLastNewsIdx(idx + 1)}
+                    sx={{ position: 'absolute', right: 0, bottom: 0, mr: -1, mb: -1 }}
+                  >
+                    <ExpandMoreIcon />
+                  </IconButton>
+                )}
+              </CardContent>
+            </Card>
+          );
+        })}
       </Container>}
 
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-        <label style={{ color: 'white' }}>
+        <label style={{ color: 'greyBlue' }}>
           Entre com a palavra chave :
         </label>
         <input
@@ -57,7 +89,7 @@ export default function AppNews() {
           onChange={(e) => setKeyword(e.target.value)}
           style={{ padding: '10px', marginBottom: '10px', borderRadius: '4px', border: '1px solid #ccc' }}
         />
-        <button type="submit" style={{ backgroundColor: 'blue', color: 'white', padding: '10px 20px', borderRadius: '4px', cursor: 'pointer' }}>
+        <button type="submit" style={{ backgroundColor: 'greyBlue', color: 'white', padding: '10px 20px', borderRadius: '4px', cursor: 'pointer' }}>
           Enviar
         </button>
       </form>
