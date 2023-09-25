@@ -1,37 +1,29 @@
-import { useState } from 'react';
+import * as React from 'react';
+import { shallow } from 'zustand/shallow';
 import { useRouter } from 'next/router';
-import { useAppStateStore } from '~/common/state/store-appstate'; // Certifique-se de que o caminho do import está correto
 
-function KeywordForm() {
-  const [keyword, setKeyword] = useState('');
-  const [error, setError] = useState('');
+import { useAppStateStore } from '~/common/state/store-appstate';
+
+import { incrementalVersion } from './news.data';
+
+
+export function useShowNewsOnUpdate() {
   const { push } = useRouter();
-  const setAccessGranted = useAppStateStore(state => state.setAccessGranted); // Certifique-se de que setAccessGranted está definido corretamente no seu store
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    if (keyword === 'tt-ai-thebest') {
-      setAccessGranted(true);
-      push('/another-page').then(() => null);
-    } else {
-      setError('Palavra-chave incorreta. Tente novamente.');
+  const { usageCount, lastSeenNewsVersion } = useAppStateStore(state => ({
+    usageCount: state.usageCount,
+    lastSeenNewsVersion: state.lastSeenNewsVersion,
+  }), shallow);
+  React.useEffect(() => {
+    const isNewsOutdated = (lastSeenNewsVersion || 0) < incrementalVersion;
+    if (isNewsOutdated && usageCount > 2) {
+      // Disable for now
+      push('/news').then(() => null);
     }
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="keyword">Digite a palavra-chave:</label>
-      <input
-        type="text"
-        id="keyword"
-        value={keyword}
-        onChange={(e) => setKeyword(e.target.value)}
-      />
-      <button type="submit">Enviar</button>
-      {error && <p>{error}</p>}
-    </form>
-  );
+  }, [lastSeenNewsVersion, push, usageCount]);
 }
 
-export default KeywordForm;
+export function useMarkNewsAsSeen() {
+  React.useEffect(() => {
+    useAppStateStore.getState().setLastSeenNewsVersion(incrementalVersion);
+  }, []);
+}
