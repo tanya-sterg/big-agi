@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
-import { Button, Card, CardContent, Container, Sheet, Typography, IconButton } from '@mui/joy';
+import { Button, Card, CardContent, Container, Sheet, Typography, IconButton, TextField } from '@mui/joy';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { Link } from '~/common/components/Link';
 import { NewsItems } from './news.data';
-import { useMarkNewsAsSeen } from './news.hooks'; // Assuming the modified hook is in the same directory
+import { useMarkNewsAsSeen } from './news.hooks';
 
 export default function AppNews() {
   // state
   const [lastNewsIdx, setLastNewsIdx] = React.useState<number>(0);
   const [keyword, setKeyword] = React.useState<string>('');
-  const markNewsAsSeen = useMarkNewsAsSeen(); // Using the modified hook
+  const markNewsAsSeen = useMarkNewsAsSeen();
 
   // news selection
   const news = NewsItems.filter((_, idx) => idx <= lastNewsIdx);
@@ -19,7 +19,7 @@ export default function AppNews() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    markNewsAsSeen(keyword); // Using the modified hook
+    markNewsAsSeen(keyword);
   };
 
   return (
@@ -83,26 +83,21 @@ export default function AppNews() {
         })}
       </Container>}
       
-      <form onSubmit={handleSubmit}>
-        <label>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
+        <label style={{ color: 'white', marginBottom: '10px' }}>
           Entre com a palavra chave :
-          <input 
-            type="text" 
-            value={keyword} 
-            onChange={(e) => setKeyword(e.target.value)} 
-          />
         </label>
-        <button type="submit">Enviar</button>
+        <TextField 
+          variant='outlined'
+          value={keyword} 
+          onChange={(e) => setKeyword(e.target.value)} 
+          style={{ marginBottom: '10px' }}
+        />
+        <Button variant='solid' color='neutral' size='lg' type='submit'>
+          Enviar
+        </Button>
       </form>
-<div 
-        className="_form_101" 
-        dangerouslySetInnerHTML={{ 
-          __html: `<script src="https://targetteal.activehosted.com/f/embed.php?id=101" type="text/javascript" charset="utf-8"></script>` 
-        }} 
-      />
-      <Button variant='solid' color='neutral' size='lg' component={Link} href='/' noLinkStyle>
-        Ok!
-      </Button>
     </Sheet>
   );
 }
+
