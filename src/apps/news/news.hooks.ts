@@ -1,5 +1,8 @@
 import { useRouter } from 'next/router'; // Importing useRouter
 
+export function useShowNewsOnUpdate() {
+    // function implementation
+}
 export function useMarkNewsAsSeen() {
   const { push } = useRouter(); // using useRouter
   return React.useCallback((keyword: string) => {
