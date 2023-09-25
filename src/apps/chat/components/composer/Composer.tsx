@@ -600,12 +600,12 @@ export function Composer(props: {
                 ) : /*(!goofyLabs && isImmediate) ? chatButton :*/ (
                   <ButtonGroup variant={isWriteUser ? 'solid' : 'solid'} color={isReAct ? 'info' : isFollowUp ? 'warning' : 'primary'} sx={{ flexGrow: 1 }}>
                   {chatButton}
- /* 
-                    Removido IconButton do menu
-  <IconButton disabled={!props.conversationId || !chatLLM || !!chatModeMenuAnchor} onClick={handleToggleChatMode}>
-    <ExpandLessIcon />
-   </IconButton>
- */
+ 
+                   // Removido IconButton do menu
+  // <IconButton disabled={!props.conversationId || !chatLLM || !!chatModeMenuAnchor} onClick={handleToggleChatMode}>
+   // <ExpandLessIcon />
+  // </IconButton>
+
                     
 </ButtonGroup>
                 )}
@@ -623,16 +623,13 @@ export function Composer(props: {
           </Stack>
         </Grid>
 
-/*
-         Removido componente ChatModeMenu
-       {!!chatModeMenuAnchor && (
-          <ChatModeMenu
-          anchorEl={chatModeMenuAnchor} onClose={handleHideChatMode}
-           experimental={goofyLabs}
-            chatModeId={props.chatModeId} onSetChatModeId={handleSetChatModeId}
-         />
-        )}
-*/
+// Removido estado chatModeMenuAnchor
+// const [chatModeMenuAnchor, setChatModeMenuAnchor] = React.useState(null);
+
+// Removidos handlers
+// const handleToggleChatMode = () => {}; 
+// const handleHideChatMode = () => {};
+        
         {/* Sent messages menu */}
         {!!sentMessagesAnchor && (
           <SentMessagesMenu
