@@ -600,11 +600,12 @@ export function Composer(props: {
                   </Button>
                 ) : /*(!goofyLabs && isImmediate) ? chatButton :*/ (
                   <ButtonGroup variant={isWriteUser ? 'solid' : 'solid'} color={isReAct ? 'info' : isFollowUp ? 'warning' : 'primary'} sx={{ flexGrow: 1 }}>
-                    {chatButton}
-                    <IconButton disabled={!props.conversationId || !chatLLM || !!chatModeMenuAnchor} onClick={handleToggleChatMode}>
-                      <ExpandLessIcon />
-                    </IconButton>
-                  </ButtonGroup>
+                  {chatButton}
+  // Removido IconButton do menu
+  // <IconButton disabled={!props.conversationId || !chatLLM || !!chatModeMenuAnchor} onClick={handleToggleChatMode}>
+  //   <ExpandLessIcon />
+  // </IconButton>
+</ButtonGroup>
                 )}
             </Box>
 
@@ -622,13 +623,14 @@ export function Composer(props: {
 
 
         {/* Mode selector */}
-        {!!chatModeMenuAnchor && (
-          <ChatModeMenu
-            anchorEl={chatModeMenuAnchor} onClose={handleHideChatMode}
-            experimental={goofyLabs}
-            chatModeId={props.chatModeId} onSetChatModeId={handleSetChatModeId}
-          />
-        )}
+        // Removido componente ChatModeMenu
+       // {!!chatModeMenuAnchor && (
+        //  <ChatModeMenu
+        //    anchorEl={chatModeMenuAnchor} onClose={handleHideChatMode}
+        //    experimental={goofyLabs}
+         //   chatModeId={props.chatModeId} onSetChatModeId={handleSetChatModeId}
+        //  />
+       // )}
 
         {/* Sent messages menu */}
         {!!sentMessagesAnchor && (
