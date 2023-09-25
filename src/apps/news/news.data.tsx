@@ -15,7 +15,7 @@ export const NewsItems: NewsItem[] = [
   {
     versionName: '1.2.1',
     items: [
-      { text: <>Visite <b><Link href="https://targetteal.com" target='_blank'>targetteal.com</Link></b> para mais informações</> },
+      { text: <>Visite <b><Link href="https://targetteal.com/pt/ia/" target='_blank'>targetteal.com</Link></b> para obter a palavra chave</> },
     ],
   },
 ];
