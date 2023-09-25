@@ -206,9 +206,9 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
                 : selectedPurpose.description
             )}
         </Typography>
-
-
-
+ <Typography level='body2' color='neutral'>
+ Os dados da conversa estão sendo partilhados de forma anônima para melhorar a ferramenta. 
+</Typography>
       </Box>
 
     </Stack>
