@@ -599,26 +599,22 @@ export function Composer(props: {
                     Stop
                   </Button>
                 ) : /*(!goofyLabs && isImmediate) ? chatButton :*/ (
-                  <ButtonGroup variant={isWriteUser ? 'solid' : 'solid'} color={isReAct ? 'info' : isFollowUp ? 'warning' : 'primary'} sx={{ flexGrow: 1 }}>
-                    {chatButton}
-                    <IconButton disabled={!props.conversationId || !chatLLM || !!chatModeMenuAnchor} onClick={handleToggleChatMode}>
-                      <ExpandLessIcon />
-                    </IconButton>
-                  </ButtonGroup>
-                )}
-            </Box>
+            <ButtonGroup variant={isWriteUser ? 'solid' : 'solid'} color={isReAct ? 'info' : isFollowUp ? 'warning' : 'primary'} sx={{ flexGrow: 1 }}>
+  {chatButton}
+</ButtonGroup>
+)}
+</Box>
 
-            {/* [desktop-only] row with Sent Messages button */}
-            <Stack direction='row' spacing={1} sx={{ ...hideOnMobile, flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'flex-end' }}>
-              {sentMessages.length > 0 && (
-                <Button disabled={!!sentMessagesAnchor} fullWidth variant='plain' color='neutral' startDecorator={<KeyboardArrowUpIcon />} onClick={showSentMessages}>
-                  History
-                </Button>
-              )}
-            </Stack>
-
-          </Stack>
-        </Grid>
+{/* [desktop-only] row with Sent Messages button */}
+<Stack direction='row' spacing={1} sx={{ ...hideOnMobile, flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'flex-end' }}>
+  {sentMessages.length > 0 && (
+    <Button disabled={!!sentMessagesAnchor} fullWidth variant='plain' color='neutral' startDecorator={<KeyboardArrowUpIcon />} onClick={showSentMessages}>
+      History
+    </Button>
+  )}
+</Stack>
+</Stack>
+</Grid>
 
 
         {/* Mode selector */}
