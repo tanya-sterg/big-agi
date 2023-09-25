@@ -160,7 +160,7 @@ export function Composer(props: {
   const [isDragging, setIsDragging] = React.useState(false);
   const [reducerText, setReducerText] = React.useState('');
   const [reducerTextTokens, setReducerTextTokens] = React.useState(0);
-  // const [chatModeMenuAnchor, setChatModeMenuAnchor] = React.useState<HTMLAnchorElement | null>(null);
+  const [chatModeMenuAnchor, setChatModeMenuAnchor] = React.useState<HTMLAnchorElement | null>(null);
   const [sentMessagesAnchor, setSentMessagesAnchor] = React.useState<HTMLAnchorElement | null>(null);
   const [confirmClearSent, setConfirmClearSent] = React.useState(false);
   const attachmentFileInputRef = React.useRef<HTMLInputElement>(null);
@@ -209,9 +209,10 @@ export function Composer(props: {
     }
   };
 
-  //const handleToggleChatMode = (event: React.MouseEvent<HTMLAnchorElement>) => setChatModeMenuAnchor(anchor => anchor ? null : event.currentTarget);
+  const handleToggleChatMode = (event: React.MouseEvent<HTMLAnchorElement>) =>
+    setChatModeMenuAnchor(anchor => anchor ? null : event.currentTarget);
 
-  // const handleHideChatMode = () => setChatModeMenuAnchor(null);
+  const handleHideChatMode = () => setChatModeMenuAnchor(null);
 
   const handleSetChatModeId = (chatModeId: ChatModeId) => {
     handleHideChatMode();
@@ -599,15 +600,11 @@ export function Composer(props: {
                   </Button>
                 ) : /*(!goofyLabs && isImmediate) ? chatButton :*/ (
                   <ButtonGroup variant={isWriteUser ? 'solid' : 'solid'} color={isReAct ? 'info' : isFollowUp ? 'warning' : 'primary'} sx={{ flexGrow: 1 }}>
-                  {chatButton}
- 
-                   // Removido IconButton do menu
-  // <IconButton disabled={!props.conversationId || !chatLLM || !!chatModeMenuAnchor} onClick={handleToggleChatMode}>
-   // <ExpandLessIcon />
-  // </IconButton>
-
-                    
-</ButtonGroup>
+                    {chatButton}
+                    <IconButton disabled={!props.conversationId || !chatLLM || !!chatModeMenuAnchor} onClick={handleToggleChatMode}>
+                      <ExpandLessIcon />
+                    </IconButton>
+                  </ButtonGroup>
                 )}
             </Box>
 
@@ -623,25 +620,23 @@ export function Composer(props: {
           </Stack>
         </Grid>
 
-// Removido estado chatModeMenuAnchor
-// const [chatModeMenuAnchor, setChatModeMenuAnchor] = React.useState(null);
 
-{
-  // Removidos handlers
-  // const handleToggleChatMode = () => {}; 
-  // const handleHideChatMode = () => {};
-}
+        {/* Mode selector */}
+        {!!chatModeMenuAnchor && (
+          <ChatModeMenu
+            anchorEl={chatModeMenuAnchor} onClose={handleHideChatMode}
+            experimental={goofyLabs}
+            chatModeId={props.chatModeId} onSetChatModeId={handleSetChatModeId}
+          />
+        )}
 
-{/* Sent messages menu */}
-{!!sentMessagesAnchor && (
-  <SentMessagesMenu
-    anchorEl={sentMessagesAnchor} 
-    messages={sentMessages} 
-    onClose={hideSentMessages}
-    onPaste={handlePasteSent} 
-    onClear={handleClearSent}
-  />
-)}
+        {/* Sent messages menu */}
+        {!!sentMessagesAnchor && (
+          <SentMessagesMenu
+            anchorEl={sentMessagesAnchor} messages={sentMessages} onClose={hideSentMessages}
+            onPaste={handlePasteSent} onClear={handleClearSent}
+          />
+        )}
 
         {/* Content reducer modal */}
         {reducerText?.length >= 1 &&
