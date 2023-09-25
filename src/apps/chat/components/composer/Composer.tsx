@@ -600,10 +600,13 @@ export function Composer(props: {
                 ) : /*(!goofyLabs && isImmediate) ? chatButton :*/ (
                   <ButtonGroup variant={isWriteUser ? 'solid' : 'solid'} color={isReAct ? 'info' : isFollowUp ? 'warning' : 'primary'} sx={{ flexGrow: 1 }}>
                   {chatButton}
-  // Removido IconButton do menu
-  // <IconButton disabled={!props.conversationId || !chatLLM || !!chatModeMenuAnchor} onClick={handleToggleChatMode}>
-  //   <ExpandLessIcon />
-  // </IconButton>
+ /* 
+                    Removido IconButton do menu
+  <IconButton disabled={!props.conversationId || !chatLLM || !!chatModeMenuAnchor} onClick={handleToggleChatMode}>
+    <ExpandLessIcon />
+   </IconButton>
+ */
+                    
 </ButtonGroup>
                 )}
             </Box>
