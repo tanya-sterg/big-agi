@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
-import { Button, Card, CardContent, Container, Sheet, Typography, IconButton } from '@mui/joy'; // Remove TextField daqui
+import { Button, Card, CardContent, Container, Sheet, Typography, IconButton, Input, InputLabel, FormControl } from '@mui/joy';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MaterialTextField from '@mui/material/TextField'; // Usa um alias aqui
 import { Link } from '~/common/components/Link';
+
 import { NewsItems } from './news.data';
 import { useMarkNewsAsSeen } from './news.hooks';
 
@@ -83,16 +83,17 @@ export default function AppNews() {
         })}
       </Container>}
       
- <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
-  <label style={{ color: 'white', marginBottom: '10px' }}>
-    Entre com a palavra chave :
-  </label>
-  <MaterialTextField // Usa o alias aqui
-    variant='outlined'
-    value={keyword} 
-    onChange={(e) => setKeyword(e.target.value)} 
-    style={{ marginBottom: '10px' }}
-  />
+<form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
+  <FormControl variant="outlined" style={{ marginBottom: '10px' }}>
+    <InputLabel htmlFor="keyword-input" style={{ color: 'white' }}>
+      Entre com a palavra chave
+    </InputLabel>
+    <Input 
+      id="keyword-input"
+      value={keyword} 
+      onChange={(e) => setKeyword(e.target.value)} 
+    />
+  </FormControl>
   <Button variant='solid' color='neutral' size='lg' type='submit'>
     Enviar
   </Button>
