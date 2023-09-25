@@ -425,9 +425,9 @@ export function Composer(props: {
 
   // const prodiaApiKey = isValidProdiaApiKey(useSettingsStore(state => state.prodiaApiKey));
   // const isProdiaConfigured = !requireUserKeyProdia || prodiaApiKey;
-  const textPlaceholder: string = props.isDeveloperMode
+const textPlaceholder: string = props.isDeveloperMode
     ? 'Se tiver dúvidas, diga olá e dê enter.'
-    : /*isProdiaConfigured ?*/ 'Escreva ou uso o microfone para falar com nossos assitentes.'*/;
+    : 'Escreva ou uso o microfone para falar com nossos assitentes.';
 
   // const isImmediate = props.chatModeId === 'immediate';
   const isFollowUp = props.chatModeId === 'immediate-follow-up';
