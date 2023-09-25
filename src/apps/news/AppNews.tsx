@@ -80,7 +80,7 @@ const greyBlue = "#5a5a72";
       </Container>}
 
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-        <label style={{ color: 'greyBlue' }}>
+        <label style={{ color: greyBlue }}>
           Entre com a palavra chave :
         </label>
         <input
@@ -89,7 +89,7 @@ const greyBlue = "#5a5a72";
           onChange={(e) => setKeyword(e.target.value)}
           style={{ padding: '10px', marginBottom: '10px', borderRadius: '4px', border: '1px solid #ccc' }}
         />
-        <button type="submit" style={{ backgroundColor: 'greyBlue', color: 'white', padding: '10px 20px', borderRadius: '4px', cursor: 'pointer' }}>
+        <button type="submit" style={{ backgroundColor: greyBlue, color: 'white', padding: '10px 20px', borderRadius: '4px', cursor: 'pointer' }}>
           Enviar
         </button>
       </form>
