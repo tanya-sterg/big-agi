@@ -620,17 +620,16 @@ export function Composer(props: {
           </Stack>
         </Grid>
 
-
-        {/* Mode selector */}
-        // Removido componente ChatModeMenu
-       // {!!chatModeMenuAnchor && (
-        //  <ChatModeMenu
-        //    anchorEl={chatModeMenuAnchor} onClose={handleHideChatMode}
-        //    experimental={goofyLabs}
-         //   chatModeId={props.chatModeId} onSetChatModeId={handleSetChatModeId}
-        //  />
-       // )}
-
+/*
+         Removido componente ChatModeMenu
+       {!!chatModeMenuAnchor && (
+          <ChatModeMenu
+          anchorEl={chatModeMenuAnchor} onClose={handleHideChatMode}
+           experimental={goofyLabs}
+            chatModeId={props.chatModeId} onSetChatModeId={handleSetChatModeId}
+         />
+        )}
+*/
         {/* Sent messages menu */}
         {!!sentMessagesAnchor && (
           <SentMessagesMenu
