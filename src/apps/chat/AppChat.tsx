@@ -40,7 +40,7 @@ const SPECIAL_ID_ALL_CHATS = 'all-chats';
 export type ChatModeId = 'immediate' | 'immediate-follow-up' | 'react' | 'write-user';
 export const ChatModeItems: { [key in ChatModeId]: { label: string; description: string | React.JSX.Element; experimental?: boolean } } = {
   'immediate': {
-    label: 'Enviar,
+    label: 'Enviar',
     description: 'AI-powered responses',
   },
   'immediate-follow-up': {
@@ -51,10 +51,12 @@ export const ChatModeItems: { [key in ChatModeId]: { label: string; description:
   'react': {
     label: 'Reason+Act',
     description: 'Answer your questions with ReAct and search',
+      experimental: true,
   },
   'write-user': {
     label: 'Escrever',
     description: 'Apenas para escrever sem enviar',
+    experimental: true,
   },
 };
 
