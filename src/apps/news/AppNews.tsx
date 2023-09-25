@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
-import { Button, Card, CardContent, Container, Sheet, Typography, IconButton, TextField } from '@mui/joy';
+import { Button, Card, CardContent, Container, Sheet, Typography, IconButton } from '@mui/joy'; // Remove TextField daqui
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import TextField from '@mui/material/TextField';
+import MaterialTextField from '@mui/material/TextField'; // Usa um alias aqui
 import { Link } from '~/common/components/Link';
 import { NewsItems } from './news.data';
 import { useMarkNewsAsSeen } from './news.hooks';
@@ -83,20 +83,20 @@ export default function AppNews() {
         })}
       </Container>}
       
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
-        <label style={{ color: 'white', marginBottom: '10px' }}>
-          Entre com a palavra chave :
-        </label>
-        <TextField 
-          variant='outlined'
-          value={keyword} 
-          onChange={(e) => setKeyword(e.target.value)} 
-          style={{ marginBottom: '10px' }}
-        />
-        <Button variant='solid' color='neutral' size='lg' type='submit'>
-          Enviar
-        </Button>
-      </form>
+ <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
+  <label style={{ color: 'white', marginBottom: '10px' }}>
+    Entre com a palavra chave :
+  </label>
+  <MaterialTextField // Usa o alias aqui
+    variant='outlined'
+    value={keyword} 
+    onChange={(e) => setKeyword(e.target.value)} 
+    style={{ marginBottom: '10px' }}
+  />
+  <Button variant='solid' color='neutral' size='lg' type='submit'>
+    Enviar
+  </Button>
+</form>
     </Sheet>
   );
 }
