@@ -626,17 +626,22 @@ export function Composer(props: {
 // Removido estado chatModeMenuAnchor
 // const [chatModeMenuAnchor, setChatModeMenuAnchor] = React.useState(null);
 
-// Removidos handlers
-// const handleToggleChatMode = () => {}; 
-// const handleHideChatMode = () => {};
-        
-        {/* Sent messages menu */}
-        {!!sentMessagesAnchor && (
-          <SentMessagesMenu
-            anchorEl={sentMessagesAnchor} messages={sentMessages} onClose={hideSentMessages}
-            onPaste={handlePasteSent} onClear={handleClearSent}
-          />
-        )}
+{
+  // Removidos handlers
+  // const handleToggleChatMode = () => {}; 
+  // const handleHideChatMode = () => {};
+}
+
+{/* Sent messages menu */}
+{!!sentMessagesAnchor && (
+  <SentMessagesMenu
+    anchorEl={sentMessagesAnchor} 
+    messages={sentMessages} 
+    onClose={hideSentMessages}
+    onPaste={handlePasteSent} 
+    onClear={handleClearSent}
+  />
+)}
 
         {/* Content reducer modal */}
         {reducerText?.length >= 1 &&
