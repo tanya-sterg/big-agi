@@ -46,7 +46,6 @@ export const ChatModeItems: { [key in ChatModeId]: { label: string; description:
   'immediate-follow-up': {
     label: 'Chat & Follow-up',
     description: 'Chat with follow-up questions',
-    experimental: true,
   },
   'react': {
     label: 'Reason+Act',
