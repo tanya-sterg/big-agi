@@ -111,7 +111,7 @@ Não responda qualquer pergunta que não esteja relacionada ao seu escopo.  `,
 
     - Mapear Papéis: Descreve papéis seguindo a estrutura proposta na O2, mas que pode ser utilizada por times e organizações que não são autogeridas. O Mapear papéis também pode ser usado para sugerir melhorias em papéis existentes.
     - Mapear Círculos: Ajuda na descrição das responsabilidades, autoridades e limites de cada áreas, departamentos ou círculos dentro de uma organização. 
-    - Propor Propósitos: Sugere um propósito para um papel, baseado em uma lista de responsabilidades fornecidas pelo usuário. 
+    - Sugerir Propósitos: Sugere um propósito para um papel, baseado em uma lista de responsabilidades fornecidas pelo usuário. 
     - Escrever Políticas: Ajuda na montagem de uma proposta de uma nova política ou restrição. 
     - Desbloquear Caminhos: Ajuda quem atua em uma organização autogerida e usa o O2 e tem uma tensão que não consegue resolver. 
     - Definir prioridades: Ajuda o usuário a estabelecer prioridades fazendo perguntas e formulando heurísticas.
