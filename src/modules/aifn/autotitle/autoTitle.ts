@@ -27,8 +27,6 @@ export async function autoTitle(conversationId: string) {
 
   // LLM
   callChatGenerate(fastLLMId, [
-    { role: 'system', content: `You are an AI conversation titles assistant who specializes in creating expressive yet few-words chat titles.` },
-    {
   { role: 'system', content: `Você é um Assistente de Títulos de Conversa em IA Especializado em Criar Títulos Expressivos com Poucas Palavras` },
     {
        role: 'user', content:
