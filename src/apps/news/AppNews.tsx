@@ -25,14 +25,25 @@ const greyBlue = "#5a5a72";
       gap: 4,
     }}>
 
-      <Typography level='display2'>
-        Updates - Novidades!
-      </Typography>
+    <Typography level='display2'>
+       Novidades!
+    </Typography>
 
-      <Typography level='body1'>
-        Não é mais necessário usar comandos! Assistentes mais inteligentes!
-        Quando o limite de texto em um chat chegar ao máximo as mensagens mais antigas são apagadas, e você pode continuar conversando!
-      </Typography>
+<Typography level='body1'>
+   <p>
+        Essa é a versão 0.2 Beta dos nossos Assistentes de IA para Org Design. O acesso é gratuito e foi liberado para que possamos aprender junto com você.
+   </p>
+   <p>
+        Queremos estreitar o contato para entender melhor suas necessidades e o uso diário desses assistentes. Por isso, para acessar agora é necessário preencher um formulário.
+   </p>
+   <p>
+       <strong>Novidades da versão 0.2 Beta:</strong>
+       <ul>
+           <li>Não são mais necessários comandos! Assistentes mais intuitivos!</li>
+           <li>O chat permite continuação da conversa mesmo após atingir o limite de texto, apagando mensagens mais antigas.</li>
+       </ul>
+   </p>
+</Typography>
 
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
         <label style={{ color: greyBlue }}>
