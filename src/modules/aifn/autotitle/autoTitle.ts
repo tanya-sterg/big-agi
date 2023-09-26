@@ -1,12 +1,7 @@
 import { callChatGenerate } from '~/modules/llms/llm.client';
 import { useModelsStore } from '~/modules/llms/store-llms';
-
 import { useChatStore } from '~/common/state/store-chats';
 
-
-/**
- * Creates the AI titles for conversations, by taking the last 5 first-lines and asking AI what's that about
- */
 export async function autoTitle(conversationId: string) {
 
   // use valid fast model
@@ -16,7 +11,11 @@ export async function autoTitle(conversationId: string) {
   // only operate on valid conversations, without any title
   const { conversations } = useChatStore.getState();
   const conversation = conversations.find(c => c.id === conversationId) ?? null;
+  
+  // Verificar se a conversa é válida e se tem pelo menos 3 mensagens do usuário
   if (!conversation || conversation.autoTitle || conversation.userTitle) return;
+  const userMessageCount = conversation.messages.filter(m => m.role === 'user').length;
+  if (userMessageCount < 3) return;
 
   // first line of the last 5 messages
   const historyLines: string[] = conversation.messages.filter(m => m.role !== 'system').slice(-5).map(m => {
@@ -30,26 +29,25 @@ export async function autoTitle(conversationId: string) {
   callChatGenerate(fastLLMId, [
     { role: 'system', content: `You are an AI conversation titles assistant who specializes in creating expressive yet few-words chat titles.` },
     {
-      role: 'user', content:
-        'Analyze the given short conversation (every line is truncated) and extract a concise chat title that ' +
-        'summarizes the conversation in as little as a couple of words.\n' +
-        'Only respond with the lowercase short title and nothing else.\n' +
+  { role: 'system', content: `Você é um Assistente de Títulos de Conversa em IA Especializado em Criar Títulos Expressivos com Poucas Palavras` },
+    {
+       role: 'user', content:
+      'Analise a breve conversa fornecida (cada linha está truncada) e extraia um título de conversa conciso que ' +
+      'resume a conversa em apenas algumas palavras.\n' +
+      'Responda apenas com o título curto e mais nada.\n' +
         '\n' +
         '```\n' +
         historyLines.join('\n') +
         '```\n',
     },
   ]).then(chatResponse => {
-
     const title = chatResponse?.content
       ?.trim()
       ?.replaceAll('"', '')
       ?.replace('Title: ', '')
       ?.replace('title: ', '');
-
+    
     if (title)
       useChatStore.getState().setAutoTitle(conversationId, title);
-
   });
-
 }
