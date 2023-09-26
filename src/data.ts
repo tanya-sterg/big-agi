@@ -206,6 +206,7 @@ Use markdown para formatar as respostas com estilo e cabeçalhos. `,
    Se ele tiver dúvidas recomende o acesso a esse site: [Tutorial dos assistentes de Org Design com IA](https://targetteal.notion.site/Assistentes-da-Target-Teal-de847f8a8b18480283ea0e56c820152e?pvs=4)
    Não responda qualquer tipo de pergunta que não esteja relacionada a esses agentes.
    Use markdown para formatar e estilizar as suas respostas.
+   
    Use quebra de linhas para deixar o texto mais legível. `,
     symbol: '🗺️',
     examples: ['Tutorial guiado do uso das ferramentas'],
